@@ -3,141 +3,119 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>麻明</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fff;--text:#1d1d1f;--ts:#86868b;--div:#e8e8ed;--a:#0071e3;--bg2:#f5f5f7}
+:root{--bg:#fff;--text:#1d1d1f;--ts:#86868b;--div:#e8e8ed;--bg2:#f5f5f7}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:80px}
-.sp{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--a),#6366f1);z-index:9999;transition:width .1s}
-.nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .4s}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:60px;line-height:1.6}
+.sp{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#0071e3,#6366f1);z-index:9999;transition:width .1s}
+.nav{position:fixed;top:0;left:0;right:0;padding:0 32px;height:48px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .3s}
 .nav.v{opacity:1;transform:none}
-.nb{font-size:15px;font-weight:600}
-.nl{display:flex;gap:24px}
-.nl a{font-size:13px;color:var(--ts);text-decoration:none}
-.pg{display:none}.pg.a{display:block;animation:pi .5s ease}
-@keyframes pi{from{opacity:0}to{opacity:1}}
-.hero{padding:160px 24px 60px;text-align:center;max-width:700px;margin:0 auto}
-.avatar{width:80px;height:80px;border-radius:50%;background:var(--bg2);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px}
-.hero h1{font-size:40px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
-.hero .sub{font-size:17px;color:var(--ts);margin-bottom:24px}
-.hero .bio{font-size:15px;color:var(--ts);line-height:1.7;text-align:left;max-width:560px;margin:0 auto 20px}
-.exp{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:24px auto;max-width:600px}
-.exp-tag{font-size:12px;padding:6px 14px;background:var(--bg2);border-radius:980px;color:var(--text)}
-.numbers{display:flex;justify-content:center;gap:40px;margin:48px auto;max-width:500px}
-.num{text-align:center}
-.num .nv{font-size:36px;font-weight:700;color:var(--text)}
-.num .nl2{font-size:13px;color:var(--ts);margin-top:4px}
-.section{max-width:700px;margin:0 auto;padding:0 24px 64px}
-.section h2{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:32px}
-.item{padding:28px 0;border-bottom:1px solid var(--div)}
-.item:last-child{border-bottom:none}
-.item h3{font-size:18px;font-weight:600;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.side{padding:16px;border-radius:10px}
-.side.bef{background:var(--bg2)}
-.side.aft{background:#f0f7ff}
-.side .tag{font-size:11px;font-weight:600;color:var(--ts);margin-bottom:10px}
-.side ul{list-style:none}
-.side li{font-size:13px;line-height:1.6;padding:3px 0 3px 14px;position:relative}
-.side li::before{content:"·";position:absolute;left:0;color:var(--ts)}
-.res{margin-top:16px;padding:10px 14px;background:#f0f7ff;border-radius:8px;font-size:13px;font-weight:500;color:var(--a);text-align:center}
-.method{margin-top:32px;padding:24px;background:var(--bg2);border-radius:14px}
-.method h3{font-size:18px;font-weight:600;margin-bottom:16px}
-.method ol{padding-left:20px}
-.method li{font-size:14px;color:var(--ts);line-height:1.7;margin-bottom:8px}
-.method li strong{color:var(--text)}
-.cta{text-align:center;padding:40px 24px 80px;max-width:500px;margin:0 auto}
-.cta h2{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
-.cta p{font-size:15px;color:var(--ts);margin-bottom:20px}
-.btn{display:inline-block;background:var(--a);color:#fff;font-size:16px;font-weight:500;padding:12px 24px;border-radius:980px;text-decoration:none}
-.btn:hover{opacity:.9}
+.nb{font-size:14px;font-weight:600}
+.nl{display:flex;gap:20px}
+.nl a{font-size:12px;color:var(--ts);text-decoration:none}
+.content{max-width:600px;margin:0 auto;padding:80px 24px 60px}
+.intro{display:flex;gap:24px;align-items:flex-start;margin-bottom:40px}
+.intro-photo{width:100px;height:100px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.intro-text{flex:1}
+.name{font-size:28px;font-weight:700;margin-bottom:2px}
+.title{font-size:14px;color:var(--ts);margin-bottom:16px}
+.bio{font-size:15px;color:var(--text);line-height:1.8}
+.bio p{margin-bottom:14px}
+.bio strong{font-weight:600}
+.section{margin-bottom:48px}
+.section h2{font-size:20px;font-weight:600;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--div)}
+.timeline{list-style:none}
+.timeline li{padding:12px 0;padding-left:16px;position:relative;border-left:2px solid var(--div)}
+.timeline li:last-child{border-left-color:transparent}
+.timeline li::before{content:"";position:absolute;left:-5px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--bg2);border:2px solid var(--div)}
+.timeline li .period{font-size:12px;color:var(--ts);font-weight:500}
+.timeline li .role{font-size:15px;font-weight:600;margin:2px 0}
+.timeline li .company{font-size:13px;color:var(--ts)}
+.projects{display:flex;flex-direction:column;gap:20px}
+.project{padding:20px;background:var(--bg2);border-radius:12px}
+.project h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.project p{font-size:14px;color:var(--ts);line-height:1.6}
+.thinking{font-size:14px;color:var(--ts);line-height:1.8}
+.thinking p{margin-bottom:12px}
+.contact{margin-top:48px;padding:24px;background:var(--bg2);border-radius:12px;text-align:center}
+.contact p{font-size:14px;color:var(--ts);margin-bottom:12px}
+.contact a{color:#0071e3;text-decoration:none;font-weight:500}
 .foot{padding:20px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div)}
-.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
 .rv.v{opacity:1;transform:none}
 @media(max-width:768px){
-body{padding-bottom:60px}
-.nav{padding:0 20px}
-.hero{padding:120px 20px 48px}.hero h1{font-size:32px}.hero .bio{font-size:14px}
-.numbers{gap:20px}.num .nv{font-size:28px}
-.grid{grid-template-columns:1fr;gap:10px}
-.section h2{font-size:24px}
+.content{padding:70px 20px 40px}
+.intro{flex-direction:column;gap:16px;align-items:center;text-align:center}
+.intro-photo{width:80px;height:80px}
+.name{font-size:26px}
 .nl{display:none}
 }
 </style></head><body>
 <div class="sp" id="sp"></div>
-<nav class="nav" id="nav"><div class="nb">麻明</div><div class="nl"><a href="#work">工作方式</a><a href="#method">方法</a><a href="#contact">联系</a></div></nav>
+<nav class="nav" id="nav"><div class="nb">麻明</div><div class="nl"><a href="#about">关于</a><a href="#work">经历</a><a href="#projects">项目</a><a href="#thinking">想法</a></div></nav>
 
-<div class="pg a" id="p-home">
-<section class="hero">
-<div class="avatar rv">👤</div>
-<h1 class="rv">麻明</h1>
-<p class="sub rv">汽车行业 · AI 数字化 · 产品运营</p>
-<p class="bio rv">
-在汽车行业干了 15 年。从梅赛德斯 - 奔驰到东风英菲尼迪，到安永咨询，到易车，再到现在的港泓咨询。一路从一线主机厂到顶级咨询，再到用 AI 进化工作方式。
-</p>
-<div class="exp rv">
-<span class="exp-tag">梅赛德斯 - 奔驰</span>
-<span class="exp-tag">东风英菲尼迪</span>
-<span class="exp-tag">安永</span>
-<span class="exp-tag">易车</span>
-<span class="exp-tag">港泓咨询</span>
+<div class="content">
+<div class="intro rv" id="about">
+<img src="photo.jpg" alt="麻明" class="intro-photo">
+<div class="intro-text">
+<div class="name">麻明</div>
+<div class="title">汽车行业 15 年，现在探索 AI 在工作中的实际应用</div>
+<div class="bio">
+<p>在汽车行业干了 15 年。从<strong>梅赛德斯 - 奔驰</strong>做经销商辅导，到<strong>东风英菲尼迪</strong>做培训体系，到<strong>安永</strong>做咨询，到<strong>易车</strong>做产品运营，再到现在的<strong>港泓咨询</strong>做 AI 方向。</p>
+<p>一路从一线主机厂到咨询，再到互联网，再到现在的 AI。</p>
+<p>最近在想一件事：AI 到底能帮我干什么活？试了几个月，有一些真实的体会。</p>
 </div>
-</section>
-<div class="numbers rv">
-<div class="num"><div class="nv">15 年</div><div class="nl2">汽车行业经验</div></div>
-<div class="num"><div class="nv">5 家</div><div class="nl2">头部公司经历</div></div>
-<div class="num"><div class="nv">3</div><div class="nl2">个项目跑通</div></div>
-</div>
-
-<div class="section" id="work">
-<h2 class="rv">用 AI 进化工作方式</h2>
-<div class="item rv">
-<h3>宝马沙盘系统</h3>
-<div class="grid">
-<div class="side bef"><div class="tag">以前</div><ul><li>找 Excel 专家做 1 个月</li><li>找 VBA 专家加半个月</li><li>两人磨合，改来改去</li><li>交付一个 .xlsm，一人用</li></ul></div>
-<div class="side aft"><div class="tag">现在</div><ul><li>一句话描述需求，AI 生成</li><li>我来调整把关，不对就改</li><li>1 星期交付，Web 端访问</li><li>加上 AI 分析、数据库对比</li></ul></div>
-</div>
-<div class="res">不只是快，是交付的东西能力更强了</div>
-</div>
-<div class="item rv">
-<h3>经销商诊断系统</h3>
-<div class="grid">
-<div class="side bef"><div class="tag">以前</div><ul><li>教练进店，手动算 5 大指标</li><li>一家店 2 天，35 家店几个月</li><li>报告质量依赖个人经验</li></ul></div>
-<div class="side aft"><div class="tag">现在</div><ul><li>AI 自动提取 KPI，对比基准</li><li>10 分钟，35 家店完整报告</li><li>诊断逻辑标准化，新人也能用</li></ul></div>
-</div>
-<div class="res">从依赖个人经验，到系统标准化</div>
-</div>
-<div class="item rv">
-<h3>企微客户运营</h3>
-<div class="grid">
-<div class="side bef"><div class="tag">以前</div><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户</li><li>不知道客户什么时候有需求</li></ul></div>
-<div class="side aft"><div class="tag">现在</div><ul><li>客户画像驱动，千人千面</li><li>数据沉淀在企业</li><li>Agent 判断时机，主动触达</li></ul></div>
-</div>
-<div class="res">从群发广告，到千人千面</div>
 </div>
 </div>
 
-<div class="section" id="method">
-<h2 class="rv">我是怎么做到的</h2>
-<div class="method rv">
-<ol>
-<li><strong>一句话描述需求</strong> — 不是写技术文档，是像跟同事说话一样</li>
-<li><strong>AI 生成初稿</strong> — 把需求给 AI，它生成代码，不对就调整</li>
-<li><strong>把关 + 迭代</strong> — AI 做的是初稿，我来判断对不对，每个版本解决一个问题</li>
-<li><strong>加上 AI 能力</strong> — 不止是"搬上 Web"，还要加上原来的东西做不到的</li>
-</ol>
+<div class="section rv" id="work">
+<h2>工作经历</h2>
+<ul class="timeline">
+<li><div class="period">2025.02 — 至今</div><div class="role">咨询总监（AI 产品方向）</div><div class="company">港泓咨询</div></li>
+<li><div class="period">2024.04 — 2025.02</div><div class="role">高级产品运营（AI 方向）</div><div class="company">易车</div></li>
+<li><div class="period">2017.12 — 2024.04</div><div class="role">高级项目经理（汽车行业）</div><div class="company">安永（中国）</div></li>
+<li><div class="period">2014.12 — 2017.12</div><div class="role">项目经理</div><div class="company">东风英菲尼迪</div></li>
+<li><div class="period">2011.11 — 2014.12</div><div class="role">项目经理</div><div class="company">梅赛德斯 - 奔驰</div></li>
+</ul>
+</div>
+
+<div class="section rv" id="projects">
+<h2>最近在做的事</h2>
+<div class="projects">
+<div class="project">
+<h3>用 AI 做经销商诊断</h3>
+<p>辅导了 35 家奔驰店，攒了近 100 份真实数据。以前教练进店要手动算指标、写报告，一家店 2 天。现在把数据喂给 AI，10 分钟出 35 家店的诊断报告。不是替代人，是把耗时活儿包了，让人做更有价值的事。</p>
+</div>
+<div class="project">
+<h3>把 Excel 沙盘搬上 Web</h3>
+<p>宝马的经销商沙盘是一个 44 个 Sheet 的 Excel 文件，1359 个公式。以前要找人做一个月。现在用 AI 生成，1 星期搞定。而且做出来的不是静态页面，还能加上 AI 分析和数据库对比。</p>
+</div>
+<div class="project">
+<h3>企微客户运营自动化</h3>
+<p>用 AI 把群发广告变成精准运营。工单 + 销售记录 + 个人信息 → 客户画像 → 千人千面话术。24 小时在线，数据沉淀在企业。</p>
+</div>
 </div>
 </div>
 
-<div class="cta rv" id="contact">
-<h2>聊聊？</h2>
-<p>聊聊你现在怎么干的，我帮你想想怎么进化。</p>
-<a href="weixin://" class="btn">加我企微</a>
+<div class="section rv" id="thinking">
+<h2>一些真实的体会</h2>
+<div class="thinking">
+<p><strong>AI 能做代码，但做不出好的 PPT。</strong>写 Python 脚本没问题，但做精致的 PPT 还是得人来。AI 有边界，不是万能的。</p>
+<p><strong>AI 能做"翻译"，但做不出"判断"。</strong>把 Excel 搬到 Web 上 AI 能干，但决定"什么算好、什么算差"这个判断得人来。</p>
+<p><strong>最重要的是：会拆问题。</strong>一个大问题拆成 AI 能干的小块，剩下的我来判断。这不是技术活，是思维方式的转变。</p>
+<p><strong>不是转行，是进化。</strong>我还是那个汽车行业的人，只是手里多了一个工具。</p>
+</div>
 </div>
 
-<div class="foot"><p>© 2026 麻明 · 中国农业大学 · 国际经济与贸易</p></div>
+<div class="contact rv">
+<p>想聊聊 AI 在工作中的实际应用？</p>
+<p><a href="weixin://">加我企微</a>，或者直接留言。</p>
 </div>
+</div>
+
+<div class="foot"><p>© 2026 麻明</p></div>
 
 <script>
-window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';document.getElementById('nav').classList.toggle('v',window.pageYOffset>300)});
+window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';document.getElementById('nav').classList.toggle('v',window.pageYOffset>200)});
 document.querySelectorAll('.rv').forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting){el.classList.add('v');this.unobserve(el)}},{threshold:.1}).observe(el));
 </script>
 </body></html>

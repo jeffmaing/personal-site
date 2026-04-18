@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>麻明 — AI 进化工作方式</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>麻明</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#fff;--text:#1d1d1f;--ts:#86868b;--div:#e8e8ed;--a:#0071e3;--bg2:#f5f5f7}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:100px}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:80px}
 .sp{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--a),#6366f1);z-index:9999;transition:width .1s}
 .nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .4s}
 .nav.v{opacity:1;transform:none}
@@ -14,119 +14,130 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Ne
 .nl a{font-size:13px;color:var(--ts);text-decoration:none}
 .pg{display:none}.pg.a{display:block;animation:pi .5s ease}
 @keyframes pi{from{opacity:0}to{opacity:1}}
-.hero{padding:180px 24px 80px;text-align:center;max-width:800px;margin:0 auto}
-.hero h1{font-size:56px;font-weight:700;letter-spacing:-.035em;line-height:1.08;margin-bottom:20px}
-.hero h1 em{font-style:normal;color:var(--a)}
-.hero p{font-size:19px;color:var(--ts);line-height:1.5;max-width:480px;margin:0 auto}
-.numbers{display:flex;justify-content:center;gap:48px;margin:60px auto;max-width:600px}
+.hero{padding:160px 24px 60px;text-align:center;max-width:700px;margin:0 auto}
+.avatar{width:80px;height:80px;border-radius:50%;background:var(--bg2);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px}
+.hero h1{font-size:40px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
+.hero .sub{font-size:17px;color:var(--ts);margin-bottom:24px}
+.hero .bio{font-size:15px;color:var(--ts);line-height:1.7;text-align:left;max-width:560px;margin:0 auto 20px}
+.exp{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:24px auto;max-width:600px}
+.exp-tag{font-size:12px;padding:6px 14px;background:var(--bg2);border-radius:980px;color:var(--text)}
+.numbers{display:flex;justify-content:center;gap:40px;margin:48px auto;max-width:500px}
 .num{text-align:center}
-.num .nv{font-size:40px;font-weight:700;color:var(--text)}
+.num .nv{font-size:36px;font-weight:700;color:var(--text)}
 .num .nl2{font-size:13px;color:var(--ts);margin-top:4px}
-.section{max-width:800px;margin:0 auto;padding:0 24px 80px}
-.section h2{font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:40px}
-.item{padding:40px 0;border-bottom:1px solid var(--div)}
+.section{max-width:700px;margin:0 auto;padding:0 24px 64px}
+.section h2{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:32px}
+.item{padding:28px 0;border-bottom:1px solid var(--div)}
 .item:last-child{border-bottom:none}
-.item h3{font-size:22px;font-weight:600;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.side{padding:20px;border-radius:12px}
+.item h3{font-size:18px;font-weight:600;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.side{padding:16px;border-radius:10px}
 .side.bef{background:var(--bg2)}
 .side.aft{background:#f0f7ff}
-.side .tag{font-size:11px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.side .tag{font-size:11px;font-weight:600;color:var(--ts);margin-bottom:10px}
 .side ul{list-style:none}
-.side li{font-size:14px;line-height:1.6;padding:4px 0 4px 16px;position:relative}
+.side li{font-size:13px;line-height:1.6;padding:3px 0 3px 14px;position:relative}
 .side li::before{content:"·";position:absolute;left:0;color:var(--ts)}
-.res{margin-top:20px;padding:12px 16px;background:#f0f7ff;border-radius:8px;font-size:14px;font-weight:500;color:var(--a);text-align:center}
-.story{margin-top:24px;padding-top:24px;border-top:1px solid var(--div)}
-.story p{font-size:15px;color:var(--ts);line-height:1.6;margin-bottom:12px}
-.story strong{color:var(--text)}
-.tr{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.tt{font-size:12px;padding:5px 12px;background:var(--bg2);border-radius:980px;color:var(--ts)}
-.cta{text-align:center;padding:40px 24px 100px;max-width:600px;margin:0 auto}
-.cta h2{font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:12px}
-.cta p{font-size:17px;color:var(--ts);margin-bottom:24px}
-.btn{display:inline-block;background:var(--a);color:#fff;font-size:17px;font-weight:500;padding:14px 28px;border-radius:980px;text-decoration:none;border:none;cursor:pointer}
+.res{margin-top:16px;padding:10px 14px;background:#f0f7ff;border-radius:8px;font-size:13px;font-weight:500;color:var(--a);text-align:center}
+.method{margin-top:32px;padding:24px;background:var(--bg2);border-radius:14px}
+.method h3{font-size:18px;font-weight:600;margin-bottom:16px}
+.method ol{padding-left:20px}
+.method li{font-size:14px;color:var(--ts);line-height:1.7;margin-bottom:8px}
+.method li strong{color:var(--text)}
+.cta{text-align:center;padding:40px 24px 80px;max-width:500px;margin:0 auto}
+.cta h2{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
+.cta p{font-size:15px;color:var(--ts);margin-bottom:20px}
+.btn{display:inline-block;background:var(--a);color:#fff;font-size:16px;font-weight:500;padding:12px 24px;border-radius:980px;text-decoration:none}
 .btn:hover{opacity:.9}
-.foot{padding:24px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div)}
-.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.foot{padding:20px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div)}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .rv.v{opacity:1;transform:none}
 @media(max-width:768px){
-body{padding-bottom:80px}
+body{padding-bottom:60px}
 .nav{padding:0 20px}
-.hero{padding:120px 20px 60px}.hero h1{font-size:32px}.hero p{font-size:17px}
-.numbers{gap:24px;flex-wrap:wrap}.num .nv{font-size:32px}
-.section h2,.cta h2{font-size:28px}
-.grid{grid-template-columns:1fr;gap:12px}
-.item{padding:28px 0}
+.hero{padding:120px 20px 48px}.hero h1{font-size:32px}.hero .bio{font-size:14px}
+.numbers{gap:20px}.num .nv{font-size:28px}
+.grid{grid-template-columns:1fr;gap:10px}
+.section h2{font-size:24px}
 .nl{display:none}
 }
 </style></head><body>
 <div class="sp" id="sp"></div>
-<nav class="nav" id="nav"><div class="nb">麻明</div><div class="nl"><a href="#work">工作方式</a><a href="#projects">项目</a><a href="#contact">联系</a></div></nav>
+<nav class="nav" id="nav"><div class="nb">麻明</div><div class="nl"><a href="#work">工作方式</a><a href="#method">方法</a><a href="#contact">联系</a></div></nav>
 
 <div class="pg a" id="p-home">
 <section class="hero">
-<h1 class="rv">以前<span>两个人干 1.5 个月</span>的事<br>我现在<span>1 星期</span>搞定</h1>
-<p class="rv">15 年汽车行业。现在用 AI 进化工作方式。</p>
+<div class="avatar rv">👤</div>
+<h1 class="rv">麻明</h1>
+<p class="sub rv">汽车行业 · AI 数字化 · 产品运营</p>
+<p class="bio rv">
+在汽车行业干了 15 年。从梅赛德斯 - 奔驰到东风英菲尼迪，到安永咨询，到易车，再到现在的港泓咨询。一路从一线主机厂到顶级咨询，再到用 AI 进化工作方式。
+</p>
+<div class="exp rv">
+<span class="exp-tag">梅赛德斯 - 奔驰</span>
+<span class="exp-tag">东风英菲尼迪</span>
+<span class="exp-tag">安永</span>
+<span class="exp-tag">易车</span>
+<span class="exp-tag">港泓咨询</span>
+</div>
 </section>
 <div class="numbers rv">
-<div class="num"><div class="nv">10×</div><div class="nl2">效率提升</div></div>
-<div class="num"><div class="nv">35+</div><div class="nl2">家经销商</div></div>
+<div class="num"><div class="nv">15 年</div><div class="nl2">汽车行业经验</div></div>
+<div class="num"><div class="nv">5 家</div><div class="nl2">头部公司经历</div></div>
 <div class="num"><div class="nv">3</div><div class="nl2">个项目跑通</div></div>
 </div>
 
 <div class="section" id="work">
-<h2 class="rv">以前怎么干 → 现在怎么干</h2>
+<h2 class="rv">用 AI 进化工作方式</h2>
 <div class="item rv">
 <h3>宝马沙盘系统</h3>
 <div class="grid">
 <div class="side bef"><div class="tag">以前</div><ul><li>找 Excel 专家做 1 个月</li><li>找 VBA 专家加半个月</li><li>两人磨合，改来改去</li><li>交付一个 .xlsm，一人用</li></ul></div>
-<div class="side aft"><div class="tag">现在</div><ul><li>一句话描述需求，AI 生成</li><li>我来调整把关，不对就改</li><li>1 星期交付，Web 端访问</li><li>加上 AI 分析、数据库、自动建议</li></ul></div>
+<div class="side aft"><div class="tag">现在</div><ul><li>一句话描述需求，AI 生成</li><li>我来调整把关，不对就改</li><li>1 星期交付，Web 端访问</li><li>加上 AI 分析、数据库对比</li></ul></div>
 </div>
 <div class="res">不只是快，是交付的东西能力更强了</div>
 </div>
 <div class="item rv">
 <h3>经销商诊断系统</h3>
 <div class="grid">
-<div class="side bef"><div class="tag">以前</div><ul><li>教练进店，手动算 5 大指标</li><li>一家店 2 天，35 家店几个月</li><li>报告质量依赖个人经验</li><li>没有行业基准</li></ul></div>
-<div class="side aft"><div class="tag">现在</div><ul><li>AI 自动提取 KPI，对比行业基准</li><li>10 分钟，35 家店完整报告</li><li>诊断逻辑标准化，新人也能用</li><li>34 家店数据做基准</li></ul></div>
+<div class="side bef"><div class="tag">以前</div><ul><li>教练进店，手动算 5 大指标</li><li>一家店 2 天，35 家店几个月</li><li>报告质量依赖个人经验</li></ul></div>
+<div class="side aft"><div class="tag">现在</div><ul><li>AI 自动提取 KPI，对比基准</li><li>10 分钟，35 家店完整报告</li><li>诊断逻辑标准化，新人也能用</li></ul></div>
 </div>
 <div class="res">从依赖个人经验，到系统标准化</div>
 </div>
 <div class="item rv">
 <h3>企微客户运营</h3>
 <div class="grid">
-<div class="side bef"><div class="tag">以前</div><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户</li><li>不知道客户什么时候有需求</li><li>只能上班时间回复</li></ul></div>
-<div class="side aft"><div class="tag">现在</div><ul><li>客户画像驱动，千人千面</li><li>数据沉淀在企业，不依赖个人</li><li>Agent 判断时机，主动触达</li><li>24 小时在线，秒回</li></ul></div>
+<div class="side bef"><div class="tag">以前</div><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户</li><li>不知道客户什么时候有需求</li></ul></div>
+<div class="side aft"><div class="tag">现在</div><ul><li>客户画像驱动，千人千面</li><li>数据沉淀在企业</li><li>Agent 判断时机，主动触达</li></ul></div>
 </div>
-<div class="res">从群发广告，到千人千面的精准运营</div>
+<div class="res">从群发广告，到千人千面</div>
 </div>
 </div>
 
-<div class="section" id="projects">
-<h2 class="rv">这三个项目，是怎么做出来的</h2>
-<div class="item rv">
-<h3>核心方法</h3>
-<div class="story">
-<p><strong>第一步：一句话描述需求。</strong>不是写技术文档，是像跟同事说话一样："把这个 Excel 搬到 Web 上，要能任何人访问。"</p>
-<p><strong>第二步：AI 生成初稿。</strong>把需求给 AI，它生成代码。不对就调整，像带实习生一样带 AI。</p>
-<p><strong>第三步：把关 + 迭代。</strong>AI 做的是初稿，我来判断对不对。不对就改，每个版本解决一个问题。</p>
-<p><strong>第四步：加上 AI 能力。</strong>不止是"搬上 Web"，还要加上原来的东西做不到的：AI 自动分析、数据库对比、自动建议。</p>
-</div>
-<div class="tr"><span class="tt">AI 对话生成代码</span><span class="tt">Python 数据处理</span><span class="tt">Web 前端</span><span class="tt">业务逻辑判断</span></div>
+<div class="section" id="method">
+<h2 class="rv">我是怎么做到的</h2>
+<div class="method rv">
+<ol>
+<li><strong>一句话描述需求</strong> — 不是写技术文档，是像跟同事说话一样</li>
+<li><strong>AI 生成初稿</strong> — 把需求给 AI，它生成代码，不对就调整</li>
+<li><strong>把关 + 迭代</strong> — AI 做的是初稿，我来判断对不对，每个版本解决一个问题</li>
+<li><strong>加上 AI 能力</strong> — 不止是"搬上 Web"，还要加上原来的东西做不到的</li>
+</ol>
 </div>
 </div>
 
 <div class="cta rv" id="contact">
-<h2>你的业务，有什么想进化的？</h2>
+<h2>聊聊？</h2>
 <p>聊聊你现在怎么干的，我帮你想想怎么进化。</p>
-<a href="weixin://" class="btn">加我企微聊</a>
+<a href="weixin://" class="btn">加我企微</a>
 </div>
 
 <div class="foot"><p>© 2026 麻明 · 中国农业大学 · 国际经济与贸易</p></div>
 </div>
 
 <script>
-window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';document.getElementById('nav').classList.toggle('v',window.pageYOffset>400)});
+window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';document.getElementById('nav').classList.toggle('v',window.pageYOffset>300)});
 document.querySelectorAll('.rv').forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting){el.classList.add('v');this.unobserve(el)}},{threshold:.1}).observe(el));
 </script>
 </body></html>

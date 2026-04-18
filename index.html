@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麻明 — 汽车行业 AI 数字化</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#fbfbfd;
+    --text:#1d1d1f;
+    --text-secondary:#6e6e73;
+    --card:#ffffff;
+    --divider:#d2d2d7;
+    --accent:#0071e3;
+    --accent-hover:#0077ed;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  .hero{
+    padding:120px 24px 80px;
+    text-align:center;
+    max-width:800px;
+    margin:0 auto;
+  }
+  .hero-label{
+    font-size:14px;
+    font-weight:500;
+    color:var(--text-secondary);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:16px;
+  }
+  .hero h1{
+    font-size:56px;
+    font-weight:700;
+    letter-spacing:-0.015em;
+    line-height:1.07;
+    margin-bottom:20px;
+  }
+  .hero p{
+    font-size:21px;
+    font-weight:400;
+    color:var(--text-secondary);
+    line-height:1.38;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    max-width:980px;
+    margin:0 auto 120px;
+    background:var(--divider);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .stat{
+    background:var(--card);
+    padding:48px 24px;
+    text-align:center;
+  }
+  .stat-number{
+    font-size:48px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1;
+    margin-bottom:8px;
+  }
+  .stat-label{
+    font-size:14px;
+    color:var(--text-secondary);
+    font-weight:500;
+  }
+  .section{
+    max-width:980px;
+    margin:0 auto 120px;
+    padding:0 24px;
+  }
+  .section-label{
+    font-size:14px;
+    font-weight:500;
+    color:var(--text-secondary);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:8px;
+  }
+  .section h2{
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-0.015em;
+    line-height:1.1;
+    margin-bottom:48px;
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .card{
+    background:var(--card);
+    border-radius:18px;
+    padding:40px 32px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+  }
+  .card-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:var(--accent);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    margin-bottom:20px;
+  }
+  .card h3{
+    font-size:21px;
+    font-weight:600;
+    margin-bottom:12px;
+    letter-spacing:-0.01em;
+  }
+  .card p{
+    font-size:15px;
+    color:var(--text-secondary);
+    line-height:1.5;
+  }
+  .timeline{
+    max-width:980px;
+    margin:0 auto 120px;
+    padding:0 24px;
+  }
+  .timeline h2{
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-0.015em;
+    margin-bottom:48px;
+  }
+  .timeline-item{
+    display:flex;
+    gap:32px;
+    padding:32px 0;
+    border-bottom:1px solid var(--divider);
+  }
+  .timeline-item:last-child{border-bottom:none}
+  .timeline-period{
+    font-size:14px;
+    color:var(--text-secondary);
+    font-weight:500;
+    min-width:120px;
+    padding-top:4px;
+  }
+  .timeline-content h3{
+    font-size:21px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .timeline-content .company{
+    font-size:17px;
+    color:var(--text-secondary);
+    margin-bottom:8px;
+  }
+  .timeline-content p{
+    font-size:15px;
+    color:var(--text-secondary);
+    line-height:1.5;
+  }
+  .cta{
+    text-align:center;
+    padding:80px 24px 120px;
+  }
+  .cta h2{
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-0.015em;
+    margin-bottom:16px;
+  }
+  .cta p{
+    font-size:21px;
+    color:var(--text-secondary);
+    margin-bottom:32px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--accent);
+    color:#fff;
+    font-size:17px;
+    font-weight:500;
+    padding:14px 28px;
+    border-radius:980px;
+    text-decoration:none;
+    transition:background 0.2s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn:hover{background:var(--accent-hover)}
+  .btn-secondary{
+    background:transparent;
+    color:var(--accent);
+    border:none;
+    text-decoration:underline;
+    text-underline-offset:4px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:500;
+  }
+  .footer{
+    padding:40px 24px;
+    text-align:center;
+    font-size:12px;
+    color:var(--text-secondary);
+    border-top:1px solid var(--divider);
+    max-width:980px;
+    margin:0 auto;
+  }
+  .chat-btn{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    font-size:24px;
+    box-shadow:0 4px 20px rgba(0,113,227,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform 0.2s ease;
+    z-index:1000;
+  }
+  .chat-btn:hover{transform:scale(1.08)}
+  .chat-panel{
+    position:fixed;
+    bottom:92px;
+    right:24px;
+    width:360px;
+    max-height:480px;
+    background:var(--card);
+    border-radius:20px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.12);
+    overflow:hidden;
+    z-index:1000;
+    display:none;
+    flex-direction:column;
+  }
+  .chat-panel.active{display:flex}
+  .chat-header{
+    padding:16px 20px;
+    border-bottom:1px solid var(--divider);
+    font-weight:600;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .chat-header .dot{
+    width:8px;height:8px;border-radius:50%;background:#30d158;
+  }
+  .chat-messages{
+    flex:1;
+    padding:16px 20px;
+    overflow-y:auto;
+    font-size:14px;
+    line-height:1.5;
+    color:var(--text);
+  }
+  .chat-messages .msg{margin-bottom:12px}
+  .chat-messages .msg.bot{color:var(--text)}
+  .chat-messages .msg.user{text-align:right;color:var(--accent)}
+  .chat-input{
+    padding:12px 16px;
+    border-top:1px solid var(--divider);
+    display:flex;
+    gap:8px;
+  }
+  .chat-input input{
+    flex:1;
+    border:none;
+    background:transparent;
+    font-size:14px;
+    outline:none;
+    font-family:inherit;
+  }
+  .chat-input button{
+    background:none;
+    border:none;
+    color:var(--accent);
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  @media(max-width:768px){
+    .hero h1{font-size:40px}
+    .hero p{font-size:17px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat-number{font-size:36px}
+    .cards{grid-template-columns:1fr}
+    .section h2,.timeline h2,.cta h2{font-size:28px}
+    .timeline-item{flex-direction:column;gap:8px}
+    .chat-panel{width:calc(100vw - 48px);right:24px;bottom:88px}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-label">汽车行业 · AI 数字化 · 产品运营</div>
+  <h1>麻明</h1>
+  <p>在汽车行业干了 15 年。现在用 AI 帮企业把效率翻 10 倍。</p>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-number">15</div><div class="stat-label">年汽车行业经验</div></div>
+  <div class="stat"><div class="stat-number">35+</div><div class="stat-label">家经销商辅导</div></div>
+  <div class="stat"><div class="stat-number">10×</div><div class="stat-label">效率提升</div></div>
+  <div class="stat"><div class="stat-number">100+</div><div class="stat-label">份真实数据案例</div></div>
+</div>
+
+<section class="section">
+  <div class="section-label">能力</div>
+  <h2>我能做什么</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>AI 运营系统搭建</h3>
+      <p>从 0 到 1 搭建 AI Agent 系统，实现企微私域、内容运营、数据分析的全流程自动化。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>经销商诊断与咨询</h3>
+      <p>基于 35+ 家经销商辅导经验，用 AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚗</div>
+      <h3>汽车行业数字化转型</h3>
+      <p>15 年奔驰、英菲尼迪、安永经验，深谙主机厂 + 经销商 + 咨询三端业务逻辑。</p>
+    </div>
+  </div>
+</section>
+
+<section class="timeline">
+  <div class="section-label">经历</div>
+  <h2>职业履历</h2>
+  <div class="timeline-item">
+    <div class="timeline-period">2025.02 — 至今</div>
+    <div class="timeline-content">
+      <h3>咨询总监（AI 产品方向）</h3>
+      <div class="company">港泓咨询</div>
+      <p>主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-period">2024.04 — 2025.02</div>
+    <div class="timeline-content">
+      <h3>高级产品运营（AI 方向）</h3>
+      <div class="company">易车</div>
+      <p>负责 AI 产品运营，探索大模型在汽车内容场景的应用。</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-period">2017.12 — 2024.04</div>
+    <div class="timeline-content">
+      <h3>高级项目经理（汽车行业）</h3>
+      <div class="company">安永（中国）</div>
+      <p>7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-period">2014.12 — 2017.12</div>
+    <div class="timeline-content">
+      <h3>项目经理</h3>
+      <div class="company">东风英菲尼迪</div>
+      <p>负责经销商网络发展、培训体系搭建、销售运营优化。</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-period">2011.11 — 2014.12</div>
+    <div class="timeline-content">
+      <h3>项目经理</h3>
+      <div class="company">梅赛德斯-奔驰</div>
+      <p>经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>想聊聊合作？</h2>
+  <p>加我的企微，体验 AI 助理自动接待。</p>
+  <a href="weixin://" class="btn">添加企微</a>
+  <div style="margin-top:16px">
+    <button class="btn-secondary" onclick="toggleChat()">或者直接在这里问我</button>
+  </div>
+</section>
+
+<div class="footer">
+  <p>© 2026 麻明 · 中国农业大学 国际经济与贸易</p>
+</div>
+
+<button class="chat-btn" onclick="toggleChat()">💬</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header"><span class="dot"></span> AI 助理 · 麻明</div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">你好，我是麻明的 AI 助理。你可以问我：<br>• 麻明的职业经历<br>• 他做过哪些项目<br>• AI 运营系统是什么<br>• 如何合作</div>
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="问我任何问题…" onkeydown="if(event.key==='Enter')sendMessage()">
+    <button onclick="sendMessage()">发送</button>
+  </div>
+</div>
+
+<script>
+const knowledgeBase = {
+  '经历|履历|工作|在哪|公司|职业': '麻明在汽车行业干了 15 年。目前就职于港泓咨询，担任咨询总监（AI 产品方向）。之前在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作过。',
+  '安永|EY|咨询': '麻明在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。',
+  '奔驰|宝马|保时捷': '麻明最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。在安永期间服务过奔驰、宝马、保时捷等多个豪华品牌。',
+  '英菲尼迪|东风英菲尼迪': '麻明在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建、销售运营优化。',
+  '易车': '麻明在易车担任高级产品运营（AI 方向），负责 AI 产品运营，探索大模型在汽车内容场景的应用。',
+  '港泓': '目前麻明在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统。',
+  'AI|人工智能|数字化': '麻明目前最擅长的是 AI 运营系统搭建。他开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。他用这套系统服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。',
+  '项目|案例|诊断': '麻明最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。',
+  '合作|联系|加微信|企微|价格|收费': '你可以点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求，提供定制化的 AI 运营方案。',
+  '教育|学校|学历': '麻明毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。',
+  '你好|hello|hi|嗨': '你好！我是麻明的 AI 助理。你可以问我关于麻明的职业经历、项目经验，或者咨询 AI 运营系统的合作。',
+};
+
+function getAnswer(question) {
+  for (const [keys, answer] of Object.entries(knowledgeBase)) {
+    const words = keys.split('|');
+    if (words.some(w => question.toLowerCase().includes(w.toLowerCase()))) {
+      return answer;
+    }
+  }
+  return '这个问题我还不太了解。你可以添加麻明的企微，他本人会详细回答你。';
+}
+
+function toggleChat() {
+  const panel = document.getElementById('chatPanel');
+  panel.classList.toggle('active');
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const messages = document.getElementById('chatMessages');
+  messages.innerHTML += '<div class="msg user">' + msg + '</div>';
+  input.value = '';
+
+  setTimeout(() => {
+    const answer = getAnswer(msg);
+    messages.innerHTML += '<div class="msg bot">' + answer + '</div>';
+    messages.scrollTop = messages.scrollHeight;
+  }, 300);
+}
+</script>
+
+</body>
+</html>

@@ -3,126 +3,113 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>麻明 — 用 AI 进化工作方式</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fbfbfd;--text:#1d1d1f;--ts:#6e6e73;--card:#fff;--div:#d2d2d7;--a:#0071e3}
+:root{--bg:#fff;--text:#1d1d1f;--ts:#86868b;--div:#e8e8ed;--a:#0071e3;--bg2:#f5f5f7}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:100px}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:120px}
 .sp{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--a),#6366f1);z-index:9999;transition:width .1s}
-.nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(251,251,253,.72);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .4s}
+.nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .4s}
 .nav.v{opacity:1;transform:none}
 .nb{font-size:15px;font-weight:600}
 .nl{display:flex;gap:28px}
 .nl a{font-size:13px;color:var(--ts);text-decoration:none}
 .nl a:hover{color:var(--text)}
-.pg{display:none;min-height:100vh}.pg.a{display:block;animation:pi .5s ease}
+.pg{display:none;min-height:100vh}.pg.a{display:block;animation:pi .6s ease}
 @keyframes pi{from{opacity:0}to{opacity:1}}
-.hero{padding:200px 24px 120px;text-align:center;max-width:900px;margin:0 auto}
-.he{font-size:17px;font-weight:600;margin-bottom:8px}
-.hl{font-size:21px;font-weight:400;color:var(--ts);margin-bottom:32px}
-.hero h1{font-size:72px;font-weight:700;letter-spacing:-.03em;line-height:1.04;margin-bottom:28px}
-.hero h1 span{background:linear-gradient(135deg,#1d1d1f,#6e6e73 50%,#0071e3);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gs 8s ease infinite}
+.hero{padding:180px 24px 100px;text-align:center;max-width:900px;margin:0 auto}
+.he{font-size:17px;font-weight:600;margin-bottom:8px;color:var(--ts)}
+.hero h1{font-size:64px;font-weight:700;letter-spacing:-.035em;line-height:1.05;margin-bottom:24px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#1d1d1f,#6e6e73 50%,#0071e3);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gs 8s ease infinite}
 @keyframes gs{0,100%{background-position:0 50%}50%{background-position:100% 50%}}
-.hero p{font-size:21px;color:var(--ts);line-height:1.47;max-width:560px;margin:0 auto}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:980px;margin:0 auto 120px;background:var(--div);border-radius:20px;overflow:hidden}
-.st{background:var(--card);padding:52px 24px 48px;text-align:center}
-.sn{font-size:56px;font-weight:700;letter-spacing:-.025em;line-height:1;margin-bottom:8px;color:var(--a)}
-.sl{font-size:14px;color:var(--ts);font-weight:500;line-height:1.4}
-.evos{max-width:980px;margin:0 auto 120px;padding:0 24px}
-.el{font-size:17px;font-weight:600;margin-bottom:6px}
-.evos h2{font-size:48px;font-weight:700;letter-spacing:-.022em;line-height:1.08;margin-bottom:56px}
-.ec{background:var(--card);border-radius:20px;padding:48px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:24px;cursor:pointer;transition:transform .35s,box-shadow .35s}
-.ec:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
-.ec h3{font-size:24px;font-weight:600;margin-bottom:16px;letter-spacing:-.01em}
-.eg{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:start}
-.es{padding:20px 0}
-.et{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding:4px 10px;border-radius:4px;display:inline-block}
-.et.o{background:#ff3b30;color:#fff}
-.et.n{background:#30d158;color:#fff}
-.es ul{list-style:none}
-.es li{font-size:15px;color:var(--ts);line-height:1.6;padding:8px 0;padding-left:20px;position:relative}
-.es li::before{content:'';position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:50%}
-.es.old li::before{background:#ff3b30;opacity:.5}
-.es.new li::before{background:#30d158;opacity:.5}
-.ea{display:flex;align-items:center;justify-content:center;padding-top:60px}
-.ea svg{width:32px;height:32px;stroke:var(--a);stroke-width:2;fill:none}
-.er{margin-top:24px;padding:16px 20px;background:#f0f7ff;border-radius:12px;font-size:15px;font-weight:500;color:var(--a)}
-.caps{max-width:980px;margin:0 auto 120px;padding:0 24px}
-.caps h2{font-size:48px;font-weight:700;letter-spacing:-.022em;line-height:1.08;margin-bottom:56px}
-.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.cc{background:var(--card);border-radius:20px;padding:40px 32px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .35s,box-shadow .35s}
-.cc:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.08)}
-.cc h3{font-size:20px;font-weight:600;margin-bottom:10px}
-.cc p{font-size:15px;color:var(--ts);line-height:1.5}
-.cta{text-align:center;padding:80px 24px 140px}
-.cta h2{font-size:48px;font-weight:700;letter-spacing:-.022em;margin-bottom:16px}
-.cta p{font-size:21px;color:var(--ts);margin-bottom:36px}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--a);color:#fff;font-size:17px;font-weight:500;padding:14px 28px;border-radius:980px;text-decoration:none;transition:transform .2s;border:none;cursor:pointer}
-.btn:hover{transform:scale(1.04)}
+.hero p{font-size:21px;color:var(--ts);line-height:1.5;max-width:480px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:900px;margin:0 auto 100px;background:var(--div);border-radius:16px;overflow:hidden}
+.st{background:var(--bg);padding:48px 24px 44px;text-align:center}
+.sn{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:6px;color:var(--text)}
+.sl{font-size:13px;color:var(--ts);font-weight:500;line-height:1.4}
+.evos{max-width:900px;margin:0 auto 100px;padding:0 24px}
+.evos h2{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:48px}
+.ec{background:var(--bg);border:1px solid var(--div);border-radius:20px;padding:48px;margin-bottom:20px;transition:box-shadow .35s}
+.ec:hover{box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.ec h3{font-size:28px;font-weight:600;letter-spacing:-.015em;margin-bottom:32px}
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.eb{padding:24px;border-radius:14px}
+.eb.before{background:var(--bg2)}
+.eb.after{background:#f0f7ff}
+.eb .el2{font-size:12px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px}
+.eb ul{list-style:none}
+.eb li{font-size:15px;color:var(--text);line-height:1.6;padding:6px 0 6px 20px;position:relative}
+.eb li::before{content:"·";position:absolute;left:0;color:var(--ts)}
+.eb.after li::before{color:var(--a)}
+.ec .res{margin-top:28px;padding:14px 20px;border-radius:10px;font-size:15px;font-weight:500;color:var(--a);background:#f0f7ff;text-align:center}
+.caps{max-width:900px;margin:0 auto 100px;padding:0 24px}
+.caps h2{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:48px}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cc{background:var(--bg);border:1px solid var(--div);border-radius:16px;padding:36px 28px;transition:box-shadow .3s}
+.cc:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.cc h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.cc p{font-size:14px;color:var(--ts);line-height:1.5}
+.cta{text-align:center;padding:60px 24px 120px}
+.cta h2{font-size:48px;font-weight:700;letter-spacing:-.03em;margin-bottom:12px}
+.cta p{font-size:19px;color:var(--ts);margin-bottom:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--a);color:#fff;font-size:17px;font-weight:500;padding:14px 28px;border-radius:980px;text-decoration:none;border:none;cursor:pointer}
+.btn:hover{opacity:.9}
 .bo{background:transparent;color:var(--a);font-size:17px;font-weight:500;margin-top:16px;cursor:pointer;border:none}
-.foot{padding:32px 24px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div);max-width:980px;margin:0 auto}
-.rv{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
+.foot{padding:32px 24px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div);max-width:900px;margin:0 auto}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
 .rv.v{opacity:1;transform:none}
 .rv1{transition-delay:.1s}.rv2{transition-delay:.2s}.rv3{transition-delay:.3s}
-.sh{padding:140px 24px 60px;max-width:800px;margin:0 auto;text-align:center}
-.sh .sl2{font-size:14px;font-weight:500;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
-.sh h1{font-size:48px;font-weight:700;letter-spacing:-.022em;line-height:1.07;margin-bottom:12px}
-.sh .sd{font-size:19px;color:var(--ts);line-height:1.47;max-width:520px;margin:0 auto}
-.sc{max-width:800px;margin:0 auto;padding:0 24px 120px}
-.ss{margin-bottom:64px}
-.ssl{font-size:14px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.ss h2{font-size:36px;font-weight:700;letter-spacing:-.02em;margin-bottom:24px}
+.sh{padding:140px 24px 56px;max-width:800px;margin:0 auto;text-align:center}
+.sh .sl2{font-size:14px;font-weight:500;color:var(--ts);margin-bottom:8px}
+.sh h1{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:8px}
+.sh .sd{font-size:19px;color:var(--ts);line-height:1.5;max-width:480px;margin:0 auto}
+.sc{max-width:800px;margin:0 auto;padding:0 24px 100px}
+.ss{margin-bottom:56px}
+.ssl{font-size:12px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ss h2{font-size:36px;font-weight:700;letter-spacing:-.02em;margin-bottom:20px}
 .ss p{font-size:17px;color:var(--ts);line-height:1.6}
-.met{text-align:center;padding:48px 0;margin:40px 0;border-top:1px solid var(--div);border-bottom:1px solid var(--div)}
-.met .mv{font-size:64px;font-weight:700;letter-spacing:-.03em;color:var(--a);line-height:1}
-.met .ml{font-size:17px;color:var(--ts);margin-top:8px}
-.sty{padding:28px 0;border-bottom:1px solid var(--div)}
+.met{text-align:center;padding:40px 0;margin:36px 0;border-top:1px solid var(--div);border-bottom:1px solid var(--div)}
+.met .mv{font-size:56px;font-weight:700;letter-spacing:-.03em;color:var(--a);line-height:1}
+.met .ml{font-size:15px;color:var(--ts);margin-top:6px}
+.sty{padding:24px 0;border-bottom:1px solid var(--div)}
 .sty:last-child{border-bottom:none}
-.sty h3{font-size:20px;font-weight:600;margin-bottom:8px}
-.cp{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
-.cpc{border-radius:16px;padding:28px}
-.cpc.o{background:#fff5f5}
-.cpc.n{background:#f0fff4}
-.cpc h4{font-size:15px;font-weight:600;margin-bottom:16px}
+.sty h3{font-size:18px;font-weight:600;margin-bottom:6px}
+.cp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.cpc{border-radius:14px;padding:24px;border:1px solid var(--div)}
+.cpc h4{font-size:14px;font-weight:600;margin-bottom:12px}
 .cpc ul{list-style:none}
-.cpc li{font-size:14px;color:var(--ts);padding:6px 0;display:flex;justify-content:space-between}
-.cpc li span{font-weight:600;color:var(--text)}
-.bch{display:flex;flex-direction:column;gap:16px}
+.cpc li{font-size:14px;color:var(--ts);padding:4px 0 4px 16px;position:relative;line-height:1.5}
+.cpc li::before{content:"·";position:absolute;left:0}
+.bch{display:flex;flex-direction:column;gap:12px}
 .bro{display:flex;align-items:center;gap:12px}
-.bl2{font-size:14px;font-weight:500;min-width:80px}
-.btr{flex:1;height:24px;background:#f0f0f2;border-radius:12px;overflow:hidden}
-.bf{height:100%;border-radius:12px;width:0;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
-.bf.b{background:linear-gradient(90deg,#0071e3,#6366f1)}
-.bf.g{background:linear-gradient(90deg,#30d158,#34c759)}
-.bf.o2{background:linear-gradient(90deg,#ff9500,#ff6b00)}
-.bf.p{background:linear-gradient(90deg,#af52de,#5e5ce6)}
-.tr{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-.tt{font-size:13px;font-weight:500;padding:6px 14px;background:#f5f5f7;border-radius:980px;color:var(--ts)}
-.cb2{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:var(--a);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,113,227,.3);display:flex;align-items:center;justify-content:center;z-index:1000;font-size:22px;color:#fff;transition:transform .2s}
+.bl2{font-size:13px;font-weight:500;min-width:72px;color:var(--text)}
+.btr{flex:1;height:16px;background:var(--bg2);border-radius:8px;overflow:hidden}
+.bf{height:100%;border-radius:8px;width:0;transition:width 1.2s cubic-bezier(.25,.46,.45,.94);background:var(--a)}
+.tr{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.tt{font-size:12px;font-weight:500;padding:6px 12px;background:var(--bg2);border-radius:980px;color:var(--ts)}
+.cb2{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:var(--a);border:none;cursor:pointer;box-shadow:0 2px 12px rgba(0,113,227,.25);display:flex;align-items:center;justify-content:center;z-index:1000;font-size:20px;color:#fff;transition:transform .2s}
 .cb2:hover{transform:scale(1.08)}
-.cpl{position:fixed;bottom:92px;right:28px;width:340px;max-height:460px;background:var(--card);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,.1);overflow:hidden;z-index:1000;display:none;flex-direction:column}
+.cpl{position:fixed;bottom:86px;right:28px;width:320px;max-height:420px;background:var(--bg);border:1px solid var(--div);border-radius:16px;overflow:hidden;z-index:1000;display:none;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,.08)}
 .cpl.a{display:flex}
-.cpl .ch2{padding:14px 18px;border-bottom:1px solid var(--div);font-weight:600;font-size:15px}
-.cpl .cmm{flex:1;padding:16px 18px;overflow-y:auto;font-size:14px;line-height:1.5;min-height:200px}
+.cpl .ch2{padding:14px 18px;border-bottom:1px solid var(--div);font-weight:600;font-size:14px}
+.cpl .cmm{flex:1;padding:14px 18px;overflow-y:auto;font-size:14px;line-height:1.5;min-height:180px}
 .cpl .ci2{padding:12px 14px;border-top:1px solid var(--div);display:flex;gap:8px}
 .cpl .ci2 input{flex:1;border:none;background:transparent;font-size:14px;outline:none;font-family:inherit}
 .cpl .ci2 button{background:none;border:none;color:var(--a);font-size:14px;font-weight:600;cursor:pointer}
 @media(max-width:768px){
-body{padding-bottom:120px}
+body{padding-bottom:100px}
 .nav{padding:0 20px}
-.hero{padding:140px 20px 80px}.hero h1{font-size:36px}.hero p{font-size:18px}
-.stats{grid-template-columns:1fr}.sn{font-size:40px}
+.hero{padding:120px 20px 80px}.hero h1{font-size:36px}.hero p{font-size:18px}
+.stats{grid-template-columns:1fr;margin-bottom:80px}.sn{font-size:40px}
+.evos h2,.caps h2,.cta h2{font-size:32px}
 .ec{padding:28px 20px}
-.eg{grid-template-columns:1fr;gap:8px}.ea{display:none;padding-top:0}
-.es{padding:0}.es ul{margin-bottom:16px}
-.es:last-child{border-top:1px solid var(--div);padding-top:16px}
+.eg{grid-template-columns:1fr;gap:16px}
 .cg{grid-template-columns:1fr}
 .cp{grid-template-columns:1fr}
-.sh{padding:120px 20px 48px}.sh h1{font-size:32px}.sh .sd{font-size:17px}
+.sh{padding:110px 20px 44px}.sh h1{font-size:32px}.sh .sd{font-size:17px}
 .ss h2{font-size:28px}
-.el,.caps h2,.cta h2{font-size:32px}
 .nl{display:none}
-.cb2{bottom:20px;right:20px;width:48px;height:48px;font-size:20px}
-.cpl{width:calc(100vw - 40px);right:20px;bottom:78px;max-height:55vh}
-.met .mv{font-size:48px}
+.cb2{bottom:18px;right:18px;width:44px;height:44px;font-size:18px}
+.cpl{width:calc(100vw - 36px);right:18px;bottom:72px;max-height:50vh}
+.met .mv{font-size:40px}
 }
 </style></head><body>
 <div class="sp" id="sp"></div>
@@ -131,53 +118,47 @@ body{padding-bottom:120px}
 <div class="pg a" id="p-home">
 <section class="hero">
 <div class="he rv">麻明</div>
-<div class="hl rv rv1">15 年汽车行业，现在用 AI 进化工作方式</div>
-<h1 class="rv rv2"><span>以前两个人干 1.5 个月的事<br>我现在 1 星期搞定</span></h1>
-<p class="rv rv3">不是更快了。是以前做不到的，现在能做到了。</p>
+<h1 class="rv rv1"><em>以前两个人干 1.5 个月的事<br>我现在 1 星期搞定</em></h1>
+<p class="rv rv2">15 年汽车行业。现在用 AI 进化工作方式。</p>
 </section>
 <div class="stats">
-<div class="st rv"><div class="sn" data-t="10" data-s="x">0</div><div class="sl">效率提升<br>(2 天 → 10 分钟)</div></div>
+<div class="st rv"><div class="sn" data-t="10" data-s="×">0</div><div class="sl">效率提升<br>(2 天 → 10 分钟)</div></div>
 <div class="st rv rv1"><div class="sn" data-t="35" data-s="+">0</div><div class="sl">家经销商<br>已落地</div></div>
 <div class="st rv rv2"><div class="sn" data-t="3" data-s="个">0</div><div class="sl">核心项目<br>跑通闭环</div></div>
 </div>
 <section class="evos rv">
-<div class="el">工作方式进化</div>
 <h2>以前怎么干 → 现在怎么干</h2>
 <div class="ec rv rv1">
 <h3>宝马沙盘系统</h3>
 <div class="eg">
-<div class="es old"><div class="et o">以前</div><ul><li>找一个懂 Excel 的人，做 1 个月</li><li>再找一个懂 VBA 的，加半个月</li><li>两个人配合、磨合、改来改去</li><li>最终交付一个 .xlsm 文件，只能一个人用</li></ul></div>
-<div class="ea"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></div>
-<div class="es new"><div class="et n">现在</div><ul><li>一句话描述需求，AI 理解并生成</li><li>我来调整和把关，不对就改</li><li>1 星期交付，Web 端任何人可访问</li><li>还能加上 AI 分析、数据库对比、自动建议</li></ul></div>
+<div class="eb before"><div class="el2">以前</div><ul><li>找一个懂 Excel 的人，做 1 个月</li><li>再找一个懂 VBA 的，加半个月</li><li>两个人配合、磨合、改来改去</li><li>最终交付一个 .xlsm 文件，只能一个人用</li></ul></div>
+<div class="eb after"><div class="el2">现在</div><ul><li>一句话描述需求，AI 理解并生成</li><li>我来调整和把关，不对就改</li><li>1 星期交付，Web 端任何人可访问</li><li>还能加上 AI 分析、数据库对比、自动建议</li></ul></div>
 </div>
-<div class="er">⚡ 不只是快 10 倍 —— 是交付的东西，能力比原来强 10 倍</div>
+<div class="res">⚡ 不只是快，是交付的东西能力比原来强 10 倍</div>
 </div>
 <div class="ec rv rv2">
 <h3>经销商诊断系统</h3>
 <div class="eg">
-<div class="es old"><div class="et o">以前</div><ul><li>教练进店收 Excel，手动算 5 大指标</li><li>对比历史数据，手写诊断报告</li><li>一家店 2 天，35 家店几个月</li><li>报告质量依赖教练经验，不可复制</li></ul></div>
-<div class="ea"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></div>
-<div class="es new"><div class="et n">现在</div><ul><li>数据喂给 AI，自动提取指标</li><li>自动对比 34 家店行业基准</li><li>10 分钟，35 家店完整诊断报告</li><li>诊断逻辑标准化，新人也能出高质量报告</li></ul></div>
+<div class="eb before"><div class="el2">以前</div><ul><li>教练进店收 Excel，手动算 5 大指标</li><li>对比历史数据，手写诊断报告</li><li>一家店 2 天，35 家店几个月</li><li>报告质量依赖教练经验，不可复制</li></ul></div>
+<div class="eb after"><div class="el2">现在</div><ul><li>数据喂给 AI，自动提取指标</li><li>自动对比 34 家店行业基准</li><li>10 分钟，35 家店完整诊断报告</li><li>诊断逻辑标准化，新人也能出高质量报告</li></ul></div>
 </div>
-<div class="er">⚡ 从"依赖个人经验"到"系统标准化"，这是质的变化</div>
+<div class="res">⚡ 从依赖个人经验，到系统标准化</div>
 </div>
 <div class="ec rv rv3">
 <h3>企微客户运营</h3>
 <div class="eg">
-<div class="es old"><div class="et o">以前</div><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户</li><li>不知道客户什么时候有需求</li><li>只能上班时间回复</li></ul></div>
-<div class="ea"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></div>
-<div class="es new"><div class="et n">现在</div><ul><li>工单+销售记录+个人信息 → 完整客户画像</li><li>1000 客户 × 1000 套话术，千人千面</li><li>Agent 判断时机，主动触达</li><li>24 小时在线，秒回，数据沉淀在企业</li></ul></div>
+<div class="eb before"><div class="el2">以前</div><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户</li><li>不知道客户什么时候有需求</li><li>只能上班时间回复</li></ul></div>
+<div class="eb after"><div class="el2">现在</div><ul><li>工单+销售记录+个人信息 → 完整客户画像</li><li>1000 客户 × 1000 套话术，千人千面</li><li>Agent 判断时机，主动触达</li><li>24 小时在线，秒回，数据沉淀在企业</li></ul></div>
 </div>
-<div class="er">⚡ 从"群发广告"到"千人千面的精准运营"</div>
+<div class="res">⚡ 从群发广告，到千人千面的精准运营</div>
 </div>
 </section>
 <section class="caps rv">
-<div class="el">我能帮你做什么</div>
 <h2>把你的业务也进化一下</h2>
 <div class="cg">
-<div class="cc rv rv1" onclick="sp('bmw')"><h3>📊 业务系统 AI 化</h3><p>把你手里的 Excel、流程、报表，变成 Web 系统 + AI 分析。不是替代人，是让人做更有价值的事。</p></div>
-<div class="cc rv rv2" onclick="sp('diag')"><h3>🤖 AI 诊断与咨询</h3><p>把行业经验变成 AI 系统，让标准化诊断 10 分钟出报告，新人也能达到老手的水平。</p></div>
-<div class="cc rv rv3" onclick="sp('eng')"><h3>💬 客户运营自动化</h3><p>用 AI 把群发广告变成精准运营，千人千面，24 小时在线，客户数据沉淀在企业。</p></div>
+<div class="cc rv rv1" onclick="sp('bmw')"><h3>📊 业务系统 AI 化</h3><p>把 Excel、流程、报表，变成 Web 系统 + AI 分析。</p></div>
+<div class="cc rv rv2" onclick="sp('diag')"><h3>🤖 AI 诊断系统</h3><p>行业经验变成 AI 系统，标准化诊断 10 分钟出报告。</p></div>
+<div class="cc rv rv3" onclick="sp('eng')"><h3>💬 客户运营自动化</h3><p>用 AI 把群发广告变成精准运营，千人千面。</p></div>
 </div>
 </section>
 <section class="cta rv">
@@ -193,7 +174,7 @@ body{padding-bottom:120px}
 <div class="sh"><div class="sl2">项目详情</div><h1>宝马沙盘系统</h1><p class="sd">以前两个人干 1.5 个月的事，现在 1 星期搞定</p></div>
 <div class="sc">
 <div class="ss rv"><div class="ssl">对比</div><h2>以前 vs 现在</h2>
-<div class="cp"><div class="cpc o"><h4>以前</h4><ul><li>找人做 Excel <span>1 个月</span></li><li>找人做 VBA <span>半个月</span></li><li>交付一个文件 <span>一人用</span></li></ul></div><div class="cpc n"><h4>现在</h4><ul><li>AI 生成 + 我调整 <span>1 星期</span></li><li>Web 端 <span>任何人用</span></li><li>加上 AI 分析 <span>更强</span></li></ul></div></div>
+<div class="cp"><div class="cpc"><h4>以前</h4><ul><li>找人做 Excel → 1 个月</li><li>找人做 VBA → 半个月</li><li>交付一个文件 → 一人用</li></ul></div><div class="cpc"><h4>现在</h4><ul><li>AI 生成 + 我调整 → 1 星期</li><li>Web 端 → 任何人用</li><li>加上 AI 分析能力 → 更强</li></ul></div></div>
 </div>
 <div class="met rv"><div class="mv">1.5月 → 1周</div><div class="ml">不只是快了，是做出来的东西能力更强了</div></div>
 <div class="ss rv"><div class="ssl">故事</div><h2>这个过程</h2>
@@ -206,23 +187,23 @@ body{padding-bottom:120px}
 </div></div>
 
 <div class="pg" id="p-diag">
-<div class="sh"><div class="sl2">项目详情</div><h1>经销商诊断系统</h1><p class="sd">从 2 天到 10 分钟，AI 如何做到</p></div>
+<div class="sh"><div class="sl2">项目详情</div><h1>经销商诊断系统</h1><p class="sd">从 2 天到 10 分钟</p></div>
 <div class="sc">
 <div class="ss rv"><div class="ssl">对比</div><h2>以前 vs 现在</h2>
-<div class="cp"><div class="cpc o"><h4>以前</h4><ul><li>教练进店辅导：收集 Excel → 手动算 5 大指标 → 对比历史 → 手写报告</li><li>一家店至少 2 天，35 家店需要几个月</li><li>报告质量完全依赖教练个人经验</li><li>不同教练出的诊断标准不统一</li><li>没有行业基准，不知道"好"是什么水平</li></ul></div><div class="cpc n"><h4>现在</h4><ul><li>数据喂给 AI：自动提取 KPI → 对比行业基准 → 自动判断状态 → 自动生成报告</li><li>10 分钟，35 家店的完整诊断报告</li><li>诊断逻辑标准化，新人也能出高质量报告</li><li>34 家店的均值/中位数/分位数作为行业基准</li><li>每家店自动判定：优秀 / 正常 / 预警 / 异常</li></ul></div></div>
+<div class="cp"><div class="cpc"><h4>以前</h4><ul><li>教练进店：收集 Excel → 手动算指标 → 对比历史 → 手写报告</li><li>一家店至少 2 天，35 家店需要几个月</li><li>报告质量完全依赖教练个人经验</li><li>不同教练标准不统一</li><li>没有行业基准</li></ul></div><div class="cpc"><h4>现在</h4><ul><li>数据喂给 AI：自动提取 KPI → 对比基准 → 判断状态 → 生成报告</li><li>10 分钟，35 家店完整诊断报告</li><li>诊断逻辑标准化，新人也能出高质量报告</li><li>34 家店均值/中位数/分位数作为基准</li><li>自动判定：优秀 / 正常 / 预警 / 异常</li></ul></div></div>
 </div>
-<div class="met rv"><div class="mv">12×</div><div class="ml">效率提升，而且报告质量标准化了</div></div>
+<div class="met rv"><div class="mv">12×</div><div class="ml">效率提升，而且质量标准化了</div></div>
 <div class="ss rv"><div class="ssl">故事</div><h2>这个过程</h2>
-<div class="sty"><h3>背景</h3><p>辅导 35 家奔驰店，手里攒了近 100 份真实数据。以前教练进店，需要收集 Excel，手动算 5 大指标，对比历史数据，手写诊断报告和建议。一家店至少 2 天。35 家店，几个月。</p></div>
-<div class="sty"><h3>变化</h3><p>把数据喂给 AI：自动提取 KPI，对比 34 家店的行业基准，自动判断状态，生成诊断报告。10 分钟，35 家店的完整报告。诊断逻辑标准化，新人也能出高质量报告。</p></div>
+<div class="sty"><h3>背景</h3><p>辅导 35 家奔驰店，手里攒了近 100 份真实数据。以前教练进店，需要收集 Excel，手动算 5 大指标，对比历史数据，手写诊断报告和建议。一家店至少 2 天。</p></div>
+<div class="sty"><h3>变化</h3><p>把数据喂给 AI：自动提取 KPI，对比行业基准，自动判断状态，生成诊断报告。10 分钟，35 家店的完整报告。诊断逻辑标准化，新人也能出高质量报告。</p></div>
 </div>
 <div class="ss rv"><div class="ssl">5 大指标</div><h2>诊断什么</h2>
 <div class="bch">
-<div class="bro"><div class="bl2">订单转化率</div><div class="btr"><div class="bf b" data-w="80"></div></div></div>
-<div class="bro"><div class="bl2">目标达成率</div><div class="btr"><div class="bf g" data-w="75"></div></div></div>
-<div class="bro"><div class="bl2">人效</div><div class="btr"><div class="bf o2" data-w="70"></div></div></div>
-<div class="bro"><div class="bl2">库存占比</div><div class="btr"><div class="bf p" data-w="65"></div></div></div>
-<div class="bro"><div class="bl2">客流转化率</div><div class="btr"><div class="bf b" data-w="60"></div></div></div>
+<div class="bro"><div class="bl2">订单转化率</div><div class="btr"><div class="bf" data-w="80"></div></div></div>
+<div class="bro"><div class="bl2">目标达成率</div><div class="btr"><div class="bf" data-w="75"></div></div></div>
+<div class="bro"><div class="bl2">人效</div><div class="btr"><div class="bf" data-w="70"></div></div></div>
+<div class="bro"><div class="bl2">库存占比</div><div class="btr"><div class="bf" data-w="65"></div></div></div>
+<div class="bro"><div class="bl2">客流转化率</div><div class="btr"><div class="bf" data-w="60"></div></div></div>
 </div></div>
 <div class="ss rv" style="text-align:center"><a class="bo" onclick="sp('home')">← 返回首页</a></div>
 </div></div>
@@ -231,12 +212,12 @@ body{padding-bottom:120px}
 <div class="sh"><div class="sl2">项目详情</div><h1>企微客户运营</h1><p class="sd">从"群发广告"到"千人千面"</p></div>
 <div class="sc">
 <div class="ss rv"><div class="ssl">对比</div><h2>以前 vs 现在</h2>
-<div class="cp"><div class="cpc o"><h4>以前</h4><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户，资产流失</li><li>不知道客户什么时候有需求，被动等待</li><li>客户信息散落在销售个人手机里</li></ul></div><div class="cpc n"><h4>现在</h4><ul><li>工单 + 销售记录 + 个人信息 → 完整客户画像</li><li>1000 客户 × 1000 套话术，千人千面</li><li>Agent 判断时机：该保养了、该换车了 → 主动触达</li><li>所有客户数据沉淀在企业系统里，不依赖个人</li></ul></div></div>
+<div class="cp"><div class="cpc"><h4>以前</h4><ul><li>群发模板消息，千人一面</li><li>销售离职带走客户，资产流失</li><li>不知道客户什么时候有需求</li><li>客户信息散落在销售手机里</li></ul></div><div class="cpc"><h4>现在</h4><ul><li>工单+销售记录+个人信息 → 完整画像</li><li>1000 客户 × 1000 套话术，千人千面</li><li>Agent 判断时机：该保养了、该换车了 → 主动触达</li><li>数据沉淀在企业系统，不依赖个人</li></ul></div></div>
 </div>
 <div class="met rv"><div class="mv">24h</div><div class="ml">全天候在线，秒级响应</div></div>
 <div class="ss rv"><div class="ssl">故事</div><h2>这个过程</h2>
-<div class="sty"><h3>尝试与转变</h3><p>去年试过微信机器人接大模型，逻辑上 OK，但平台封锁太严。换了思路——不做"破解平台"的事，而是帮客户把"自己的平台"AI 化。企微有官方 API，数据在经销商自己手里，完全合规。</p></div>
-<div class="sty"><h3>核心能力</h3><p>客户进群自动建档，Agent 理解意图自动回复，不说话就定期触达。后台持续学习，每次对话更新画像，下次更精准。一套系统可以卖给 N 个经销商，边际成本趋近于 0。</p></div>
+<div class="sty"><h3>尝试与转变</h3><p>去年试过微信机器人接大模型，逻辑上 OK，但平台封锁太严。换了思路——不做"破解平台"的事，而是帮客户把"自己的平台"AI 化。企微有官方 API，完全合规。</p></div>
+<div class="sty"><h3>核心能力</h3><p>客户进群自动建档，Agent 理解意图自动回复，不说话就定期触达。后台持续学习，每次对话更新画像。一套系统卖给 N 个经销商，边际成本趋近于 0。</p></div>
 </div>
 <div class="ss rv" style="text-align:center"><a class="bo" onclick="sp('home')">← 返回首页</a></div>
 </div></div>
@@ -245,12 +226,12 @@ body{padding-bottom:120px}
 <div class="cpl" id="cpl"><div class="ch2">AI 助理</div><div class="cmm" id="cmm"><div>你好，我是麻明的 AI 助理。<br>你可以问他的项目经验，或咨询合作。</div></div><div class="ci2"><input id="ci2" placeholder="输入问题…" onkeydown="if(event.key=='Enter')sm()"><button onclick="sm()">发送</button></div></div>
 
 <script>
-function sp(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('a'));const pg=document.getElementById('p-'+id);if(pg){pg.classList.add('a');window.scrollTo({top:0});setTimeout(()=>{pg.querySelectorAll('.rv').forEach(el=>el.classList.add('v'));pg.querySelectorAll('.bf[data-w]').forEach((b,i)=>setTimeout(()=>b.style.width=b.dataset.w+'%',i*150))},100)}}
+function sp(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('a'));const pg=document.getElementById('p-'+id);if(pg){pg.classList.add('a');window.scrollTo({top:0});setTimeout(()=>{pg.querySelectorAll('.rv').forEach(el=>el.classList.add('v'));pg.querySelectorAll('.bf[data-w]').forEach((b,i)=>setTimeout(()=>b.style.width=b.dataset.w+'%',i*120))},100)}}
 window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';document.getElementById('nav').classList.toggle('v',window.pageYOffset>400)});
-document.querySelectorAll('#p-home .rv').forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting){el.classList.add('v');this.unobserve(el)}},{threshold:.15,rootMargin:'0px 0px -40px 0px'}).observe(el));
-let co=false;document.querySelectorAll('.sn[data-t]').forEach(el=>{new IntersectionObserver(e=>{if(e[0].isIntersecting&&!co){co=true;document.querySelectorAll('.sn[data-t]').forEach(n=>{const t=parseInt(n.dataset.t);const s=n.dataset.s||'';let c=0;const step=Math.max(1,Math.floor(t/40));const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)}n.textContent=c+s},30)})}},{threshold:.5}).observe(el)});
+document.querySelectorAll('#p-home .rv').forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting){el.classList.add('v');this.unobserve(el)}},{threshold:.12}).observe(el));
+let co=false;document.querySelectorAll('.sn[data-t]').forEach(el=>{new IntersectionObserver(e=>{if(e[0].isIntersecting&&!co){co=true;document.querySelectorAll('.sn[data-t]').forEach(n=>{const t=parseInt(n.dataset.t);const s=n.dataset.s||'';let c=0;const step=Math.max(1,Math.floor(t/30));const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)}n.textContent=c+s},25)})}},{threshold:.5}).observe(el)});
 function tc(){document.getElementById('cpl').classList.toggle('a')}
-function sm(){const i=document.getElementById('ci2');const m=i.value.trim();if(!m)return;document.getElementById('cmm').innerHTML+='<div style="text-align:right;color:var(--a);margin-bottom:12px">'+m+'</div>';i.value='';setTimeout(()=>{document.getElementById('cmm').innerHTML+='<div style="margin-bottom:12px">'+ga(m)+'</div>'},300)}
+function sm(){const i=document.getElementById('ci2');const m=i.value.trim();if(!m)return;document.getElementById('cmm').innerHTML+='<div style="text-align:right;color:var(--a);margin-bottom:10px">'+m+'</div>';i.value='';setTimeout(()=>{document.getElementById('cmm').innerHTML+='<div style="margin-bottom:10px">'+ga(m)+'</div>'},250)}
 const kb={'经历|履历|工作|在哪|公司|职业':'麻明在汽车行业干了 15 年。目前在港泓咨询担任咨询总监（AI 产品方向）。','项目|案例|诊断':'最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。','AI|人工智能|数字化':'目前最擅长的是用 AI 进化工作方式。以前两个人干 1.5 个月的事，现在 1 星期搞定，而且做得更好。','合作|联系|加微信|企微|价格':'点击加我企微聊，或者直接在这里提问。','你好|hello|hi|嗨|在吗':'你好！你可以问麻明的项目经验，或者咨询合作。'};
 function ga(q){for(const[k,a]of Object.entries(kb)){if(k.split('|').some(w=>q.toLowerCase().includes(w.toLowerCase())))return a}return'这个问题麻明本人更了解，建议你加他企微聊。'}
 </script>

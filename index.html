@@ -14,65 +14,69 @@
     --divider:#d2d2d7;
     --accent:#0071e3;
     --accent-hover:#0077ed;
-    --gradient-1:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-    --gradient-2:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);
-    --gradient-3:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);
   }
+  html{scroll-behavior:smooth}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC",Arial,sans-serif;
     background:var(--bg);
     color:var(--text);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
   }
+  /* Hero */
   .hero{
-    padding:120px 24px 80px;
+    padding:160px 24px 100px;
     text-align:center;
     max-width:800px;
     margin:0 auto;
   }
+  .hero-eyebrow{
+    font-size:17px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:8px;
+  }
   .hero-label{
-    font-size:14px;
-    font-weight:500;
+    font-size:21px;
+    font-weight:400;
     color:var(--text-secondary);
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin-bottom:16px;
+    margin-bottom:28px;
   }
   .hero h1{
     font-size:56px;
     font-weight:700;
-    letter-spacing:-0.015em;
+    letter-spacing:-0.022em;
     line-height:1.07;
-    margin-bottom:20px;
+    margin-bottom:24px;
   }
   .hero p{
     font-size:21px;
     font-weight:400;
     color:var(--text-secondary);
-    line-height:1.38;
+    line-height:1.47;
     max-width:520px;
     margin:0 auto;
   }
+  /* Stats */
   .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:1px;
     max-width:980px;
-    margin:0 auto 120px;
+    margin:0 auto 140px;
     background:var(--divider);
-    border-radius:18px;
+    border-radius:20px;
     overflow:hidden;
   }
   .stat{
     background:var(--card);
-    padding:48px 24px;
+    padding:52px 24px 48px;
     text-align:center;
   }
   .stat-number{
-    font-size:48px;
+    font-size:56px;
     font-weight:700;
-    letter-spacing:-0.02em;
+    letter-spacing:-0.025em;
     line-height:1;
     margin-bottom:8px;
   }
@@ -80,125 +84,122 @@
     font-size:14px;
     color:var(--text-secondary);
     font-weight:500;
+    line-height:1.4;
   }
-  .section{
-    max-width:980px;
-    margin:0 auto 120px;
-    padding:0 24px;
-  }
+  /* Section common */
   .section-label{
-    font-size:14px;
-    font-weight:500;
-    color:var(--text-secondary);
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin-bottom:8px;
+    font-size:17px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:6px;
   }
   .section h2{
-    font-size:40px;
+    font-size:48px;
     font-weight:700;
-    letter-spacing:-0.015em;
-    line-height:1.1;
-    margin-bottom:48px;
+    letter-spacing:-0.022em;
+    line-height:1.08;
+    margin-bottom:56px;
   }
-  .cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-  }
-  .card{
-    background:var(--card);
-    border-radius:18px;
-    padding:40px 32px;
-    box-shadow:0 2px 12px rgba(0,0,0,0.04);
-    transition:transform 0.3s ease,box-shadow 0.3s ease;
-  }
-  .card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 8px 30px rgba(0,0,0,0.08);
-  }
-  .card-icon{
-    width:48px;
-    height:48px;
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:20px;
-  }
-  .card-icon svg{
-    width:24px;
-    height:24px;
-    fill:#fff;
-  }
-  .card-icon.g1{background:var(--gradient-1)}
-  .card-icon.g2{background:var(--gradient-2)}
-  .card-icon.g3{background:var(--gradient-3)}
-  .card h3{
-    font-size:21px;
-    font-weight:600;
-    margin-bottom:12px;
-    letter-spacing:-0.01em;
-  }
-  .card p{
-    font-size:15px;
-    color:var(--text-secondary);
-    line-height:1.5;
-  }
-  .timeline{
+  /* Capabilities */
+  .capabilities{
     max-width:980px;
-    margin:0 auto 120px;
+    margin:0 auto 140px;
     padding:0 24px;
   }
-  .timeline h2{
-    font-size:40px;
-    font-weight:700;
-    letter-spacing:-0.015em;
-    margin-bottom:48px;
+  .cap-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
   }
-  .timeline-item{
-    display:flex;
+  .cap-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:44px 36px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+    transition:transform 0.35s cubic-bezier(.25,.46,.45,.94),box-shadow 0.35s ease;
+  }
+  .cap-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 40px rgba(0,0,0,0.08);
+  }
+  .cap-icon{
+    width:44px;
+    height:44px;
+    margin-bottom:24px;
+  }
+  .cap-icon svg{
+    width:100%;
+    height:100%;
+    stroke:var(--accent);
+    stroke-width:1.5;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .cap-card h3{
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin-bottom:10px;
+  }
+  .cap-card p{
+    font-size:15px;
+    color:var(--text-secondary);
+    line-height:1.53;
+  }
+  /* Experience */
+  .experience{
+    max-width:980px;
+    margin:0 auto 140px;
+    padding:0 24px;
+  }
+  .exp-list{
+    list-style:none;
+  }
+  .exp-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
     gap:32px;
-    padding:32px 0;
+    padding:36px 0;
     border-bottom:1px solid var(--divider);
   }
-  .timeline-item:last-child{border-bottom:none}
-  .timeline-period{
-    font-size:14px;
-    color:var(--text-secondary);
+  .exp-item:last-child{border-bottom:none}
+  .exp-period{
+    font-size:15px;
     font-weight:500;
-    min-width:120px;
-    padding-top:4px;
+    color:var(--text-secondary);
+    padding-top:2px;
   }
-  .timeline-content h3{
-    font-size:21px;
+  .exp-role{
+    font-size:19px;
     font-weight:600;
     margin-bottom:4px;
   }
-  .timeline-content .company{
-    font-size:17px;
+  .exp-company{
+    font-size:15px;
     color:var(--text-secondary);
     margin-bottom:8px;
   }
-  .timeline-content p{
+  .exp-desc{
     font-size:15px;
     color:var(--text-secondary);
-    line-height:1.5;
+    line-height:1.53;
   }
+  /* CTA */
   .cta{
     text-align:center;
-    padding:80px 24px 120px;
+    padding:100px 24px 140px;
   }
   .cta h2{
-    font-size:40px;
+    font-size:48px;
     font-weight:700;
-    letter-spacing:-0.015em;
+    letter-spacing:-0.022em;
     margin-bottom:16px;
   }
   .cta p{
     font-size:21px;
     color:var(--text-secondary);
-    margin-bottom:32px;
+    margin-bottom:36px;
   }
   .btn{
     display:inline-flex;
@@ -216,18 +217,22 @@
     cursor:pointer;
   }
   .btn:hover{background:var(--accent-hover)}
-  .btn-secondary{
+  .btn-outline{
+    display:inline-block;
     background:transparent;
     color:var(--accent);
-    border:none;
-    text-decoration:underline;
-    text-underline-offset:4px;
-    cursor:pointer;
     font-size:17px;
     font-weight:500;
+    margin-top:16px;
+    cursor:pointer;
+    border:none;
+    text-decoration:none;
+    transition:opacity 0.2s;
   }
+  .btn-outline:hover{opacity:0.7}
+  /* Footer */
   .footer{
-    padding:40px 24px;
+    padding:32px 24px;
     text-align:center;
     font-size:12px;
     color:var(--text-secondary);
@@ -235,35 +240,35 @@
     max-width:980px;
     margin:0 auto;
   }
+  /* Chat */
   .chat-btn{
     position:fixed;
-    bottom:24px;
-    right:24px;
-    width:56px;
-    height:56px;
+    bottom:28px;
+    right:28px;
+    width:52px;
+    height:52px;
     border-radius:50%;
     background:var(--accent);
-    color:#fff;
     border:none;
     cursor:pointer;
-    box-shadow:0 4px 20px rgba(0,113,227,0.4);
+    box-shadow:0 4px 16px rgba(0,113,227,0.3);
     display:flex;
     align-items:center;
     justify-content:center;
     transition:transform 0.2s ease;
     z-index:1000;
   }
-  .chat-btn:hover{transform:scale(1.08)}
-  .chat-btn svg{width:24px;height:24px;fill:#fff}
+  .chat-btn:hover{transform:scale(1.06)}
+  .chat-btn svg{width:22px;height:22px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .chat-panel{
     position:fixed;
-    bottom:92px;
-    right:24px;
-    width:360px;
-    max-height:480px;
+    bottom:90px;
+    right:28px;
+    width:340px;
+    max-height:460px;
     background:var(--card);
-    border-radius:20px;
-    box-shadow:0 12px 40px rgba(0,0,0,0.12);
+    border-radius:18px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.1);
     overflow:hidden;
     z-index:1000;
     display:none;
@@ -271,7 +276,7 @@
   }
   .chat-panel.active{display:flex}
   .chat-header{
-    padding:16px 20px;
+    padding:14px 18px;
     border-bottom:1px solid var(--divider);
     font-weight:600;
     font-size:15px;
@@ -284,17 +289,18 @@
   }
   .chat-messages{
     flex:1;
-    padding:16px 20px;
+    padding:16px 18px;
     overflow-y:auto;
     font-size:14px;
     line-height:1.5;
     color:var(--text);
+    min-height:200px;
   }
   .chat-messages .msg{margin-bottom:12px}
   .chat-messages .msg.bot{color:var(--text)}
   .chat-messages .msg.user{text-align:right;color:var(--accent)}
   .chat-input{
-    padding:12px 16px;
+    padding:12px 14px;
     border-top:1px solid var(--divider);
     display:flex;
     gap:8px;
@@ -316,53 +322,82 @@
     cursor:pointer;
   }
   @media(max-width:768px){
+    .hero{padding:120px 20px 80px}
     .hero h1{font-size:40px}
-    .hero p{font-size:17px}
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .stat-number{font-size:36px}
-    .cards{grid-template-columns:1fr}
-    .section h2,.timeline h2,.cta h2{font-size:28px}
-    .timeline-item{flex-direction:column;gap:8px}
-    .chat-panel{width:calc(100vw - 48px);right:24px;bottom:88px}
+    .hero p{font-size:18px}
+    .stats{grid-template-columns:repeat(2,1fr);margin-bottom:100px}
+    .stat-number{font-size:40px}
+    .cap-grid{grid-template-columns:1fr}
+    .section h2,.cta h2{font-size:32px}
+    .exp-item{grid-template-columns:1fr;gap:4px}
+    .chat-panel{width:calc(100vw - 56px);right:28px;bottom:86px}
   }
 </style>
 </head>
 <body>
 
+<!-- Hero -->
 <section class="hero">
+  <div class="hero-eyebrow">麻明</div>
   <div class="hero-label">汽车行业 · AI 数字化 · 产品运营</div>
-  <h1>麻明</h1>
-  <p>在汽车行业干了 15 年。现在用 AI 帮企业把效率翻 10 倍。</p>
+  <h1>用 AI 把效率<br>翻 10 倍。</h1>
+  <p>在汽车行业干了 15 年。现在用 AI 帮企业搭建自动化运营系统。</p>
 </section>
 
+<!-- Stats -->
 <div class="stats">
-  <div class="stat"><div class="stat-number">15</div><div class="stat-label">年汽车行业经验</div></div>
-  <div class="stat"><div class="stat-number">35+</div><div class="stat-label">家经销商辅导</div></div>
-  <div class="stat"><div class="stat-number">10×</div><div class="stat-label">效率提升</div></div>
-  <div class="stat"><div class="stat-number">100+</div><div class="stat-label">份真实数据案例</div></div>
+  <div class="stat">
+    <div class="stat-number">15</div>
+    <div class="stat-label">年汽车行业<br>经验</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">35+</div>
+    <div class="stat-label">家经销商<br>辅导</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">10×</div>
+    <div class="stat-label">效率<br>提升</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">100+</div>
+    <div class="stat-label">份真实数据<br>案例</div>
+  </div>
 </div>
 
-<section class="section">
+<!-- Capabilities -->
+<section class="capabilities">
   <div class="section-label">能力</div>
   <h2>我能做什么</h2>
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon g1">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-icon">
+        <svg viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="18"/>
+          <path d="M14 22 L20 28 L30 16"/>
+        </svg>
       </div>
       <h3>AI 运营系统搭建</h3>
       <p>从 0 到 1 搭建 AI Agent 系统，实现企微私域、内容运营、数据分析的全流程自动化。</p>
     </div>
-    <div class="card">
-      <div class="card-icon g2">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+    <div class="cap-card">
+      <div class="cap-icon">
+        <svg viewBox="0 0 44 44">
+          <rect x="8" y="24" width="6" height="12" rx="1"/>
+          <rect x="19" y="16" width="6" height="20" rx="1"/>
+          <rect x="30" y="8" width="6" height="28" rx="1"/>
+        </svg>
       </div>
       <h3>经销商诊断与咨询</h3>
       <p>基于 35+ 家经销商辅导经验，用 AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。</p>
     </div>
-    <div class="card">
-      <div class="card-icon g3">
-        <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+    <div class="cap-card">
+      <div class="cap-icon">
+        <svg viewBox="0 0 44 44">
+          <path d="M10 30 L16 14 L24 24 L34 8"/>
+          <circle cx="16" cy="14" r="2"/>
+          <circle cx="24" cy="24" r="2"/>
+          <circle cx="34" cy="8" r="2"/>
+        </svg>
       </div>
       <h3>汽车行业数字化转型</h3>
       <p>15 年奔驰、英菲尼迪、安永经验，深谙主机厂 + 经销商 + 咨询三端业务逻辑。</p>
@@ -370,123 +405,120 @@
   </div>
 </section>
 
-<section class="timeline">
+<!-- Experience -->
+<section class="experience">
   <div class="section-label">经历</div>
   <h2>职业履历</h2>
-  <div class="timeline-item">
-    <div class="timeline-period">2025.02 — 至今</div>
-    <div class="timeline-content">
-      <h3>咨询总监（AI 产品方向）</h3>
-      <div class="company">港泓咨询</div>
-      <p>主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-period">2024.04 — 2025.02</div>
-    <div class="timeline-content">
-      <h3>高级产品运营（AI 方向）</h3>
-      <div class="company">易车</div>
-      <p>负责 AI 产品运营，探索大模型在汽车内容场景的应用。</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-period">2017.12 — 2024.04</div>
-    <div class="timeline-content">
-      <h3>高级项目经理（汽车行业）</h3>
-      <div class="company">安永（中国）</div>
-      <p>7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-period">2014.12 — 2017.12</div>
-    <div class="timeline-content">
-      <h3>项目经理</h3>
-      <div class="company">东风英菲尼迪</div>
-      <p>负责经销商网络发展、培训体系搭建、销售运营优化。</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-period">2011.11 — 2014.12</div>
-    <div class="timeline-content">
-      <h3>项目经理</h3>
-      <div class="company">梅赛德斯-奔驰</div>
-      <p>经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</p>
-    </div>
-  </div>
+  <ul class="exp-list">
+    <li class="exp-item">
+      <span class="exp-period">2025.02 — 至今</span>
+      <div>
+        <div class="exp-role">咨询总监（AI 产品方向）</div>
+        <div class="exp-company">港泓咨询</div>
+        <div class="exp-desc">主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</div>
+      </div>
+    </li>
+    <li class="exp-item">
+      <span class="exp-period">2024.04 — 2025.02</span>
+      <div>
+        <div class="exp-role">高级产品运营（AI 方向）</div>
+        <div class="exp-company">易车</div>
+        <div class="exp-desc">负责 AI 产品运营，探索大模型在汽车内容场景的应用。</div>
+      </div>
+    </li>
+    <li class="exp-item">
+      <span class="exp-period">2017.12 — 2024.04</span>
+      <div>
+        <div class="exp-role">高级项目经理（汽车行业）</div>
+        <div class="exp-company">安永（中国）</div>
+        <div class="exp-desc">7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</div>
+      </div>
+    </li>
+    <li class="exp-item">
+      <span class="exp-period">2014.12 — 2017.12</span>
+      <div>
+        <div class="exp-role">项目经理</div>
+        <div class="exp-company">东风英菲尼迪</div>
+        <div class="exp-desc">负责经销商网络发展、培训体系搭建、销售运营优化。</div>
+      </div>
+    </li>
+    <li class="exp-item">
+      <span class="exp-period">2011.11 — 2014.12</span>
+      <div>
+        <div class="exp-role">项目经理</div>
+        <div class="exp-company">梅赛德斯-奔驰</div>
+        <div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div>
+      </div>
+    </li>
+  </ul>
 </section>
 
+<!-- CTA -->
 <section class="cta">
-  <h2>想聊聊合作？</h2>
-  <p>加我的企微，体验 AI 助理自动接待。</p>
-  <a href="weixin://" class="btn">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.028.14-.028.213 0 .163.13.294.29.294a.326.326 0 00.167-.054l1.903-1.112a.864.864 0 01.718-.098 10.17 10.17 0 002.816.403c.284 0 .563-.015.839-.042a7.135 7.135 0 01-.262-1.933c0-3.776 3.405-6.84 7.616-6.84.276 0 .546.017.813.042-.949-3.343-4.646-5.897-8.996-5.897zm12.73 6.165c-3.837 0-6.954 2.812-6.954 6.29 0 3.478 3.117 6.29 6.954 6.29a8.066 8.066 0 002.234-.314.715.715 0 01.592.08l1.568.92a.268.268 0 00.138.044c.132 0 .238-.107.238-.24a.52.52 0 00-.023-.175l-.322-1.22a.486.486 0 01.175-.547c1.504-1.11 2.473-2.77 2.473-4.648 0-3.478-3.117-6.29-6.954-6.29h-.121z"/></svg>
-    添加企微
-  </a>
-  <div style="margin-top:16px">
-    <button class="btn-secondary" onclick="toggleChat()">或者直接在这里问我</button>
-  </div>
+  <h2>想聊聊？</h2>
+  <p>加我企微，体验 AI 助理自动接待。</p>
+  <a href="weixin://" class="btn">添加企微</a>
+  <br>
+  <button class="btn-outline" onclick="toggleChat()">或者直接在这里问我 →</button>
 </section>
 
+<!-- Footer -->
 <div class="footer">
-  <p>© 2026 麻明 · 中国农业大学 国际经济与贸易</p>
+  <p>© 2026 麻明 · 中国农业大学 · 国际经济与贸易</p>
 </div>
 
-<button class="chat-btn" onclick="toggleChat()">
-  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+<!-- Chat -->
+<button class="chat-btn" onclick="toggleChat()" aria-label="Chat">
+  <svg viewBox="0 0 24 24">
+    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+  </svg>
 </button>
 <div class="chat-panel" id="chatPanel">
-  <div class="chat-header"><span class="dot"></span> AI 助理 · 麻明</div>
+  <div class="chat-header"><span class="dot"></span> AI 助理</div>
   <div class="chat-messages" id="chatMessages">
-    <div class="msg bot">你好，我是麻明的 AI 助理。你可以问我：<br>• 麻明的职业经历<br>• 他做过哪些项目<br>• AI 运营系统是什么<br>• 如何合作</div>
+    <div class="msg bot">你好，我是麻明的 AI 助理。<br>你可以问我他的职业经历、项目经验，或者咨询合作。</div>
   </div>
   <div class="chat-input">
-    <input id="chatInput" placeholder="问我任何问题…" onkeydown="if(event.key==='Enter')sendMessage()">
+    <input id="chatInput" placeholder="输入问题…" onkeydown="if(event.key==='Enter')sendMessage()">
     <button onclick="sendMessage()">发送</button>
   </div>
 </div>
 
 <script>
-const knowledgeBase = {
-  '经历|履历|工作|在哪|公司|职业': '麻明在汽车行业干了 15 年。目前就职于港泓咨询，担任咨询总监（AI 产品方向）。之前在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作过。',
-  '安永|EY|咨询': '麻明在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。',
-  '奔驰|宝马|保时捷': '麻明最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。在安永期间服务过奔驰、宝马、保时捷等多个豪华品牌。',
-  '英菲尼迪|东风英菲尼迪': '麻明在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建、销售运营优化。',
-  '易车': '麻明在易车担任高级产品运营（AI 方向），负责 AI 产品运营，探索大模型在汽车内容场景的应用。',
-  '港泓': '目前麻明在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统。',
-  'AI|人工智能|数字化': '麻明目前最擅长的是 AI 运营系统搭建。他开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。他用这套系统服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。',
-  '项目|案例|诊断': '麻明最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。',
-  '合作|联系|加微信|企微|价格|收费': '你可以点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求，提供定制化的 AI 运营方案。',
-  '教育|学校|学历': '麻明毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。',
-  '你好|hello|hi|嗨': '你好！我是麻明的 AI 助理。你可以问我关于麻明的职业经历、项目经验，或者咨询 AI 运营系统的合作。',
+const kb = {
+  '经历|履历|工作|在哪|公司|职业': '麻明在汽车行业干了 15 年。目前在港泓咨询担任咨询总监（AI 产品方向）。之前先后在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作。',
+  '安永|EY': '在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。',
+  '奔驰|宝马|保时捷': '最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。在安永期间继续服务多个豪华品牌。',
+  '英菲尼迪': '在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建、销售运营优化。',
+  '易车': '在易车担任高级产品运营（AI 方向），探索大模型在汽车内容场景的应用。',
+  '港泓': '目前在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地。',
+  'AI|人工智能|数字化|Agent': '目前最擅长的是 AI 运营系统搭建。开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。',
+  '项目|案例|诊断|经销商': '最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。',
+  '合作|联系|加微信|企微|价格|收费': '点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求提供定制化的 AI 运营方案。',
+  '教育|学校|学历|毕业': '毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。',
+  '你好|hello|hi|嗨|在吗': '你好！我是麻明的 AI 助理。你可以问我关于他的职业经历、项目经验，或者咨询 AI 运营系统的合作。',
 };
 
-function getAnswer(question) {
-  for (const [keys, answer] of Object.entries(knowledgeBase)) {
-    const words = keys.split('|');
-    if (words.some(w => question.toLowerCase().includes(w.toLowerCase()))) {
-      return answer;
-    }
+function getAnswer(q) {
+  for (const [keys, ans] of Object.entries(kb)) {
+    if (keys.split('|').some(w => q.toLowerCase().includes(w.toLowerCase()))) return ans;
   }
   return '这个问题我还不太了解。你可以添加麻明的企微，他本人会详细回答你。';
 }
 
 function toggleChat() {
-  const panel = document.getElementById('chatPanel');
-  panel.classList.toggle('active');
+  document.getElementById('chatPanel').classList.toggle('active');
 }
 
 function sendMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
   if (!msg) return;
-
   const messages = document.getElementById('chatMessages');
   messages.innerHTML += '<div class="msg user">' + msg + '</div>';
   input.value = '';
-
   setTimeout(() => {
-    const answer = getAnswer(msg);
-  messages.innerHTML += '<div class="msg bot">' + answer + '</div>';
+    messages.innerHTML += '<div class="msg bot">' + getAnswer(msg) + '</div>';
     messages.scrollTop = messages.scrollHeight;
   }, 300);
 }

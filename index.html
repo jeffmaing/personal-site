@@ -4,153 +4,73 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>麻明 — 汽车行业 AI 数字化</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg:#fbfbfd;
-    --text:#1d1d1f;
-    --text-secondary:#6e6e73;
-    --card:#ffffff;
-    --divider:#d2d2d7;
-    --accent:#0071e3;
-    --accent-hover:#0077ed;
+    --bg:#fbfbfd;--text:#1d1d1f;--text-secondary:#6e6e73;
+    --card:#ffffff;--divider:#d2d2d7;
+    --accent:#0071e3;--accent-hover:#0077ed;
   }
   html{scroll-behavior:smooth}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC",Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+    background:var(--bg);color:var(--text);
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
     overflow-x:hidden;
   }
 
-  /* === Scroll Progress Bar === */
-  .scroll-progress{
-    position:fixed;top:0;left:0;height:2px;width:0%;
-    background:linear-gradient(90deg,var(--accent),#6366f1);
-    z-index:9999;transition:width 0.1s linear;
-  }
+  /* === Scroll Progress === */
+  .scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),#6366f1);z-index:9999;transition:width .1s linear}
 
   /* === Nav === */
-  .nav{
-    position:fixed;top:0;left:0;right:0;
-    padding:0 48px;height:52px;
-    display:flex;align-items:center;justify-content:space-between;
-    background:rgba(251,251,253,0.72);
-    backdrop-filter:saturate(180%) blur(20px);
-    -webkit-backdrop-filter:saturate(180%) blur(20px);
-    border-bottom:1px solid rgba(0,0,0,0.06);
-    z-index:1000;
-    opacity:0;transform:translateY(-100%);
-    transition:opacity 0.4s ease,transform 0.4s ease;
-  }
+  .nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(251,251,253,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:opacity .4s ease,transform .4s ease}
   .nav.visible{opacity:1;transform:translateY(0)}
   .nav-brand{font-size:15px;font-weight:600;color:var(--text)}
   .nav-links{display:flex;gap:28px}
-  .nav-links a{
-    font-size:13px;color:var(--text-secondary);
-    text-decoration:none;transition:color 0.2s;
-  }
+  .nav-links a{font-size:13px;color:var(--text-secondary);text-decoration:none;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
 
+  /* === Page System === */
+  .page{display:none;min-height:100vh}
+  .page.active{display:block;animation:pageIn .5s ease}
+  @keyframes pageIn{from{opacity:0}to{opacity:1}}
+
   /* === Hero === */
-  .hero{
-    padding:200px 24px 120px;
-    text-align:center;
-    max-width:900px;
-    margin:0 auto;
-    transition:opacity 0.3s ease;
-  }
-  .hero-eyebrow{
-    font-size:17px;font-weight:600;color:var(--text);
-    margin-bottom:8px;
-  }
-  .hero-label{
-    font-size:21px;font-weight:400;color:var(--text-secondary);
-    margin-bottom:32px;
-  }
-  .hero h1{
-    font-size:72px;font-weight:700;
-    letter-spacing:-0.03em;line-height:1.04;
-    margin-bottom:28px;
-    background:linear-gradient(135deg,#1d1d1f 0%,#6e6e73 50%,#0071e3 100%);
-    background-size:200% 200%;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    background-clip:text;
-    animation:gradientShift 8s ease infinite;
-  }
-  @keyframes gradientShift{
-    0%,100%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-  }
-  .hero p{
-    font-size:21px;font-weight:400;
-    color:var(--text-secondary);line-height:1.47;
-    max-width:520px;margin:0 auto;
-  }
+  .hero{padding:200px 24px 120px;text-align:center;max-width:900px;margin:0 auto;transition:opacity .3s ease}
+  .hero-eyebrow{font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px}
+  .hero-label{font-size:21px;font-weight:400;color:var(--text-secondary);margin-bottom:32px}
+  .hero h1{font-size:72px;font-weight:700;letter-spacing:-.03em;line-height:1.04;margin-bottom:28px;background:linear-gradient(135deg,#1d1d1f,#6e6e73 50%,#0071e3);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 8s ease infinite}
+  @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .hero p{font-size:21px;font-weight:400;color:var(--text-secondary);line-height:1.47;max-width:520px;margin:0 auto}
 
   /* === Stats === */
-  .stats{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    gap:1px;max-width:980px;margin:0 auto 140px;
-    background:var(--divider);border-radius:20px;overflow:hidden;
-  }
-  .stat{
-    background:var(--card);padding:52px 24px 48px;text-align:center;
-  }
-  .stat-number{
-    font-size:56px;font-weight:700;
-    letter-spacing:-0.025em;line-height:1;margin-bottom:8px;
-  }
-  .stat-label{
-    font-size:14px;color:var(--text-secondary);font-weight:500;line-height:1.4;
-  }
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:980px;margin:0 auto 140px;background:var(--divider);border-radius:20px;overflow:hidden}
+  .stat{background:var(--card);padding:52px 24px 48px;text-align:center;cursor:pointer;transition:background .3s}
+  .stat:hover{background:#f5f5f7}
+  .stat-number{font-size:56px;font-weight:700;letter-spacing:-.025em;line-height:1;margin-bottom:8px;color:var(--accent)}
+  .stat-label{font-size:14px;color:var(--text-secondary);font-weight:500;line-height:1.4}
 
-  /* === Section Common === */
-  .section-label{
-    font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px;
-  }
-  .section h2{
-    font-size:48px;font-weight:700;
-    letter-spacing:-0.022em;line-height:1.08;margin-bottom:56px;
-  }
+  /* === Section === */
+  .section-label{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
+  .section h2{font-size:48px;font-weight:700;letter-spacing:-.022em;line-height:1.08;margin-bottom:56px}
 
   /* === Capabilities === */
   .capabilities{max-width:980px;margin:0 auto 140px;padding:0 24px}
   .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .cap-card{
-    background:var(--card);border-radius:20px;padding:44px 36px;
-    box-shadow:0 1px 3px rgba(0,0,0,0.04);
-    transition:transform 0.35s cubic-bezier(.25,.46,.45,.94),box-shadow 0.35s ease;
-    position:relative;overflow:hidden;
-  }
-  .cap-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-    background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(0,113,227,0.06),transparent 40%);
-    opacity:0;transition:opacity 0.3s;pointer-events:none;
-  }
+  .cap-card{background:var(--card);border-radius:20px;padding:44px 36px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .35s cubic-bezier(.25,.46,.45,.94),box-shadow .35s ease;position:relative;overflow:hidden;cursor:pointer}
+  .cap-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(0,113,227,.06),transparent 40%);opacity:0;transition:opacity .3s;pointer-events:none}
   .cap-card:hover::before{opacity:1}
-  .cap-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 12px 40px rgba(0,0,0,0.08);
-  }
+  .cap-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
   .cap-icon{width:44px;height:44px;margin-bottom:24px}
-  .cap-icon svg{
-    width:100%;height:100%;stroke:var(--accent);stroke-width:1.5;
-    fill:none;stroke-linecap:round;stroke-linejoin:round;
-  }
-  .cap-card h3{font-size:22px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px}
+  .cap-icon svg{width:100%;height:100%;stroke:var(--accent);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .cap-card h3{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px}
   .cap-card p{font-size:15px;color:var(--text-secondary);line-height:1.53}
 
   /* === Experience === */
   .experience{max-width:980px;margin:0 auto 140px;padding:0 24px}
   .exp-list{list-style:none}
-  .exp-item{
-    display:grid;grid-template-columns:140px 1fr;gap:32px;
-    padding:36px 0;border-bottom:1px solid var(--divider);
-  }
+  .exp-item{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--divider)}
   .exp-item:last-child{border-bottom:none}
   .exp-period{font-size:15px;font-weight:500;color:var(--text-secondary);padding-top:2px}
   .exp-role{font-size:19px;font-weight:600;margin-bottom:4px}
@@ -159,124 +79,117 @@
 
   /* === CTA === */
   .cta{text-align:center;padding:100px 24px 140px}
-  .cta h2{
-    font-size:48px;font-weight:700;letter-spacing:-0.022em;margin-bottom:16px;
-  }
+  .cta h2{font-size:48px;font-weight:700;letter-spacing:-.022em;margin-bottom:16px}
   .cta p{font-size:21px;color:var(--text-secondary);margin-bottom:36px}
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--accent);color:#fff;font-size:17px;font-weight:500;
-    padding:14px 28px;border-radius:980px;text-decoration:none;
-    transition:background 0.2s ease,transform 0.2s ease;border:none;cursor:pointer;
-  }
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:17px;font-weight:500;padding:14px 28px;border-radius:980px;text-decoration:none;transition:background .2s,transform .2s;border:none;cursor:pointer}
   .btn:hover{background:var(--accent-hover);transform:scale(1.04)}
-  .btn-outline{
-    display:inline-block;background:transparent;color:var(--accent);
-    font-size:17px;font-weight:500;margin-top:16px;cursor:pointer;
-    border:none;text-decoration:none;transition:opacity 0.2s;
-  }
-  .btn-outline:hover{opacity:0.7}
+  .btn-outline{display:inline-block;background:transparent;color:var(--accent);font-size:17px;font-weight:500;margin-top:16px;cursor:pointer;border:none;text-decoration:none;transition:opacity .2s}
+  .btn-outline:hover{opacity:.7}
 
   /* === Footer === */
-  .footer{
-    padding:32px 24px;text-align:center;font-size:12px;
-    color:var(--text-secondary);border-top:1px solid var(--divider);
-    max-width:980px;margin:0 auto;
-  }
+  .footer{padding:32px 24px;text-align:center;font-size:12px;color:var(--text-secondary);border-top:1px solid var(--divider);max-width:980px;margin:0 auto}
 
   /* === Chat === */
-  .chat-btn{
-    position:fixed;bottom:28px;right:28px;
-    width:52px;height:52px;border-radius:50%;
-    background:var(--accent);border:none;cursor:pointer;
-    box-shadow:0 4px 16px rgba(0,113,227,0.3);
-    display:flex;align-items:center;justify-content:center;
-    transition:transform 0.2s ease,box-shadow 0.2s ease;z-index:1000;
-  }
-  .chat-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,113,227,0.4)}
+  .chat-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,113,227,.3);display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;z-index:1000}
+  .chat-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,113,227,.4)}
   .chat-btn svg{width:22px;height:22px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .chat-panel{
-    position:fixed;bottom:90px;right:28px;
-    width:340px;max-height:460px;
-    background:var(--card);border-radius:18px;
-    box-shadow:0 8px 32px rgba(0,0,0,0.1);
-    overflow:hidden;z-index:1000;
-    display:none;flex-direction:column;
-    animation:chatSlideUp 0.3s ease;
-  }
-  @keyframes chatSlideUp{
-    from{opacity:0;transform:translateY(12px)}
-    to{opacity:1;transform:translateY(0)}
-  }
+  .chat-panel{position:fixed;bottom:90px;right:28px;width:340px;max-height:460px;background:var(--card);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,.1);overflow:hidden;z-index:1000;display:none;flex-direction:column;animation:chatSlideUp .3s ease}
+  @keyframes chatSlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .chat-panel.active{display:flex}
-  .chat-header{
-    padding:14px 18px;border-bottom:1px solid var(--divider);
-    font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px;
-  }
+  .chat-header{padding:14px 18px;border-bottom:1px solid var(--divider);font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px}
   .chat-header .dot{width:8px;height:8px;border-radius:50%;background:#30d158}
-  .chat-messages{
-    flex:1;padding:16px 18px;overflow-y:auto;
-    font-size:14px;line-height:1.5;color:var(--text);min-height:200px;
-  }
+  .chat-messages{flex:1;padding:16px 18px;overflow-y:auto;font-size:14px;line-height:1.5;color:var(--text);min-height:200px}
   .chat-messages .msg{margin-bottom:12px}
   .chat-messages .msg.bot{color:var(--text)}
   .chat-messages .msg.user{text-align:right;color:var(--accent)}
-  .chat-input{
-    padding:12px 14px;border-top:1px solid var(--divider);display:flex;gap:8px;
-  }
-  .chat-input input{
-    flex:1;border:none;background:transparent;font-size:14px;
-    outline:none;font-family:inherit;
-  }
-  .chat-input button{
-    background:none;border:none;color:var(--accent);
-    font-size:14px;font-weight:600;cursor:pointer;
-  }
+  .chat-input{padding:12px 14px;border-top:1px solid var(--divider);display:flex;gap:8px}
+  .chat-input input{flex:1;border:none;background:transparent;font-size:14px;outline:none;font-family:inherit}
+  .chat-input button{background:none;border:none;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer}
 
   /* === Scroll Animations === */
-  .reveal{
-    opacity:0;transform:translateY(32px);
-    transition:opacity 0.7s cubic-bezier(.25,.46,.45,.94),
-               transform 0.7s cubic-bezier(.25,.46,.45,.94);
-  }
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
   .reveal.visible{opacity:1;transform:translateY(0)}
-  .reveal-d1{transition-delay:0.1s}
-  .reveal-d2{transition-delay:0.2s}
-  .reveal-d3{transition-delay:0.3s}
-  .reveal-d4{transition-delay:0.4s}
+  .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+
+  /* === Sub-pages === */
+  .sub-page{padding:100px 24px 80px;max-width:800px;margin:0 auto;min-height:100vh}
+  .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;margin-bottom:48px;transition:opacity .2s}
+  .back-link:hover{opacity:.7}
+  .back-link svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+  .sub-title{font-size:40px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+  .sub-subtitle{font-size:17px;color:var(--text-secondary);margin-bottom:48px}
+  .sub-section{margin-bottom:48px}
+  .sub-section h3{font-size:22px;font-weight:600;margin-bottom:16px}
+  .sub-section p{font-size:15px;color:var(--text-secondary);line-height:1.6}
+
+  /* === Data Viz (Pure CSS) === */
+  .bar-chart{display:flex;flex-direction:column;gap:16px}
+  .bar-row{display:flex;align-items:center;gap:12px}
+  .bar-label{font-size:14px;color:var(--text);min-width:80px;font-weight:500}
+  .bar-track{flex:1;height:32px;background:#f0f0f2;border-radius:8px;overflow:hidden;position:relative}
+  .bar-fill{height:100%;border-radius:8px;width:0%;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
+  .bar-fill.blue{background:linear-gradient(90deg,#0071e3,#6366f1)}
+  .bar-fill.green{background:linear-gradient(90deg,#30d158,#34c759)}
+  .bar-fill.orange{background:linear-gradient(90deg,#ff9500,#ff6b00)}
+  .bar-fill.purple{background:linear-gradient(90deg,#af52de,#5e5ce6)}
+  .bar-value{font-size:14px;font-weight:600;color:var(--text);min-width:60px;text-align:right}
+
+  .comparison{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0}
+  .comp-card{background:var(--card);border-radius:16px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .comp-card.old{border-left:3px solid #ff3b30}
+  .comp-card.new{border-left:3px solid #30d158}
+  .comp-card h4{font-size:15px;font-weight:600;margin-bottom:16px}
+  .comp-card ul{list-style:none}
+  .comp-card li{font-size:14px;color:var(--text-secondary);padding:6px 0;display:flex;justify-content:space-between}
+  .comp-card li span{font-weight:600;color:var(--text)}
+
+  .case-card{background:var(--card);border-radius:16px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:20px;cursor:pointer;transition:transform .3s,box-shadow .3s}
+  .case-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.08)}
+  .case-card h4{font-size:18px;font-weight:600;margin-bottom:8px}
+  .case-card .case-desc{font-size:14px;color:var(--text-secondary);margin-bottom:12px;line-height:1.5}
+  .case-card .case-tags{display:flex;gap:8px;flex-wrap:wrap}
+  .case-tag{font-size:12px;background:#f0f0f2;padding:4px 10px;border-radius:980px;color:var(--text-secondary)}
+  .case-card .case-arrow{float:right;font-size:18px;color:var(--accent);transition:transform .3s}
+  .case-card:hover .case-arrow{transform:translateX(4px)}
+
+  /* ECharts container */
+  .chart-container{width:100%;height:300px;margin:24px 0;border-radius:16px;overflow:hidden}
+
+  /* === Typewriter === */
+  .typewriter{overflow:hidden;white-space:nowrap;border-right:2px solid var(--accent);animation:blink .75s step-end infinite;width:0}
+  .typewriter.active{animation:typewriter 2s steps(40) forwards,blink .75s step-end infinite}
+  @keyframes typewriter{from{width:0}to{width:100%}}
+  @keyframes blink{from,to{border-color:transparent}50%{border-color:var(--accent)}}
+
+  /* === Flip number === */
+  .flip-num{display:inline-block;transition:transform .3s}
 
   /* === Responsive === */
   @media(max-width:768px){
-    .nav{padding:0 20px}
-    .hero{padding:140px 20px 80px}
-    .hero h1{font-size:42px}
-    .hero p{font-size:18px}
-    .stats{grid-template-columns:repeat(2,1fr);margin-bottom:100px}
-    .stat-number{font-size:40px}
-    .cap-grid{grid-template-columns:1fr}
-    .section h2,.cta h2{font-size:32px}
-    .exp-item{grid-template-columns:1fr;gap:4px}
-    .chat-panel{width:calc(100vw - 56px);right:28px;bottom:86px}
-    .nav-links{display:none}
+    .nav{padding:0 20px}.hero{padding:140px 20px 80px}.hero h1{font-size:42px}.hero p{font-size:18px}
+    .stats{grid-template-columns:repeat(2,1fr);margin-bottom:100px}.stat-number{font-size:40px}
+    .cap-grid{grid-template-columns:1fr}.section h2,.cta h2,.sub-title{font-size:32px}
+    .exp-item{grid-template-columns:1fr;gap:4px}.chat-panel{width:calc(100vw - 56px);right:28px;bottom:86px}
+    .nav-links{display:none}.comparison{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
 
-<!-- Scroll Progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- Nav -->
 <nav class="nav" id="nav">
   <div class="nav-brand">麻明</div>
   <div class="nav-links">
-    <a href="#capabilities">能力</a>
-    <a href="#experience">经历</a>
+    <a href="#capabilities" onclick="showPage('home')">能力</a>
+    <a href="#experience" onclick="showPage('home')">经历</a>
     <a href="#" onclick="toggleChat();return false">联系</a>
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- ============ HOME ============ -->
+<div class="page active" id="page-home">
+
 <section class="hero" id="hero">
   <div class="hero-eyebrow reveal">麻明</div>
   <div class="hero-label reveal reveal-d1">汽车行业 · AI 数字化 · 产品运营</div>
@@ -284,104 +197,59 @@
   <p class="reveal reveal-d3">在汽车行业干了 15 年。现在用 AI 帮企业搭建自动化运营系统。</p>
 </section>
 
-<!-- Stats -->
 <div class="stats">
-  <div class="stat reveal">
+  <div class="stat reveal" onclick="showPage('experience')">
     <div class="stat-number" data-target="15" data-suffix="">0</div>
     <div class="stat-label">年汽车行业<br>经验</div>
   </div>
-  <div class="stat reveal reveal-d1">
+  <div class="stat reveal reveal-d1" onclick="showPage('data')">
     <div class="stat-number" data-target="35" data-suffix="+">0</div>
     <div class="stat-label">家经销商<br>辅导</div>
   </div>
-  <div class="stat reveal reveal-d2">
+  <div class="stat reveal reveal-d2" onclick="showPage('efficiency')">
     <div class="stat-number" data-target="10" data-suffix="×">0</div>
     <div class="stat-label">效率<br>提升</div>
   </div>
-  <div class="stat reveal reveal-d3">
+  <div class="stat reveal reveal-d3" onclick="showPage('cases')">
     <div class="stat-number" data-target="100" data-suffix="+">0</div>
     <div class="stat-label">份真实数据<br>案例</div>
   </div>
 </div>
 
-<!-- Capabilities -->
 <section class="capabilities reveal" id="capabilities">
   <div class="section-label">能力</div>
   <h2>我能做什么</h2>
   <div class="cap-grid">
-    <div class="cap-card reveal reveal-d1">
-      <div class="cap-icon">
-        <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"/><path d="M14 22 L20 28 L30 16"/></svg>
-      </div>
+    <div class="cap-card reveal reveal-d1" onclick="showPage('project-bmw')">
+      <div class="cap-icon"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"/><path d="M14 22 L20 28 L30 16"/></svg></div>
       <h3>AI 运营系统搭建</h3>
       <p>从 0 到 1 搭建 AI Agent 系统，实现企微私域、内容运营、数据分析的全流程自动化。</p>
     </div>
-    <div class="cap-card reveal reveal-d2">
-      <div class="cap-icon">
-        <svg viewBox="0 0 44 44"><rect x="8" y="24" width="6" height="12" rx="1"/><rect x="19" y="16" width="6" height="20" rx="1"/><rect x="30" y="8" width="6" height="28" rx="1"/></svg>
-      </div>
+    <div class="cap-card reveal reveal-d2" onclick="showPage('project-diagnosis')">
+      <div class="cap-icon"><svg viewBox="0 0 44 44"><rect x="8" y="24" width="6" height="12" rx="1"/><rect x="19" y="16" width="6" height="20" rx="1"/><rect x="30" y="8" width="6" height="28" rx="1"/></svg></div>
       <h3>经销商诊断与咨询</h3>
       <p>基于 35+ 家经销商辅导经验，用 AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。</p>
     </div>
-    <div class="cap-card reveal reveal-d3">
-      <div class="cap-icon">
-        <svg viewBox="0 0 44 44"><path d="M10 30 L16 14 L24 24 L34 8"/><circle cx="16" cy="14" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="34" cy="8" r="2"/></svg>
-      </div>
+    <div class="cap-card reveal reveal-d3" onclick="showPage('project-engine')">
+      <div class="cap-icon"><svg viewBox="0 0 44 44"><path d="M10 30 L16 14 L24 24 L34 8"/><circle cx="16" cy="14" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="34" cy="8" r="2"/></svg></div>
       <h3>汽车行业数字化转型</h3>
       <p>15 年奔驰、英菲尼迪、安永经验，深谙主机厂 + 经销商 + 咨询三端业务逻辑。</p>
     </div>
   </div>
 </section>
 
-<!-- Experience -->
 <section class="experience reveal" id="experience">
   <div class="section-label">经历</div>
   <h2>职业履历</h2>
   <ul class="exp-list">
-    <li class="exp-item">
-      <span class="exp-period">2025.02 — 至今</span>
-      <div>
-        <div class="exp-role">咨询总监（AI 产品方向）</div>
-        <div class="exp-company">港泓咨询</div>
-        <div class="exp-desc">主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</div>
-      </div>
-    </li>
-    <li class="exp-item">
-      <span class="exp-period">2024.04 — 2025.02</span>
-      <div>
-        <div class="exp-role">高级产品运营（AI 方向）</div>
-        <div class="exp-company">易车</div>
-        <div class="exp-desc">负责 AI 产品运营，探索大模型在汽车内容场景的应用。</div>
-      </div>
-    </li>
-    <li class="exp-item">
-      <span class="exp-period">2017.12 — 2024.04</span>
-      <div>
-        <div class="exp-role">高级项目经理（汽车行业）</div>
-        <div class="exp-company">安永（中国）</div>
-        <div class="exp-desc">7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</div>
-      </div>
-    </li>
-    <li class="exp-item">
-      <span class="exp-period">2014.12 — 2017.12</span>
-      <div>
-        <div class="exp-role">项目经理</div>
-        <div class="exp-company">东风英菲尼迪</div>
-        <div class="exp-desc">负责经销商网络发展、培训体系搭建、销售运营优化。</div>
-      </div>
-    </li>
-    <li class="exp-item">
-      <span class="exp-period">2011.11 — 2014.12</span>
-      <div>
-        <div class="exp-role">项目经理</div>
-        <div class="exp-company">梅赛德斯-奔驰</div>
-        <div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div>
-      </div>
-    </li>
+    <li class="exp-item"><span class="exp-period">2025.02 — 至今</span><div><div class="exp-role">咨询总监（AI 产品方向）</div><div class="exp-company">港泓咨询</div><div class="exp-desc">主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</div></div></li>
+    <li class="exp-item"><span class="exp-period">2024.04 — 2025.02</span><div><div class="exp-role">高级产品运营（AI 方向）</div><div class="exp-company">易车</div><div class="exp-desc">负责 AI 产品运营，探索大模型在汽车内容场景的应用。</div></div></li>
+    <li class="exp-item"><span class="exp-period">2017.12 — 2024.04</span><div><div class="exp-role">高级项目经理（汽车行业）</div><div class="exp-company">安永（中国）</div><div class="exp-desc">7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</div></div></li>
+    <li class="exp-item"><span class="exp-period">2014.12 — 2017.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">东风英菲尼迪</div><div class="exp-desc">负责经销商网络发展、培训体系搭建、销售运营优化。</div></div></li>
+    <li class="exp-item"><span class="exp-period">2011.11 — 2014.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">梅赛德斯-奔驰</div><div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div></div></li>
   </ul>
 </section>
 
-<!-- CTA -->
 <section class="cta reveal">
   <h2>想聊聊？</h2>
   <p>加我企微，体验 AI 助理自动接待。</p>
@@ -390,16 +258,225 @@
   <button class="btn-outline" onclick="toggleChat()">或者直接在这里问我 →</button>
 </section>
 
-<!-- Footer -->
-<div class="footer">
-  <p>© 2026 麻明 · 中国农业大学 · 国际经济与贸易</p>
+<div class="footer"><p>© 2026 麻明 · 中国农业大学 · 国际经济与贸易</p></div>
 </div>
 
-<!-- Chat -->
+<!-- ============ EXPERIENCE PAGE ============ -->
+<div class="page" id="page-experience">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
+  <div class="sub-title reveal">15 年汽车行业经验</div>
+  <div class="sub-subtitle reveal reveal-d1">从一线主机厂到顶级咨询，再到 AI 数字化</div>
+
+  <div class="sub-section reveal">
+    <h3>完整履历</h3>
+    <div class="exp-list" style="border:none">
+      <div class="exp-item"><span class="exp-period">2025.02 — 至今</span><div><div class="exp-role">咨询总监（AI 产品方向）</div><div class="exp-company">港泓咨询</div><div class="exp-desc">主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</div></div></div>
+      <div class="exp-item"><span class="exp-period">2024.04 — 2025.02</span><div><div class="exp-role">高级产品运营（AI 方向）</div><div class="exp-company">易车</div><div class="exp-desc">负责 AI 产品运营，探索大模型在汽车内容场景的应用。</div></div></div>
+      <div class="exp-item"><span class="exp-period">2017.12 — 2024.04</span><div><div class="exp-role">高级项目经理（汽车行业）</div><div class="exp-company">安永（中国）</div><div class="exp-desc">7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</div></div></div>
+      <div class="exp-item"><span class="exp-period">2014.12 — 2017.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">东风英菲尼迪</div><div class="exp-desc">负责经销商网络发展、培训体系搭建、销售运营优化。</div></div></div>
+      <div class="exp-item"><span class="exp-period">2011.11 — 2014.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">梅赛德斯-奔驰</div><div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div></div></div>
+    </div>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>教育背景</h3>
+    <div class="exp-item" style="border-bottom:none"><span class="exp-period">2003.09 — 2007.06</span><div><div class="exp-role">国际经济与贸易 · 本科</div><div class="exp-company">中国农业大学</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ DATA PAGE ============ -->
+<div class="page" id="page-data">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
+  <div class="sub-title reveal">35+ 家经销商辅导</div>
+  <div class="sub-subtitle reveal reveal-d1">真实数据，真实成果</div>
+
+  <div class="sub-section reveal">
+    <h3>核心数据</h3>
+    <div class="bar-chart" id="barChart1">
+      <div class="bar-row"><div class="bar-label">服务经销商</div><div class="bar-track"><div class="bar-fill blue" data-width="85"></div></div><div class="bar-value">35 家</div></div>
+      <div class="bar-row"><div class="bar-label">平均跟进轮次</div><div class="bar-track"><div class="bar-fill green" data-width="65"></div></div><div class="bar-value">4 轮</div></div>
+      <div class="bar-row"><div class="bar-label">诊断报告</div><div class="bar-track"><div class="bar-fill orange" data-width="75"></div></div><div class="bar-value">100+ 份</div></div>
+      <div class="bar-row"><div class="bar-label">效率提升</div><div class="bar-track"><div class="bar-fill purple" data-width="95"></div></div><div class="bar-value">10×</div></div>
+    </div>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>服务品牌分布</h3>
+    <div id="brandChart" class="chart-container" style="height:280px"></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ EFFICIENCY PAGE ============ -->
+<div class="page" id="page-efficiency">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
+  <div class="sub-title reveal">效率提升 10 倍</div>
+  <div class="sub-subtitle reveal reveal-d1">从 2 天到 10 分钟，AI 如何做到</div>
+
+  <div class="sub-section reveal">
+    <h3>对比</h3>
+    <div class="comparison">
+      <div class="comp-card old">
+        <h4>⏱ 以前（手动方式）</h4>
+        <ul>
+          <li>收集经销商 Excel <span>2 小时</span></li>
+          <li>手动计算 5 大指标 <span>3 小时</span></li>
+          <li>对比历史数据 <span>2 小时</span></li>
+          <li>手写诊断报告 <span>3 小时</span></li>
+          <li style="border-top:1px solid #f0f0f2;margin-top:8px;padding-top:8px;font-weight:600">合计 <span style="color:#ff3b30">10 小时/店</span></li>
+        </ul>
+      </div>
+      <div class="comp-card new">
+        <h4>⚡ 现在（AI 方式）</h4>
+        <ul>
+          <li>自动提取 KPI <span>30 秒</span></li>
+          <li>自动对比基准 <span>1 分钟</span></li>
+          <li>自动判断状态 <span>1 分钟</span></li>
+          <li>自动生成报告 <span>5 分钟</span></li>
+          <li style="border-top:1px solid #f0f0f2;margin-top:8px;padding-top:8px;font-weight:600">合计 <span style="color:#30d158">10 分钟/店</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>35 家店的总体节省</h3>
+    <div id="efficiencyChart" class="chart-container" style="height:250px"></div>
+    <p style="text-align:center;font-size:15px;color:var(--text-secondary);margin-top:16px">
+      35 家店 × 10 小时 = <strong style="color:#ff3b30">350 小时</strong>，AI 只需要 <strong style="color:#30d158">5.8 小时</strong>，节省了 <strong>344 小时</strong>
+    </p>
+  </div>
+</div>
+</div>
+
+<!-- ============ CASES PAGE ============ -->
+<div class="page" id="page-cases">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
+  <div class="sub-title reveal">100+ 项目案例</div>
+  <div class="sub-subtitle reveal reveal-d1">每一个都是真实落地</div>
+
+  <div class="sub-section reveal">
+    <div class="case-card" onclick="showPage('project-bmw')">
+      <span class="case-arrow">→</span>
+      <h4>BMW 沙盘系统</h4>
+      <div class="case-desc">将 Excel 沙盘完整迁移到 Web 端，44 个 Sheet → 44 个 HTML 页面，保留全部公式逻辑和 S 曲线可视化。</div>
+      <div class="case-tags"><span class="case-tag">44 页面</span><span class="case-tag">1359 公式</span><span class="case-tag">计算引擎</span></div>
+    </div>
+    <div class="case-card" onclick="showPage('project-diagnosis')">
+      <span class="case-arrow">→</span>
+      <h4>AI 经销商诊断系统</h4>
+      <div class="case-desc">基于 35 家经销商真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。</div>
+      <div class="case-tags"><span class="case-tag">35 家经销商</span><span class="case-tag">5 大指标</span><span class="case-tag">10 分钟出报告</span></div>
+    </div>
+    <div class="case-card" onclick="showPage('project-engine')">
+      <span class="case-arrow">→</span>
+      <h4>AI 企微运营引擎</h4>
+      <div class="case-desc">1000 客户 × 1000 套话术，24 小时在线，基于画像的精准沟通，从"群发广告"到"千人千面"。</div>
+      <div class="case-tags"><span class="case-tag">千人千面</span><span class="case-tag">24h 在线</span><span class="case-tag">画像驱动</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ PROJECT: BMW ============ -->
+<div class="page" id="page-project-bmw">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('cases')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回案例</a>
+  <div class="sub-title reveal">BMW 沙盘系统</div>
+  <div class="sub-subtitle reveal reveal-d1">把 Excel 搬上 Web，保留全部计算逻辑</div>
+
+  <div class="sub-section reveal">
+    <h3>项目概览</h3>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">HTML 页面</div><div class="bar-track"><div class="bar-fill blue" data-width="90"></div></div><div class="bar-value">44</div></div>
+      <div class="bar-row"><div class="bar-label">提取公式</div><div class="bar-track"><div class="bar-fill green" data-width="85"></div></div><div class="bar-value">1,359</div></div>
+      <div class="bar-row"><div class="bar-label">跨表引用</div><div class="bar-track"><div class="bar-fill orange" data-width="70"></div></div><div class="bar-value">678</div></div>
+      <div class="bar-row"><div class="bar-label">SVG 元素</div><div class="bar-track"><div class="bar-fill purple" data-width="40"></div></div><div class="bar-value">85</div></div>
+    </div>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>挑战</h3>
+    <p>Excel 有 44 个 Sheet，每个都有复杂的公式和跨表引用。要在 Web 上 100% 复刻，包括 S 曲线可视化和循环引用计算。这不是简单的"截图转 HTML"，而是要保留完整的计算能力。</p>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>解决方案</h3>
+    <p>1. 从源文件解析，不硬编码颜色和数据<br>2. 构建完整依赖图，识别 25 个循环引用<br>3. 实现 JS 计算引擎，14 项指标 100% 对齐<br>4. 彩色 S 曲线从单元格边缘出发，用 SVG 实现</p>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>成果</h3>
+    <p>✅ 44 个 Sheet → 44 个 HTML 页面<br>✅ 14 项指标 100% 对齐 Excel<br>✅ 35 家经销商 KPI 数据库构建完成<br>✅ 经验文档 296 行（可复用方法论）</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ PROJECT: DIAGNOSIS ============ -->
+<div class="page" id="page-project-diagnosis">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('cases')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回案例</a>
+  <div class="sub-title reveal">AI 经销商诊断系统</div>
+  <div class="sub-subtitle reveal reveal-d1">10 分钟完成过去 2 天的工作</div>
+
+  <div class="sub-section reveal">
+    <h3>核心指标</h3>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">服务门店</div><div class="bar-track"><div class="bar-fill blue" data-width="88"></div></div><div class="bar-value">35 家</div></div>
+      <div class="bar-row"><div class="bar-label">核心指标</div><div class="bar-track"><div class="bar-fill green" data-width="50"></div></div><div class="bar-value">5 个</div></div>
+      <div class="bar-row"><div class="bar-label">诊断报告</div><div class="bar-track"><div class="bar-fill orange" data-width="75"></div></div><div class="bar-value">100+ 份</div></div>
+    </div>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>工作流程</h3>
+    <p>输入经销商 Excel → AI 自动提取 KPI（订单转化率、达成率、人效、库存占比…）→ 对比 34 家店的行业基准 → 自动判断状态（优秀/正常/预警/异常）→ 生成诊断报告 + 辅导建议。</p>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>5 大核心指标</h3>
+    <p>订单转化率 · 目标达成率 · 人效 · 库存占比 · 客流转化率</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ PROJECT: ENGINE ============ -->
+<div class="page" id="page-project-engine">
+<div class="sub-page">
+  <a class="back-link" onclick="showPage('cases')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回案例</a>
+  <div class="sub-title reveal">AI 企微运营引擎</div>
+  <div class="sub-subtitle reveal reveal-d1">1000 客户 × 1000 套话术</div>
+
+  <div class="sub-section reveal">
+    <h3>核心理念</h3>
+    <p>不是"群发广告"，而是基于每个客户的画像，在合适的时机，用合适的话术，进行一对一的精准沟通。</p>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>能力矩阵</h3>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">客户容量</div><div class="bar-track"><div class="bar-fill blue" data-width="95"></div></div><div class="bar-value">1000+</div></div>
+      <div class="bar-row"><div class="bar-label">话术个性化</div><div class="bar-track"><div class="bar-fill green" data-width="90"></div></div><div class="bar-value">千人千面</div></div>
+      <div class="bar-row"><div class="bar-label">响应速度</div><div class="bar-track"><div class="bar-fill orange" data-width="100"></div></div><div class="bar-value">秒回</div></div>
+      <div class="bar-row"><div class="bar-label">在线时长</div><div class="bar-track"><div class="bar-fill purple" data-width="100"></div></div><div class="bar-value">24h</div></div>
+    </div>
+  </div>
+
+  <div class="sub-section reveal">
+    <h3>数据源</h3>
+    <p>工单信息 · 销售记录 · 个人信息 · 外网公开数据 → 构建完整客户画像 → AI 理解 → 精准沟通。</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ CHAT ============ -->
 <button class="chat-btn" onclick="toggleChat()" aria-label="Chat">
-  <svg viewBox="0 0 24 24">
-    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
-  </svg>
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
 </button>
 <div class="chat-panel" id="chatPanel">
   <div class="chat-header"><span class="dot"></span> AI 助理</div>
@@ -413,71 +490,81 @@
 </div>
 
 <script>
+// === Page System ===
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) {
+    page.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Trigger reveal animations
+    setTimeout(() => {
+      page.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      // Trigger bar animations
+      page.querySelectorAll('.bar-fill[data-width]').forEach((bar, i) => {
+        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, i * 150);
+      });
+      // Init ECharts
+      initCharts(id);
+    }, 100);
+  }
+}
+
 // === Scroll Progress ===
 const progressBar = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
   const h = document.documentElement;
-  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  progressBar.style.width = pct + '%';
+  progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
 });
 
-// === Nav visibility ===
+// === Nav ===
 const nav = document.getElementById('nav');
-let lastScroll = 0;
 window.addEventListener('scroll', () => {
-  const st = window.pageYOffset;
-  if (st > 400) nav.classList.add('visible');
-  else nav.classList.remove('visible');
-  lastScroll = st;
+  nav.classList.toggle('visible', window.pageYOffset > 400);
 });
 
-// === Hero parallax fade ===
+// === Hero parallax ===
 const hero = document.getElementById('hero');
 window.addEventListener('scroll', () => {
   const st = window.pageYOffset;
-  const opacity = Math.max(0, 1 - st / 600);
-  const scale = 1 - st / 3000;
-  hero.style.opacity = opacity;
-  hero.style.transform = `scale(${Math.max(0.95, scale)})`;
+  hero.style.opacity = Math.max(0, 1 - st / 600);
+  hero.style.transform = 'scale(' + Math.max(0.95, 1 - st / 3000) + ')';
 });
 
 // === Reveal on scroll ===
-const reveals = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
+const reveals = document.querySelectorAll('#page-home .reveal');
+const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
+      revealObs.unobserve(e.target);
     }
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => revealObserver.observe(el));
+reveals.forEach(el => revealObs.observe(el));
 
 // === Number counter ===
 let counted = false;
-const statNumbers = document.querySelectorAll('.stat-number[data-target]');
-const countObserver = new IntersectionObserver((entries) => {
+const statNums = document.querySelectorAll('.stat-number[data-target]');
+const countObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting && !counted) {
       counted = true;
-      statNumbers.forEach(el => {
+      statNums.forEach(el => {
         const target = parseInt(el.dataset.target);
         const suffix = el.dataset.suffix || '';
         let current = 0;
         const step = Math.max(1, Math.floor(target / 40));
         const interval = setInterval(() => {
           current += step;
-          if (current >= target) {
-            current = target;
-            clearInterval(interval);
-          }
+          if (current >= target) { current = target; clearInterval(interval); }
           el.textContent = current + suffix;
         }, 30);
       });
     }
   });
 }, { threshold: 0.5 });
-statNumbers.forEach(el => countObserver.observe(el));
+statNums.forEach(el => countObs.observe(el));
 
 // === Card mouse glow ===
 document.querySelectorAll('.cap-card').forEach(card => {
@@ -488,10 +575,50 @@ document.querySelectorAll('.cap-card').forEach(card => {
   });
 });
 
-// === Chat ===
-function toggleChat() {
-  document.getElementById('chatPanel').classList.toggle('active');
+// === ECharts ===
+let chartsInited = {};
+function initCharts(pageId) {
+  if (chartsInited[pageId]) return;
+  if (pageId === 'data') {
+    const c = echarts.init(document.getElementById('brandChart'));
+    c.setOption({
+      tooltip: { trigger: 'item' },
+      series: [{
+        type: 'pie', radius: ['40%', '70%'], avoidLabelOverlap: false,
+        itemStyle: { borderRadius: 8, borderColor: '#fff', borderWidth: 2 },
+        label: { show: false },
+        data: [
+          { value: 22, name: '奔驰', itemStyle: { color: '#0071e3' } },
+          { value: 8, name: '宝马', itemStyle: { color: '#6366f1' } },
+          { value: 3, name: '保时捷', itemStyle: { color: '#30d158' } },
+          { value: 2, name: '其他', itemStyle: { color: '#ff9500' } }
+        ]
+      }]
+    });
+    chartsInited.data = c;
+  }
+  if (pageId === 'efficiency') {
+    const c = echarts.init(document.getElementById('efficiencyChart'));
+    c.setOption({
+      tooltip: { trigger: 'axis' },
+      xAxis: { type: 'category', data: ['手动方式', 'AI 方式'], axisLabel: { fontSize: 14 } },
+      yAxis: { type: 'value', name: '小时', nameTextStyle: { fontSize: 12 } },
+      series: [{
+        type: 'bar', data: [
+          { value: 350, itemStyle: { color: '#ff3b30' } },
+          { value: 5.8, itemStyle: { color: '#30d158' } }
+        ],
+        barWidth: 60,
+        label: { show: true, position: 'top', fontSize: 14, fontWeight: 'bold' }
+      }],
+      grid: { top: 40, bottom: 40, left: 60, right: 30 }
+    });
+    chartsInited.efficiency = c;
+  }
 }
+
+// === Chat ===
+function toggleChat() { document.getElementById('chatPanel').classList.toggle('active'); }
 function sendMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();

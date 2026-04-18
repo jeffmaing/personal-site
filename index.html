@@ -20,10 +20,8 @@
     overflow-x:hidden;
   }
 
-  /* === Scroll Progress === */
   .scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),#6366f1);z-index:9999;transition:width .1s linear}
 
-  /* === Nav === */
   .nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between;background:rgba(251,251,253,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:opacity .4s ease,transform .4s ease}
   .nav.visible{opacity:1;transform:translateY(0)}
   .nav-brand{font-size:15px;font-weight:600;color:var(--text)}
@@ -31,12 +29,10 @@
   .nav-links a{font-size:13px;color:var(--text-secondary);text-decoration:none;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
 
-  /* === Page System === */
   .page{display:none;min-height:100vh}
   .page.active{display:block;animation:pageIn .5s ease}
   @keyframes pageIn{from{opacity:0}to{opacity:1}}
 
-  /* === Hero === */
   .hero{padding:200px 24px 120px;text-align:center;max-width:900px;margin:0 auto;transition:opacity .3s ease}
   .hero-eyebrow{font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px}
   .hero-label{font-size:21px;font-weight:400;color:var(--text-secondary);margin-bottom:32px}
@@ -44,18 +40,15 @@
   @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
   .hero p{font-size:21px;font-weight:400;color:var(--text-secondary);line-height:1.47;max-width:520px;margin:0 auto}
 
-  /* === Stats === */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:980px;margin:0 auto 140px;background:var(--divider);border-radius:20px;overflow:hidden}
   .stat{background:var(--card);padding:52px 24px 48px;text-align:center;cursor:pointer;transition:background .3s}
   .stat:hover{background:#f5f5f7}
   .stat-number{font-size:56px;font-weight:700;letter-spacing:-.025em;line-height:1;margin-bottom:8px;color:var(--accent)}
   .stat-label{font-size:14px;color:var(--text-secondary);font-weight:500;line-height:1.4}
 
-  /* === Section === */
   .section-label{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
   .section h2{font-size:48px;font-weight:700;letter-spacing:-.022em;line-height:1.08;margin-bottom:56px}
 
-  /* === Capabilities === */
   .capabilities{max-width:980px;margin:0 auto 140px;padding:0 24px}
   .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .cap-card{background:var(--card);border-radius:20px;padding:44px 36px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .35s cubic-bezier(.25,.46,.45,.94),box-shadow .35s ease;position:relative;overflow:hidden;cursor:pointer}
@@ -67,7 +60,6 @@
   .cap-card h3{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px}
   .cap-card p{font-size:15px;color:var(--text-secondary);line-height:1.53}
 
-  /* === Experience === */
   .experience{max-width:980px;margin:0 auto 140px;padding:0 24px}
   .exp-list{list-style:none}
   .exp-item{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--divider)}
@@ -77,7 +69,6 @@
   .exp-company{font-size:15px;color:var(--text-secondary);margin-bottom:8px}
   .exp-desc{font-size:15px;color:var(--text-secondary);line-height:1.53}
 
-  /* === CTA === */
   .cta{text-align:center;padding:100px 24px 140px}
   .cta h2{font-size:48px;font-weight:700;letter-spacing:-.022em;margin-bottom:16px}
   .cta p{font-size:21px;color:var(--text-secondary);margin-bottom:36px}
@@ -86,10 +77,8 @@
   .btn-outline{display:inline-block;background:transparent;color:var(--accent);font-size:17px;font-weight:500;margin-top:16px;cursor:pointer;border:none;text-decoration:none;transition:opacity .2s}
   .btn-outline:hover{opacity:.7}
 
-  /* === Footer === */
   .footer{padding:32px 24px;text-align:center;font-size:12px;color:var(--text-secondary);border-top:1px solid var(--divider);max-width:980px;margin:0 auto}
 
-  /* === Chat === */
   .chat-btn{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,113,227,.3);display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;z-index:1000}
   .chat-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,113,227,.4)}
   .chat-btn svg{width:22px;height:22px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
@@ -106,12 +95,11 @@
   .chat-input input{flex:1;border:none;background:transparent;font-size:14px;outline:none;font-family:inherit}
   .chat-input button{background:none;border:none;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer}
 
-  /* === Scroll Animations === */
   .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
   .reveal.visible{opacity:1;transform:translateY(0)}
   .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
 
-  /* === Sub-pages === */
+  /* Sub-pages */
   .sub-page{padding:100px 24px 80px;max-width:800px;margin:0 auto;min-height:100vh}
   .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;margin-bottom:48px;transition:opacity .2s}
   .back-link:hover{opacity:.7}
@@ -122,7 +110,26 @@
   .sub-section h3{font-size:22px;font-weight:600;margin-bottom:16px}
   .sub-section p{font-size:15px;color:var(--text-secondary);line-height:1.6}
 
-  /* === Data Viz (Pure CSS) === */
+  /* Before/After */
+  .ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+  .ba-card{border-radius:16px;padding:28px;position:relative;overflow:hidden}
+  .ba-card.before{background:#fff5f5;border-left:3px solid #ff3b30}
+  .ba-card.after{background:#f0fff4;border-left:3px solid #30d158}
+  .ba-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding:4px 10px;border-radius:4px;display:inline-block}
+  .ba-card.before .ba-badge{background:#ff3b30;color:#fff}
+  .ba-card.after .ba-badge{background:#30d158;color:#fff}
+  .ba-card ul{list-style:none}
+  .ba-card li{font-size:14px;color:var(--text-secondary);padding:6px 0;line-height:1.5;position:relative;padding-left:16px}
+  .ba-card li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%}
+  .ba-card.before li::before{background:#ff3b30}
+  .ba-card.after li::before{background:#30d158}
+
+  .story-card{background:var(--card);border-radius:16px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:20px}
+  .story-card h4{font-size:16px;font-weight:600;margin-bottom:8px}
+  .story-card p{font-size:14px;color:var(--text-secondary);line-height:1.5}
+  .story-card .story-metric{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 12px;background:#f0f7ff;border-radius:8px;font-size:13px;font-weight:600;color:var(--accent)}
+
+  /* Data Viz */
   .bar-chart{display:flex;flex-direction:column;gap:16px}
   .bar-row{display:flex;align-items:center;gap:12px}
   .bar-label{font-size:14px;color:var(--text);min-width:80px;font-weight:500}
@@ -152,92 +159,62 @@
   .case-card .case-arrow{float:right;font-size:18px;color:var(--accent);transition:transform .3s}
   .case-card:hover .case-arrow{transform:translateX(4px)}
 
-  /* ECharts container */
   .chart-container{width:100%;height:300px;margin:24px 0;border-radius:16px;overflow:hidden}
 
-  /* === Typewriter === */
-  .typewriter{overflow:hidden;white-space:nowrap;border-right:2px solid var(--accent);animation:blink .75s step-end infinite;width:0}
-  .typewriter.active{animation:typewriter 2s steps(40) forwards,blink .75s step-end infinite}
-  @keyframes typewriter{from{width:0}to{width:100%}}
-  @keyframes blink{from,to{border-color:transparent}50%{border-color:var(--accent)}}
+  .tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
+  .tech-tag{font-size:13px;padding:8px 14px;background:#f5f5f7;border-radius:8px;text-align:center;font-weight:500}
 
-  /* === Flip number === */
-  .flip-num{display:inline-block;transition:transform .3s}
+  .timeline-viz{position:relative;padding-left:24px;margin:24px 0}
+  .timeline-viz::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--divider)}
+  .timeline-viz .tl-item{position:relative;padding:16px 0 24px 24px}
+  .timeline-viz .tl-item::before{content:'';position:absolute;left:-20px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 2px var(--accent)}
+  .timeline-viz .tl-item h4{font-size:15px;font-weight:600;margin-bottom:4px}
+  .timeline-viz .tl-item p{font-size:13px;color:var(--text-secondary);line-height:1.5}
 
-  /* === Responsive === */
   @media(max-width:768px){
     .nav{padding:0 20px}.hero{padding:140px 20px 80px}.hero h1{font-size:42px}.hero p{font-size:18px}
     .stats{grid-template-columns:repeat(2,1fr);margin-bottom:100px}.stat-number{font-size:40px}
     .cap-grid{grid-template-columns:1fr}.section h2,.cta h2,.sub-title{font-size:32px}
     .exp-item{grid-template-columns:1fr;gap:4px}.chat-panel{width:calc(100vw - 56px);right:28px;bottom:86px}
-    .nav-links{display:none}.comparison{grid-template-columns:1fr}
+    .nav-links{display:none}.comparison,.ba-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
 
 <div class="scroll-progress" id="scrollProgress"></div>
-
 <nav class="nav" id="nav">
   <div class="nav-brand">麻明</div>
   <div class="nav-links">
-    <a href="#capabilities" onclick="showPage('home')">能力</a>
-    <a href="#experience" onclick="showPage('home')">经历</a>
+    <a href="#" onclick="showPage('home')">能力</a>
+    <a href="#" onclick="showPage('home')">经历</a>
     <a href="#" onclick="toggleChat();return false">联系</a>
   </div>
 </nav>
 
 <!-- ============ HOME ============ -->
 <div class="page active" id="page-home">
-
 <section class="hero" id="hero">
   <div class="hero-eyebrow reveal">麻明</div>
   <div class="hero-label reveal reveal-d1">汽车行业 · AI 数字化 · 产品运营</div>
   <h1 class="reveal reveal-d2">用 AI 把效率<br>翻 10 倍。</h1>
   <p class="reveal reveal-d3">在汽车行业干了 15 年。现在用 AI 帮企业搭建自动化运营系统。</p>
 </section>
-
 <div class="stats">
-  <div class="stat reveal" onclick="showPage('experience')">
-    <div class="stat-number" data-target="15" data-suffix="">0</div>
-    <div class="stat-label">年汽车行业<br>经验</div>
-  </div>
-  <div class="stat reveal reveal-d1" onclick="showPage('data')">
-    <div class="stat-number" data-target="35" data-suffix="+">0</div>
-    <div class="stat-label">家经销商<br>辅导</div>
-  </div>
-  <div class="stat reveal reveal-d2" onclick="showPage('efficiency')">
-    <div class="stat-number" data-target="10" data-suffix="×">0</div>
-    <div class="stat-label">效率<br>提升</div>
-  </div>
-  <div class="stat reveal reveal-d3" onclick="showPage('cases')">
-    <div class="stat-number" data-target="100" data-suffix="+">0</div>
-    <div class="stat-label">份真实数据<br>案例</div>
-  </div>
+  <div class="stat reveal" onclick="showPage('experience')"><div class="stat-number" data-target="15" data-suffix="">0</div><div class="stat-label">年汽车行业<br>经验</div></div>
+  <div class="stat reveal reveal-d1" onclick="showPage('data')"><div class="stat-number" data-target="35" data-suffix="+">0</div><div class="stat-label">家经销商<br>辅导</div></div>
+  <div class="stat reveal reveal-d2" onclick="showPage('efficiency')"><div class="stat-number" data-target="10" data-suffix="×">0</div><div class="stat-label">效率<br>提升</div></div>
+  <div class="stat reveal reveal-d3" onclick="showPage('cases')"><div class="stat-number" data-target="100" data-suffix="+">0</div><div class="stat-label">份真实数据<br>案例</div></div>
 </div>
-
 <section class="capabilities reveal" id="capabilities">
   <div class="section-label">能力</div>
   <h2>我能做什么</h2>
   <div class="cap-grid">
-    <div class="cap-card reveal reveal-d1" onclick="showPage('project-bmw')">
-      <div class="cap-icon"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"/><path d="M14 22 L20 28 L30 16"/></svg></div>
-      <h3>AI 运营系统搭建</h3>
-      <p>从 0 到 1 搭建 AI Agent 系统，实现企微私域、内容运营、数据分析的全流程自动化。</p>
-    </div>
-    <div class="cap-card reveal reveal-d2" onclick="showPage('project-diagnosis')">
-      <div class="cap-icon"><svg viewBox="0 0 44 44"><rect x="8" y="24" width="6" height="12" rx="1"/><rect x="19" y="16" width="6" height="20" rx="1"/><rect x="30" y="8" width="6" height="28" rx="1"/></svg></div>
-      <h3>经销商诊断与咨询</h3>
-      <p>基于 35+ 家经销商辅导经验，用 AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。</p>
-    </div>
-    <div class="cap-card reveal reveal-d3" onclick="showPage('project-engine')">
-      <div class="cap-icon"><svg viewBox="0 0 44 44"><path d="M10 30 L16 14 L24 24 L34 8"/><circle cx="16" cy="14" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="34" cy="8" r="2"/></svg></div>
-      <h3>汽车行业数字化转型</h3>
-      <p>15 年奔驰、英菲尼迪、安永经验，深谙主机厂 + 经销商 + 咨询三端业务逻辑。</p>
-    </div>
+    <div class="cap-card reveal reveal-d1" onclick="showPage('project-bmw')"><div class="cap-icon"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"/><path d="M14 22 L20 28 L30 16"/></svg></div><h3>AI 运营系统搭建</h3><p>从 0 到 1 搭建 AI Agent 系统，实现企微私域、内容运营、数据分析的全流程自动化。</p></div>
+    <div class="cap-card reveal reveal-d2" onclick="showPage('project-diagnosis')"><div class="cap-icon"><svg viewBox="0 0 44 44"><rect x="8" y="24" width="6" height="12" rx="1"/><rect x="19" y="16" width="6" height="20" rx="1"/><rect x="30" y="8" width="6" height="28" rx="1"/></svg></div><h3>经销商诊断与咨询</h3><p>基于 35+ 家经销商辅导经验，用 AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。</p></div>
+    <div class="cap-card reveal reveal-d3" onclick="showPage('project-engine')"><div class="cap-icon"><svg viewBox="0 0 44 44"><path d="M10 30 L16 14 L24 24 L34 8"/><circle cx="16" cy="14" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="34" cy="8" r="2"/></svg></div><h3>汽车行业数字化转型</h3><p>15 年奔驰、英菲尼迪、安永经验，深谙主机厂 + 经销商 + 咨询三端业务逻辑。</p></div>
   </div>
 </section>
-
 <section class="experience reveal" id="experience">
   <div class="section-label">经历</div>
   <h2>职业履历</h2>
@@ -249,7 +226,6 @@
     <li class="exp-item"><span class="exp-period">2011.11 — 2014.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">梅赛德斯-奔驰</div><div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div></div></li>
   </ul>
 </section>
-
 <section class="cta reveal">
   <h2>想聊聊？</h2>
   <p>加我企微，体验 AI 助理自动接待。</p>
@@ -257,7 +233,6 @@
   <br>
   <button class="btn-outline" onclick="toggleChat()">或者直接在这里问我 →</button>
 </section>
-
 <div class="footer"><p>© 2026 麻明 · 中国农业大学 · 国际经济与贸易</p></div>
 </div>
 
@@ -267,18 +242,16 @@
   <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
   <div class="sub-title reveal">15 年汽车行业经验</div>
   <div class="sub-subtitle reveal reveal-d1">从一线主机厂到顶级咨询，再到 AI 数字化</div>
-
   <div class="sub-section reveal">
     <h3>完整履历</h3>
-    <div class="exp-list" style="border:none">
-      <div class="exp-item"><span class="exp-period">2025.02 — 至今</span><div><div class="exp-role">咨询总监（AI 产品方向）</div><div class="exp-company">港泓咨询</div><div class="exp-desc">主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</div></div></div>
-      <div class="exp-item"><span class="exp-period">2024.04 — 2025.02</span><div><div class="exp-role">高级产品运营（AI 方向）</div><div class="exp-company">易车</div><div class="exp-desc">负责 AI 产品运营，探索大模型在汽车内容场景的应用。</div></div></div>
-      <div class="exp-item"><span class="exp-period">2017.12 — 2024.04</span><div><div class="exp-role">高级项目经理（汽车行业）</div><div class="exp-company">安永（中国）</div><div class="exp-desc">7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</div></div></div>
-      <div class="exp-item"><span class="exp-period">2014.12 — 2017.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">东风英菲尼迪</div><div class="exp-desc">负责经销商网络发展、培训体系搭建、销售运营优化。</div></div></div>
-      <div class="exp-item"><span class="exp-period">2011.11 — 2014.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">梅赛德斯-奔驰</div><div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div></div></div>
-    </div>
+    <ul class="exp-list" style="border:none">
+      <li class="exp-item"><span class="exp-period">2025.02 — 至今</span><div><div class="exp-role">咨询总监（AI 产品方向）</div><div class="exp-company">港泓咨询</div><div class="exp-desc">主导 AI 产品在汽车行业的落地，搭建经销商 AI 诊断系统，服务 35+ 家奔驰门店。</div></div></li>
+      <li class="exp-item"><span class="exp-period">2024.04 — 2025.02</span><div><div class="exp-role">高级产品运营（AI 方向）</div><div class="exp-company">易车</div><div class="exp-desc">负责 AI 产品运营，探索大模型在汽车内容场景的应用。</div></div></li>
+      <li class="exp-item"><span class="exp-period">2017.12 — 2024.04</span><div><div class="exp-role">高级项目经理（汽车行业）</div><div class="exp-company">安永（中国）</div><div class="exp-desc">7 年汽车行业咨询，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。</div></div></li>
+      <li class="exp-item"><span class="exp-period">2014.12 — 2017.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">东风英菲尼迪</div><div class="exp-desc">负责经销商网络发展、培训体系搭建、销售运营优化。</div></div></li>
+      <li class="exp-item"><span class="exp-period">2011.11 — 2014.12</span><div><div class="exp-role">项目经理</div><div class="exp-company">梅赛德斯-奔驰</div><div class="exp-desc">经销商辅导项目，销售卓越体系搭建，区域市场策略执行。</div></div></li>
+    </ul>
   </div>
-
   <div class="sub-section reveal">
     <h3>教育背景</h3>
     <div class="exp-item" style="border-bottom:none"><span class="exp-period">2003.09 — 2007.06</span><div><div class="exp-role">国际经济与贸易 · 本科</div><div class="exp-company">中国农业大学</div></div></div>
@@ -292,9 +265,7 @@
   <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
   <div class="sub-title reveal">35+ 家经销商辅导</div>
   <div class="sub-subtitle reveal reveal-d1">真实数据，真实成果</div>
-
-  <div class="sub-section reveal">
-    <h3>核心数据</h3>
+  <div class="sub-section reveal"><h3>核心数据</h3>
     <div class="bar-chart" id="barChart1">
       <div class="bar-row"><div class="bar-label">服务经销商</div><div class="bar-track"><div class="bar-fill blue" data-width="85"></div></div><div class="bar-value">35 家</div></div>
       <div class="bar-row"><div class="bar-label">平均跟进轮次</div><div class="bar-track"><div class="bar-fill green" data-width="65"></div></div><div class="bar-value">4 轮</div></div>
@@ -302,11 +273,7 @@
       <div class="bar-row"><div class="bar-label">效率提升</div><div class="bar-track"><div class="bar-fill purple" data-width="95"></div></div><div class="bar-value">10×</div></div>
     </div>
   </div>
-
-  <div class="sub-section reveal">
-    <h3>服务品牌分布</h3>
-    <div id="brandChart" class="chart-container" style="height:280px"></div>
-  </div>
+  <div class="sub-section reveal"><h3>服务品牌分布</h3><div id="brandChart" class="chart-container" style="height:280px"></div></div>
 </div>
 </div>
 
@@ -316,39 +283,14 @@
   <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
   <div class="sub-title reveal">效率提升 10 倍</div>
   <div class="sub-subtitle reveal reveal-d1">从 2 天到 10 分钟，AI 如何做到</div>
-
-  <div class="sub-section reveal">
-    <h3>对比</h3>
+  <div class="sub-section reveal"><h3>对比</h3>
     <div class="comparison">
-      <div class="comp-card old">
-        <h4>⏱ 以前（手动方式）</h4>
-        <ul>
-          <li>收集经销商 Excel <span>2 小时</span></li>
-          <li>手动计算 5 大指标 <span>3 小时</span></li>
-          <li>对比历史数据 <span>2 小时</span></li>
-          <li>手写诊断报告 <span>3 小时</span></li>
-          <li style="border-top:1px solid #f0f0f2;margin-top:8px;padding-top:8px;font-weight:600">合计 <span style="color:#ff3b30">10 小时/店</span></li>
-        </ul>
-      </div>
-      <div class="comp-card new">
-        <h4>⚡ 现在（AI 方式）</h4>
-        <ul>
-          <li>自动提取 KPI <span>30 秒</span></li>
-          <li>自动对比基准 <span>1 分钟</span></li>
-          <li>自动判断状态 <span>1 分钟</span></li>
-          <li>自动生成报告 <span>5 分钟</span></li>
-          <li style="border-top:1px solid #f0f0f2;margin-top:8px;padding-top:8px;font-weight:600">合计 <span style="color:#30d158">10 分钟/店</span></li>
-        </ul>
-      </div>
+      <div class="comp-card old"><h4>⏱ 以前（手动方式）</h4><ul><li>收集经销商 Excel <span>2 小时</span></li><li>手动计算 5 大指标 <span>3 小时</span></li><li>对比历史数据 <span>2 小时</span></li><li>手写诊断报告 <span>3 小时</span></li><li style="border-top:1px solid #f0f0f2;margin-top:8px;padding-top:8px;font-weight:600">合计 <span style="color:#ff3b30">10 小时/店</span></li></ul></div>
+      <div class="comp-card new"><h4>⚡ 现在（AI 方式）</h4><ul><li>自动提取 KPI <span>30 秒</span></li><li>自动对比基准 <span>1 分钟</span></li><li>自动判断状态 <span>1 分钟</span></li><li>自动生成报告 <span>5 分钟</span></li><li style="border-top:1px solid #f0f0f2;margin-top:8px;padding-top:8px;font-weight:600">合计 <span style="color:#30d158">10 分钟/店</span></li></ul></div>
     </div>
   </div>
-
-  <div class="sub-section reveal">
-    <h3>35 家店的总体节省</h3>
-    <div id="efficiencyChart" class="chart-container" style="height:250px"></div>
-    <p style="text-align:center;font-size:15px;color:var(--text-secondary);margin-top:16px">
-      35 家店 × 10 小时 = <strong style="color:#ff3b30">350 小时</strong>，AI 只需要 <strong style="color:#30d158">5.8 小时</strong>，节省了 <strong>344 小时</strong>
-    </p>
+  <div class="sub-section reveal"><h3>35 家店的总体节省</h3><div id="efficiencyChart" class="chart-container" style="height:250px"></div>
+    <p style="text-align:center;font-size:15px;color:var(--text-secondary);margin-top:16px">35 家店 × 10 小时 = <strong style="color:#ff3b30">350 小时</strong>，AI 只需要 <strong style="color:#30d158">5.8 小时</strong>，节省了 <strong>344 小时</strong></p>
   </div>
 </div>
 </div>
@@ -359,26 +301,10 @@
   <a class="back-link" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回首页</a>
   <div class="sub-title reveal">100+ 项目案例</div>
   <div class="sub-subtitle reveal reveal-d1">每一个都是真实落地</div>
-
   <div class="sub-section reveal">
-    <div class="case-card" onclick="showPage('project-bmw')">
-      <span class="case-arrow">→</span>
-      <h4>BMW 沙盘系统</h4>
-      <div class="case-desc">将 Excel 沙盘完整迁移到 Web 端，44 个 Sheet → 44 个 HTML 页面，保留全部公式逻辑和 S 曲线可视化。</div>
-      <div class="case-tags"><span class="case-tag">44 页面</span><span class="case-tag">1359 公式</span><span class="case-tag">计算引擎</span></div>
-    </div>
-    <div class="case-card" onclick="showPage('project-diagnosis')">
-      <span class="case-arrow">→</span>
-      <h4>AI 经销商诊断系统</h4>
-      <div class="case-desc">基于 35 家经销商真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。</div>
-      <div class="case-tags"><span class="case-tag">35 家经销商</span><span class="case-tag">5 大指标</span><span class="case-tag">10 分钟出报告</span></div>
-    </div>
-    <div class="case-card" onclick="showPage('project-engine')">
-      <span class="case-arrow">→</span>
-      <h4>AI 企微运营引擎</h4>
-      <div class="case-desc">1000 客户 × 1000 套话术，24 小时在线，基于画像的精准沟通，从"群发广告"到"千人千面"。</div>
-      <div class="case-tags"><span class="case-tag">千人千面</span><span class="case-tag">24h 在线</span><span class="case-tag">画像驱动</span></div>
-    </div>
+    <div class="case-card" onclick="showPage('project-bmw')"><span class="case-arrow">→</span><h4>BMW 沙盘系统</h4><div class="case-desc">将 Excel 沙盘完整迁移到 Web 端，44 个 Sheet → 44 个 HTML 页面，保留全部公式逻辑和 S 曲线可视化。</div><div class="case-tags"><span class="case-tag">44 页面</span><span class="case-tag">1359 公式</span><span class="case-tag">计算引擎</span></div></div>
+    <div class="case-card" onclick="showPage('project-diagnosis')"><span class="case-arrow">→</span><h4>AI 经销商诊断系统</h4><div class="case-desc">基于 35 家经销商真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。</div><div class="case-tags"><span class="case-tag">35 家经销商</span><span class="case-tag">5 大指标</span><span class="case-tag">10 分钟出报告</span></div></div>
+    <div class="case-card" onclick="showPage('project-engine')"><span class="case-arrow">→</span><h4>AI 企微运营引擎</h4><div class="case-desc">1000 客户 × 1000 套话术，24 小时在线，基于画像的精准沟通，从"群发广告"到"千人千面"。</div><div class="case-tags"><span class="case-tag">千人千面</span><span class="case-tag">24h 在线</span><span class="case-tag">画像驱动</span></div></div>
   </div>
 </div>
 </div>
@@ -388,31 +314,74 @@
 <div class="sub-page">
   <a class="back-link" onclick="showPage('cases')"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>返回案例</a>
   <div class="sub-title reveal">BMW 沙盘系统</div>
-  <div class="sub-subtitle reveal reveal-d1">把 Excel 搬上 Web，保留全部计算逻辑</div>
+  <div class="sub-subtitle reveal reveal-d1">把一个 .xlsm 文件变成 Web 应用</div>
 
   <div class="sub-section reveal">
-    <h3>项目概览</h3>
-    <div class="bar-chart">
-      <div class="bar-row"><div class="bar-label">HTML 页面</div><div class="bar-track"><div class="bar-fill blue" data-width="90"></div></div><div class="bar-value">44</div></div>
-      <div class="bar-row"><div class="bar-label">提取公式</div><div class="bar-track"><div class="bar-fill green" data-width="85"></div></div><div class="bar-value">1,359</div></div>
-      <div class="bar-row"><div class="bar-label">跨表引用</div><div class="bar-track"><div class="bar-fill orange" data-width="70"></div></div><div class="bar-value">678</div></div>
-      <div class="bar-row"><div class="bar-label">SVG 元素</div><div class="bar-track"><div class="bar-fill purple" data-width="40"></div></div><div class="bar-value">85</div></div>
+    <h3>原来 vs 现在</h3>
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="ba-badge">原来</div>
+        <ul>
+          <li>一个 .xlsm 文件，44 个 Sheet，1359 个公式，678 个跨表引用</li>
+          <li>25 个循环引用，靠 Excel 迭代计算</li>
+          <li>只能一个人打开用，数据在本地，无法共享</li>
+          <li>改一个数字要等重算，改多了就卡死</li>
+          <li>没有版本管理，改了不知道谁改的</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-badge">现在</div>
+        <ul>
+          <li>44 个 HTML 页面，从源文件解析，不硬编码任何数据</li>
+          <li>彩色 S 曲线 + 箭头，从单元格边缘出发（V28 迭代）</li>
+          <li>构建完整依赖图，识别所有循环引用</li>
+          <li>35 家经销商 KPI 数据库，随时可查</li>
+          <li>计算引擎 14 项指标 100% 对齐 Excel</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <div class="sub-section reveal">
-    <h3>挑战</h3>
-    <p>Excel 有 44 个 Sheet，每个都有复杂的公式和跨表引用。要在 Web 上 100% 复刻，包括 S 曲线可视化和循环引用计算。这不是简单的"截图转 HTML"，而是要保留完整的计算能力。</p>
+    <h3>项目故事</h3>
+    <div class="story-card">
+      <h4>📌 为什么做这个项目？</h4>
+      <p>宝马的经销商沙盘是一个 Excel 文件，但它是整个售后业务的核心工具。教练用它做推演，经销商用它看差距。但这个文件太复杂了——44 个 Sheet，1359 个公式，25 个循环引用。每次打开都要等很久，而且只能一个人用。</p>
+      <div class="story-metric">🎯 目标：让 44 个 Sheet 变成 44 个网页，任何人都能随时查看</div>
+    </div>
+    <div class="story-card">
+      <h4>⚡ 最难的是什么？</h4>
+      <p>不是把 Excel 转成 HTML——那个很简单。最难的是保留计算逻辑。1359 个公式里有 678 个跨 Sheet 引用，还有 25 个循环引用。Excel 用迭代计算处理循环引用，JS 需要实现同样的逻辑。</p>
+      <div class="story-metric">💡 关键教训：从源文件解析，不要硬编码。Codex 比手写代码质量好 3 倍。</div>
+    </div>
+    <div class="story-card">
+      <h4>🚀 结果</h4>
+      <p>从 V1 到 V28，迭代了 28 个版本。最终 44 个 Sheet 全部变成 HTML，S 曲线从单元格边缘出发（而不是居中），计算引擎 14 项指标 100% 对齐。经验文档 296 行，以后遇到 Excel 复刻可以直接复用。</p>
+      <div class="story-metric">✅ 44 页面 · 1359 公式 · 678 跨表引用 · 14 项指标 100% 对齐</div>
+    </div>
   </div>
 
   <div class="sub-section reveal">
-    <h3>解决方案</h3>
-    <p>1. 从源文件解析，不硬编码颜色和数据<br>2. 构建完整依赖图，识别 25 个循环引用<br>3. 实现 JS 计算引擎，14 项指标 100% 对齐<br>4. 彩色 S 曲线从单元格边缘出发，用 SVG 实现</p>
+    <h3>技术栈</h3>
+    <div class="tech-grid">
+      <div class="tech-tag">Python / openpyxl</div>
+      <div class="tech-tag">SVG 矢量图形</div>
+      <div class="tech-tag">JavaScript 计算引擎</div>
+      <div class="tech-tag">JSON 数据驱动</div>
+      <div class="tech-tag">Codex CLI</div>
+      <div class="tech-tag">依赖图算法</div>
+    </div>
   </div>
 
   <div class="sub-section reveal">
-    <h3>成果</h3>
-    <p>✅ 44 个 Sheet → 44 个 HTML 页面<br>✅ 14 项指标 100% 对齐 Excel<br>✅ 35 家经销商 KPI 数据库构建完成<br>✅ 经验文档 296 行（可复用方法论）</p>
+    <h3>迭代历程</h3>
+    <div class="timeline-viz">
+      <div class="tl-item"><h4>V1-V5 · 基础转换</h4><p>Excel → HTML 基础样式，单元格、合并、字体、颜色</p></div>
+      <div class="tl-item"><h4>V6-V8 · 形状渲染</h4><p>解析 drawing.xml，还原大括号、十字形、矩形框</p></div>
+      <div class="tl-item"><h4>V9 · 连接线</h4><p>添加盈利树 SVG 连接线，BMW 蓝色箭头</p></div>
+      <div class="tl-item"><h4>V10-V11 · 对齐修复</h4><p>修复 X 偏移 57px 问题，添加 39 条标准连接线</p></div>
+      <div class="tl-item"><h4>V28 · S 曲线</h4><p>彩色 S 曲线从单元格边缘出发，视觉 100% 对齐</p></div>
+    </div>
   </div>
 </div>
 </div>
@@ -424,23 +393,57 @@
   <div class="sub-title reveal">AI 经销商诊断系统</div>
   <div class="sub-subtitle reveal reveal-d1">10 分钟完成过去 2 天的工作</div>
 
-  <div class="sub-section reveal">
-    <h3>核心指标</h3>
-    <div class="bar-chart">
-      <div class="bar-row"><div class="bar-label">服务门店</div><div class="bar-track"><div class="bar-fill blue" data-width="88"></div></div><div class="bar-value">35 家</div></div>
-      <div class="bar-row"><div class="bar-label">核心指标</div><div class="bar-track"><div class="bar-fill green" data-width="50"></div></div><div class="bar-value">5 个</div></div>
-      <div class="bar-row"><div class="bar-label">诊断报告</div><div class="bar-track"><div class="bar-fill orange" data-width="75"></div></div><div class="bar-value">100+ 份</div></div>
+  <div class="sub-section reveal"><h3>原来 vs 现在</h3>
+    <div class="ba-grid">
+      <div class="ba-card before"><div class="ba-badge">原来</div>
+        <ul>
+          <li>教练进店辅导：收集 Excel → 手动算 5 大指标 → 对比历史 → 手写报告</li>
+          <li>一家店至少 2 天，35 家店需要几个月</li>
+          <li>报告质量完全依赖教练个人经验</li>
+          <li>不同教练出的诊断标准不统一</li>
+          <li>没有行业基准，不知道"好"是什么水平</li>
+        </ul>
+      </div>
+      <div class="ba-card after"><div class="ba-badge">现在</div>
+        <ul>
+          <li>数据喂给 AI：自动提取 KPI → 对比行业基准 → 自动判断状态 → 自动生成报告</li>
+          <li>10 分钟，35 家店的完整诊断报告</li>
+          <li>诊断逻辑标准化，新人也能出高质量报告</li>
+          <li>34 家店的均值/中位数/分位数作为行业基准</li>
+          <li>每家店自动判定：优秀 / 正常 / 预警 / 异常</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <div class="sub-section reveal">
-    <h3>工作流程</h3>
-    <p>输入经销商 Excel → AI 自动提取 KPI（订单转化率、达成率、人效、库存占比…）→ 对比 34 家店的行业基准 → 自动判断状态（优秀/正常/预警/异常）→ 生成诊断报告 + 辅导建议。</p>
+    <h3>项目故事</h3>
+    <div class="story-card">
+      <h4>📌 为什么做这个项目？</h4>
+      <p>辅导了 35 家奔驰店，手里攒了近 100 份真实数据。每次教练进店，需要收集经销商 Excel（销售、库存、客流、转化…），手动计算 5 大核心指标，对比历史数据找差距，手写诊断报告和建议。一家店至少 2 天。35 家店，几个月。</p>
+      <div class="story-metric">💡 洞察：AI 不会替代教练，但能把"算数据、找差距、写报告"这些耗时活儿全包了</div>
+    </div>
+    <div class="story-card">
+      <h4>⚡ 核心逻辑</h4>
+      <p>把 35 家店的真实数据做成基准数据库。新来的经销商数据输入后，AI 自动提取 5 大指标（订单转化率、达成率、人效、库存占比、客流转化率），对比 34 家店的均值/中位数/分位数，自动判断状态，生成诊断报告 + 辅导建议。</p>
+      <div class="story-metric">🎯 5 大指标 · 34 家店基准 · 4 级状态判定 · 10 分钟出报告</div>
+    </div>
+    <div class="story-card">
+      <h4>🚀 结果</h4>
+      <p>诊断报告从 2 天缩短到 10 分钟，效率提升 12 倍。35 家奔驰门店全部部署，诊断逻辑标准化。经验文档沉淀为可复用的方法论。</p>
+      <div class="story-metric">✅ 35 家店 · 100+ 份报告 · 12× 效率提升</div>
+    </div>
   </div>
 
   <div class="sub-section reveal">
     <h3>5 大核心指标</h3>
-    <p>订单转化率 · 目标达成率 · 人效 · 库存占比 · 客流转化率</p>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">订单转化率</div><div class="bar-track"><div class="bar-fill blue" data-width="80"></div></div></div>
+      <div class="bar-row"><div class="bar-label">目标达成率</div><div class="bar-track"><div class="bar-fill green" data-width="75"></div></div></div>
+      <div class="bar-row"><div class="bar-label">人效</div><div class="bar-track"><div class="bar-fill orange" data-width="70"></div></div></div>
+      <div class="bar-row"><div class="bar-label">库存占比</div><div class="bar-track"><div class="bar-fill purple" data-width="65"></div></div></div>
+      <div class="bar-row"><div class="bar-label">客流转化率</div><div class="bar-track"><div class="bar-fill blue" data-width="60"></div></div></div>
+    </div>
   </div>
 </div>
 </div>
@@ -452,9 +455,46 @@
   <div class="sub-title reveal">AI 企微运营引擎</div>
   <div class="sub-subtitle reveal reveal-d1">1000 客户 × 1000 套话术</div>
 
+  <div class="sub-section reveal"><h3>原来 vs 现在</h3>
+    <div class="ba-grid">
+      <div class="ba-card before"><div class="ba-badge">原来</div>
+        <ul>
+          <li>群发模板消息，千人一面，客户反感</li>
+          <li>销售离职带走客户，企业资产流失</li>
+          <li>不知道客户什么时候有需求，被动等待</li>
+          <li>客户信息散落在销售个人手机里</li>
+          <li>只能上班时间回复，非工作时间失联</li>
+        </ul>
+      </div>
+      <div class="ba-card after"><div class="ba-badge">现在</div>
+        <ul>
+          <li>工单 + 销售记录 + 个人信息 + 外网数据 → 完整客户画像</li>
+          <li>1000 客户 × 1000 套话术，千人千面</li>
+          <li>Agent 判断时机：该保养了、该换车了 → 主动触达</li>
+          <li>所有客户数据沉淀在企业系统里，不依赖个人</li>
+          <li>24 小时在线，秒回，不流失任何机会</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <div class="sub-section reveal">
-    <h3>核心理念</h3>
-    <p>不是"群发广告"，而是基于每个客户的画像，在合适的时机，用合适的话术，进行一对一的精准沟通。</p>
+    <h3>项目故事</h3>
+    <div class="story-card">
+      <h4>📌 为什么做这个项目？</h4>
+      <p>去年试过微信机器人，后面接大模型训好固定话题，主动加人聊天。逻辑上 OK，但平台封锁太严。现在换了思路——不做"破解平台"的事，而是帮客户把"自己的平台"AI 化。企微有官方 API，数据在经销商自己手里，完全合规。</p>
+      <div class="story-metric">💡 核心理念：不是"群发广告"，而是基于画像的精准沟通</div>
+    </div>
+    <div class="story-card">
+      <h4>⚡ 核心能力</h4>
+      <p>客户进群 → Agent 自动欢迎 + 建档。客户发消息 → Agent 理解意图 → 回复或转人工。客户不说话 → Agent 定期触达（保养提醒、活动邀请、新车资讯）。后台持续学习 → 每次对话更新画像 → 下次更精准。</p>
+      <div class="story-metric">🎯 千人千面 · 24h 在线 · 画像驱动 · 持续学习</div>
+    </div>
+    <div class="story-card">
+      <h4>🚀 商业价值</h4>
+      <p>一套系统，可以卖给 N 个经销商。边际成本趋近于 0。每个经销商/4S 店都是客户，按客户数收费。保险公司、二手车商、银行车贷部门都可以接。</p>
+      <div class="story-metric">📈 1000 客户 · 1000 套话术 · SaaS 模式 · 边际成本趋 0</div>
+    </div>
   </div>
 
   <div class="sub-section reveal">
@@ -466,191 +506,30 @@
       <div class="bar-row"><div class="bar-label">在线时长</div><div class="bar-track"><div class="bar-fill purple" data-width="100"></div></div><div class="bar-value">24h</div></div>
     </div>
   </div>
-
-  <div class="sub-section reveal">
-    <h3>数据源</h3>
-    <p>工单信息 · 销售记录 · 个人信息 · 外网公开数据 → 构建完整客户画像 → AI 理解 → 精准沟通。</p>
-  </div>
 </div>
 </div>
 
 <!-- ============ CHAT ============ -->
-<button class="chat-btn" onclick="toggleChat()" aria-label="Chat">
-  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-</button>
+<button class="chat-btn" onclick="toggleChat()" aria-label="Chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></button>
 <div class="chat-panel" id="chatPanel">
   <div class="chat-header"><span class="dot"></span> AI 助理</div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="msg bot">你好，我是麻明的 AI 助理。<br>你可以问我他的职业经历、项目经验，或者咨询合作。</div>
-  </div>
-  <div class="chat-input">
-    <input id="chatInput" placeholder="输入问题…" onkeydown="if(event.key==='Enter')sendMessage()">
-    <button onclick="sendMessage()">发送</button>
-  </div>
+  <div class="chat-messages" id="chatMessages"><div class="msg bot">你好，我是麻明的 AI 助理。<br>你可以问我他的职业经历、项目经验，或者咨询合作。</div></div>
+  <div class="chat-input"><input id="chatInput" placeholder="输入问题…" onkeydown="if(event.key==='Enter')sendMessage()"><button onclick="sendMessage()">发送</button></div>
 </div>
 
 <script>
-// === Page System ===
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const page = document.getElementById('page-' + id);
-  if (page) {
-    page.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Trigger reveal animations
-    setTimeout(() => {
-      page.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-      // Trigger bar animations
-      page.querySelectorAll('.bar-fill[data-width]').forEach((bar, i) => {
-        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, i * 150);
-      });
-      // Init ECharts
-      initCharts(id);
-    }, 100);
-  }
-}
-
-// === Scroll Progress ===
-const progressBar = document.getElementById('scrollProgress');
-window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
-});
-
-// === Nav ===
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('visible', window.pageYOffset > 400);
-});
-
-// === Hero parallax ===
-const hero = document.getElementById('hero');
-window.addEventListener('scroll', () => {
-  const st = window.pageYOffset;
-  hero.style.opacity = Math.max(0, 1 - st / 600);
-  hero.style.transform = 'scale(' + Math.max(0.95, 1 - st / 3000) + ')';
-});
-
-// === Reveal on scroll ===
-const reveals = document.querySelectorAll('#page-home .reveal');
-const revealObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => revealObs.observe(el));
-
-// === Number counter ===
-let counted = false;
-const statNums = document.querySelectorAll('.stat-number[data-target]');
-const countObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !counted) {
-      counted = true;
-      statNums.forEach(el => {
-        const target = parseInt(el.dataset.target);
-        const suffix = el.dataset.suffix || '';
-        let current = 0;
-        const step = Math.max(1, Math.floor(target / 40));
-        const interval = setInterval(() => {
-          current += step;
-          if (current >= target) { current = target; clearInterval(interval); }
-          el.textContent = current + suffix;
-        }, 30);
-      });
-    }
-  });
-}, { threshold: 0.5 });
-statNums.forEach(el => countObs.observe(el));
-
-// === Card mouse glow ===
-document.querySelectorAll('.cap-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  });
-});
-
-// === ECharts ===
-let chartsInited = {};
-function initCharts(pageId) {
-  if (chartsInited[pageId]) return;
-  if (pageId === 'data') {
-    const c = echarts.init(document.getElementById('brandChart'));
-    c.setOption({
-      tooltip: { trigger: 'item' },
-      series: [{
-        type: 'pie', radius: ['40%', '70%'], avoidLabelOverlap: false,
-        itemStyle: { borderRadius: 8, borderColor: '#fff', borderWidth: 2 },
-        label: { show: false },
-        data: [
-          { value: 22, name: '奔驰', itemStyle: { color: '#0071e3' } },
-          { value: 8, name: '宝马', itemStyle: { color: '#6366f1' } },
-          { value: 3, name: '保时捷', itemStyle: { color: '#30d158' } },
-          { value: 2, name: '其他', itemStyle: { color: '#ff9500' } }
-        ]
-      }]
-    });
-    chartsInited.data = c;
-  }
-  if (pageId === 'efficiency') {
-    const c = echarts.init(document.getElementById('efficiencyChart'));
-    c.setOption({
-      tooltip: { trigger: 'axis' },
-      xAxis: { type: 'category', data: ['手动方式', 'AI 方式'], axisLabel: { fontSize: 14 } },
-      yAxis: { type: 'value', name: '小时', nameTextStyle: { fontSize: 12 } },
-      series: [{
-        type: 'bar', data: [
-          { value: 350, itemStyle: { color: '#ff3b30' } },
-          { value: 5.8, itemStyle: { color: '#30d158' } }
-        ],
-        barWidth: 60,
-        label: { show: true, position: 'top', fontSize: 14, fontWeight: 'bold' }
-      }],
-      grid: { top: 40, bottom: 40, left: 60, right: 30 }
-    });
-    chartsInited.efficiency = c;
-  }
-}
-
-// === Chat ===
-function toggleChat() { document.getElementById('chatPanel').classList.toggle('active'); }
-function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if (!msg) return;
-  const messages = document.getElementById('chatMessages');
-  messages.innerHTML += '<div class="msg user">' + msg + '</div>';
-  input.value = '';
-  setTimeout(() => {
-    messages.innerHTML += '<div class="msg bot">' + getAnswer(msg) + '</div>';
-    messages.scrollTop = messages.scrollHeight;
-  }, 300);
-}
-const kb = {
-  '经历|履历|工作|在哪|公司|职业': '麻明在汽车行业干了 15 年。目前在港泓咨询担任咨询总监（AI 产品方向）。之前先后在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作。',
-  '安永|EY': '在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户。',
-  '奔驰|宝马|保时捷': '最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。',
-  '英菲尼迪': '在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建。',
-  '易车': '在易车担任高级产品运营（AI 方向），探索大模型在汽车内容场景的应用。',
-  '港泓': '目前在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地。',
-  'AI|人工智能|数字化|Agent': '目前最擅长的是 AI 运营系统搭建。开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。',
-  '项目|案例|诊断|经销商': '最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。',
-  '合作|联系|加微信|企微|价格|收费': '点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求提供定制化的 AI 运营方案。',
-  '教育|学校|学历|毕业': '毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。',
-  '你好|hello|hi|嗨|在吗': '你好！我是麻明的 AI 助理。你可以问我关于他的职业经历、项目经验，或者咨询 AI 运营系统的合作。',
-};
-function getAnswer(q) {
-  for (const [keys, ans] of Object.entries(kb)) {
-    if (keys.split('|').some(w => q.toLowerCase().includes(w.toLowerCase()))) return ans;
-  }
-  return '这个问题我还不太了解。你可以添加麻明的企微，他本人会详细回答你。';
-}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const page=document.getElementById('page-'+id);if(page){page.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>{page.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));page.querySelectorAll('.bar-fill[data-width]').forEach((bar,i)=>{setTimeout(()=>{bar.style.width=bar.dataset.width+'%';},i*150)});initCharts(id)},100)}}
+const progressBar=document.getElementById('scrollProgress');window.addEventListener('scroll',()=>{const h=document.documentElement;progressBar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%'});
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('visible',window.pageYOffset>400)});
+const hero=document.getElementById('hero');window.addEventListener('scroll',()=>{const st=window.pageYOffset;hero.style.opacity=Math.max(0,1-st/600);hero.style.transform='scale('+Math.max(0.95,1-st/3000)+')'});
+const reveals=document.querySelectorAll('#page-home .reveal');const revealObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target)}})},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});reveals.forEach(el=>revealObs.observe(el));
+let counted=false;const statNums=document.querySelectorAll('.stat-number[data-target]');const countObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting&&!counted){counted=true;statNums.forEach(el=>{const target=parseInt(el.dataset.target);const suffix=el.dataset.suffix||'';let current=0;const step=Math.max(1,Math.floor(target/40));const interval=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(interval)}el.textContent=current+suffix},30)})}})},{threshold:0.5});statNums.forEach(el=>countObs.observe(el));
+document.querySelectorAll('.cap-card').forEach(card=>{card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',(e.clientX-r.left)+'px');card.style.setProperty('--my',(e.clientY-r.top)+'px')})});
+let chartsInited={};function initCharts(pageId){if(chartsInited[pageId])return;if(pageId==='data'){const c=echarts.init(document.getElementById('brandChart'));c.setOption({tooltip:{trigger:'item'},series:[{type:'pie',radius:['40%','70%'],avoidLabelOverlap:false,itemStyle:{borderRadius:8,borderColor:'#fff',borderWidth:2},label:{show:false},data:[{value:22,name:'奔驰',itemStyle:{color:'#0071e3'}},{value:8,name:'宝马',itemStyle:{color:'#6366f1'}},{value:3,name:'保时捷',itemStyle:{color:'#30d158'}},{value:2,name:'其他',itemStyle:{color:'#ff9500'}}]}]});chartsInited.data=c}if(pageId==='efficiency'){const c=echarts.init(document.getElementById('efficiencyChart'));c.setOption({tooltip:{trigger:'axis'},xAxis:{type:'category',data:['手动方式','AI 方式'],axisLabel:{fontSize:14}},yAxis:{type:'value',name:'小时',nameTextStyle:{fontSize:12}},series:[{type:'bar',data:[{value:350,itemStyle:{color:'#ff3b30'}},{value:5.8,itemStyle:{color:'#30d158'}}],barWidth:60,label:{show:true,position:'top',fontSize:14,fontWeight:'bold'}}],grid:{top:40,bottom:40,left:60,right:30}});chartsInited.efficiency=c}}
+function toggleChat(){document.getElementById('chatPanel').classList.toggle('active')}
+function sendMessage(){const input=document.getElementById('chatInput');const msg=input.value.trim();if(!msg)return;const messages=document.getElementById('chatMessages');messages.innerHTML+='<div class="msg user">'+msg+'</div>';input.value='';setTimeout(()=>{messages.innerHTML+='<div class="msg bot">'+getAnswer(msg)+'</div>';messages.scrollTop=messages.scrollHeight},300)}
+const kb={'经历|履历|工作|在哪|公司|职业':'麻明在汽车行业干了 15 年。目前在港泓咨询担任咨询总监（AI 产品方向）。之前先后在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作。','安永|EY':'在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户。','奔驰|宝马|保时捷':'最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。','英菲尼迪':'在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建。','易车':'在易车担任高级产品运营（AI 方向），探索大模型在汽车内容场景的应用。','港泓':'目前在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地。','AI|人工智能|数字化|Agent':'目前最擅长的是 AI 运营系统搭建。开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。','项目|案例|诊断|经销商':'最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。','合作|联系|加微信|企微|价格|收费':'点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求提供定制化的 AI 运营方案。','教育|学校|学历|毕业':'毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。','你好|hello|hi|嗨|在吗':'你好！我是麻明的 AI 助理。你可以问我关于他的职业经历、项目经验，或者咨询 AI 运营系统的合作。'};
+function getAnswer(q){for(const[keys,ans]of Object.entries(kb)){if(keys.split('|').some(w=>q.toLowerCase().includes(w.toLowerCase())))return ans}return'这个问题我还不太了解。你可以添加麻明的企微，他本人会详细回答你。'}
 </script>
-
 </body>
 </html>

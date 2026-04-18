@@ -22,308 +22,234 @@
     color:var(--text);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
   }
-  /* Hero */
+
+  /* === Scroll Progress Bar === */
+  .scroll-progress{
+    position:fixed;top:0;left:0;height:2px;width:0%;
+    background:linear-gradient(90deg,var(--accent),#6366f1);
+    z-index:9999;transition:width 0.1s linear;
+  }
+
+  /* === Nav === */
+  .nav{
+    position:fixed;top:0;left:0;right:0;
+    padding:0 48px;height:52px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:rgba(251,251,253,0.72);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    z-index:1000;
+    opacity:0;transform:translateY(-100%);
+    transition:opacity 0.4s ease,transform 0.4s ease;
+  }
+  .nav.visible{opacity:1;transform:translateY(0)}
+  .nav-brand{font-size:15px;font-weight:600;color:var(--text)}
+  .nav-links{display:flex;gap:28px}
+  .nav-links a{
+    font-size:13px;color:var(--text-secondary);
+    text-decoration:none;transition:color 0.2s;
+  }
+  .nav-links a:hover{color:var(--text)}
+
+  /* === Hero === */
   .hero{
-    padding:160px 24px 100px;
+    padding:200px 24px 120px;
     text-align:center;
-    max-width:800px;
+    max-width:900px;
     margin:0 auto;
+    transition:opacity 0.3s ease;
   }
   .hero-eyebrow{
-    font-size:17px;
-    font-weight:600;
-    color:var(--text);
+    font-size:17px;font-weight:600;color:var(--text);
     margin-bottom:8px;
   }
   .hero-label{
-    font-size:21px;
-    font-weight:400;
-    color:var(--text-secondary);
-    margin-bottom:28px;
+    font-size:21px;font-weight:400;color:var(--text-secondary);
+    margin-bottom:32px;
   }
   .hero h1{
-    font-size:56px;
-    font-weight:700;
-    letter-spacing:-0.022em;
-    line-height:1.07;
-    margin-bottom:24px;
+    font-size:72px;font-weight:700;
+    letter-spacing:-0.03em;line-height:1.04;
+    margin-bottom:28px;
+    background:linear-gradient(135deg,#1d1d1f 0%,#6e6e73 50%,#0071e3 100%);
+    background-size:200% 200%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation:gradientShift 8s ease infinite;
+  }
+  @keyframes gradientShift{
+    0%,100%{background-position:0% 50%}
+    50%{background-position:100% 50%}
   }
   .hero p{
-    font-size:21px;
-    font-weight:400;
-    color:var(--text-secondary);
-    line-height:1.47;
-    max-width:520px;
-    margin:0 auto;
+    font-size:21px;font-weight:400;
+    color:var(--text-secondary);line-height:1.47;
+    max-width:520px;margin:0 auto;
   }
-  /* Stats */
+
+  /* === Stats === */
   .stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:1px;
-    max-width:980px;
-    margin:0 auto 140px;
-    background:var(--divider);
-    border-radius:20px;
-    overflow:hidden;
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;max-width:980px;margin:0 auto 140px;
+    background:var(--divider);border-radius:20px;overflow:hidden;
   }
   .stat{
-    background:var(--card);
-    padding:52px 24px 48px;
-    text-align:center;
+    background:var(--card);padding:52px 24px 48px;text-align:center;
   }
   .stat-number{
-    font-size:56px;
-    font-weight:700;
-    letter-spacing:-0.025em;
-    line-height:1;
-    margin-bottom:8px;
+    font-size:56px;font-weight:700;
+    letter-spacing:-0.025em;line-height:1;margin-bottom:8px;
   }
   .stat-label{
-    font-size:14px;
-    color:var(--text-secondary);
-    font-weight:500;
-    line-height:1.4;
+    font-size:14px;color:var(--text-secondary);font-weight:500;line-height:1.4;
   }
-  /* Section common */
+
+  /* === Section Common === */
   .section-label{
-    font-size:17px;
-    font-weight:600;
-    color:var(--text);
-    margin-bottom:6px;
+    font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px;
   }
   .section h2{
-    font-size:48px;
-    font-weight:700;
-    letter-spacing:-0.022em;
-    line-height:1.08;
-    margin-bottom:56px;
+    font-size:48px;font-weight:700;
+    letter-spacing:-0.022em;line-height:1.08;margin-bottom:56px;
   }
-  /* Capabilities */
-  .capabilities{
-    max-width:980px;
-    margin:0 auto 140px;
-    padding:0 24px;
-  }
-  .cap-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-  }
+
+  /* === Capabilities === */
+  .capabilities{max-width:980px;margin:0 auto 140px;padding:0 24px}
+  .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .cap-card{
-    background:var(--card);
-    border-radius:20px;
-    padding:44px 36px;
+    background:var(--card);border-radius:20px;padding:44px 36px;
     box-shadow:0 1px 3px rgba(0,0,0,0.04);
     transition:transform 0.35s cubic-bezier(.25,.46,.45,.94),box-shadow 0.35s ease;
+    position:relative;overflow:hidden;
   }
+  .cap-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(0,113,227,0.06),transparent 40%);
+    opacity:0;transition:opacity 0.3s;pointer-events:none;
+  }
+  .cap-card:hover::before{opacity:1}
   .cap-card:hover{
     transform:translateY(-6px);
     box-shadow:0 12px 40px rgba(0,0,0,0.08);
   }
-  .cap-icon{
-    width:44px;
-    height:44px;
-    margin-bottom:24px;
-  }
+  .cap-icon{width:44px;height:44px;margin-bottom:24px}
   .cap-icon svg{
-    width:100%;
-    height:100%;
-    stroke:var(--accent);
-    stroke-width:1.5;
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
+    width:100%;height:100%;stroke:var(--accent);stroke-width:1.5;
+    fill:none;stroke-linecap:round;stroke-linejoin:round;
   }
-  .cap-card h3{
-    font-size:22px;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    margin-bottom:10px;
-  }
-  .cap-card p{
-    font-size:15px;
-    color:var(--text-secondary);
-    line-height:1.53;
-  }
-  /* Experience */
-  .experience{
-    max-width:980px;
-    margin:0 auto 140px;
-    padding:0 24px;
-  }
-  .exp-list{
-    list-style:none;
-  }
+  .cap-card h3{font-size:22px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px}
+  .cap-card p{font-size:15px;color:var(--text-secondary);line-height:1.53}
+
+  /* === Experience === */
+  .experience{max-width:980px;margin:0 auto 140px;padding:0 24px}
+  .exp-list{list-style:none}
   .exp-item{
-    display:grid;
-    grid-template-columns:140px 1fr;
-    gap:32px;
-    padding:36px 0;
-    border-bottom:1px solid var(--divider);
+    display:grid;grid-template-columns:140px 1fr;gap:32px;
+    padding:36px 0;border-bottom:1px solid var(--divider);
   }
   .exp-item:last-child{border-bottom:none}
-  .exp-period{
-    font-size:15px;
-    font-weight:500;
-    color:var(--text-secondary);
-    padding-top:2px;
-  }
-  .exp-role{
-    font-size:19px;
-    font-weight:600;
-    margin-bottom:4px;
-  }
-  .exp-company{
-    font-size:15px;
-    color:var(--text-secondary);
-    margin-bottom:8px;
-  }
-  .exp-desc{
-    font-size:15px;
-    color:var(--text-secondary);
-    line-height:1.53;
-  }
-  /* CTA */
-  .cta{
-    text-align:center;
-    padding:100px 24px 140px;
-  }
+  .exp-period{font-size:15px;font-weight:500;color:var(--text-secondary);padding-top:2px}
+  .exp-role{font-size:19px;font-weight:600;margin-bottom:4px}
+  .exp-company{font-size:15px;color:var(--text-secondary);margin-bottom:8px}
+  .exp-desc{font-size:15px;color:var(--text-secondary);line-height:1.53}
+
+  /* === CTA === */
+  .cta{text-align:center;padding:100px 24px 140px}
   .cta h2{
-    font-size:48px;
-    font-weight:700;
-    letter-spacing:-0.022em;
-    margin-bottom:16px;
+    font-size:48px;font-weight:700;letter-spacing:-0.022em;margin-bottom:16px;
   }
-  .cta p{
-    font-size:21px;
-    color:var(--text-secondary);
-    margin-bottom:36px;
-  }
+  .cta p{font-size:21px;color:var(--text-secondary);margin-bottom:36px}
   .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--accent);
-    color:#fff;
-    font-size:17px;
-    font-weight:500;
-    padding:14px 28px;
-    border-radius:980px;
-    text-decoration:none;
-    transition:background 0.2s ease;
-    border:none;
-    cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent);color:#fff;font-size:17px;font-weight:500;
+    padding:14px 28px;border-radius:980px;text-decoration:none;
+    transition:background 0.2s ease,transform 0.2s ease;border:none;cursor:pointer;
   }
-  .btn:hover{background:var(--accent-hover)}
+  .btn:hover{background:var(--accent-hover);transform:scale(1.04)}
   .btn-outline{
-    display:inline-block;
-    background:transparent;
-    color:var(--accent);
-    font-size:17px;
-    font-weight:500;
-    margin-top:16px;
-    cursor:pointer;
-    border:none;
-    text-decoration:none;
-    transition:opacity 0.2s;
+    display:inline-block;background:transparent;color:var(--accent);
+    font-size:17px;font-weight:500;margin-top:16px;cursor:pointer;
+    border:none;text-decoration:none;transition:opacity 0.2s;
   }
   .btn-outline:hover{opacity:0.7}
-  /* Footer */
+
+  /* === Footer === */
   .footer{
-    padding:32px 24px;
-    text-align:center;
-    font-size:12px;
-    color:var(--text-secondary);
-    border-top:1px solid var(--divider);
-    max-width:980px;
-    margin:0 auto;
+    padding:32px 24px;text-align:center;font-size:12px;
+    color:var(--text-secondary);border-top:1px solid var(--divider);
+    max-width:980px;margin:0 auto;
   }
-  /* Chat */
+
+  /* === Chat === */
   .chat-btn{
-    position:fixed;
-    bottom:28px;
-    right:28px;
-    width:52px;
-    height:52px;
-    border-radius:50%;
-    background:var(--accent);
-    border:none;
-    cursor:pointer;
+    position:fixed;bottom:28px;right:28px;
+    width:52px;height:52px;border-radius:50%;
+    background:var(--accent);border:none;cursor:pointer;
     box-shadow:0 4px 16px rgba(0,113,227,0.3);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:transform 0.2s ease;
-    z-index:1000;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform 0.2s ease,box-shadow 0.2s ease;z-index:1000;
   }
-  .chat-btn:hover{transform:scale(1.06)}
+  .chat-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,113,227,0.4)}
   .chat-btn svg{width:22px;height:22px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .chat-panel{
-    position:fixed;
-    bottom:90px;
-    right:28px;
-    width:340px;
-    max-height:460px;
-    background:var(--card);
-    border-radius:18px;
+    position:fixed;bottom:90px;right:28px;
+    width:340px;max-height:460px;
+    background:var(--card);border-radius:18px;
     box-shadow:0 8px 32px rgba(0,0,0,0.1);
-    overflow:hidden;
-    z-index:1000;
-    display:none;
-    flex-direction:column;
+    overflow:hidden;z-index:1000;
+    display:none;flex-direction:column;
+    animation:chatSlideUp 0.3s ease;
+  }
+  @keyframes chatSlideUp{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
   }
   .chat-panel.active{display:flex}
   .chat-header{
-    padding:14px 18px;
-    border-bottom:1px solid var(--divider);
-    font-weight:600;
-    font-size:15px;
-    display:flex;
-    align-items:center;
-    gap:8px;
+    padding:14px 18px;border-bottom:1px solid var(--divider);
+    font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px;
   }
-  .chat-header .dot{
-    width:8px;height:8px;border-radius:50%;background:#30d158;
-  }
+  .chat-header .dot{width:8px;height:8px;border-radius:50%;background:#30d158}
   .chat-messages{
-    flex:1;
-    padding:16px 18px;
-    overflow-y:auto;
-    font-size:14px;
-    line-height:1.5;
-    color:var(--text);
-    min-height:200px;
+    flex:1;padding:16px 18px;overflow-y:auto;
+    font-size:14px;line-height:1.5;color:var(--text);min-height:200px;
   }
   .chat-messages .msg{margin-bottom:12px}
   .chat-messages .msg.bot{color:var(--text)}
   .chat-messages .msg.user{text-align:right;color:var(--accent)}
   .chat-input{
-    padding:12px 14px;
-    border-top:1px solid var(--divider);
-    display:flex;
-    gap:8px;
+    padding:12px 14px;border-top:1px solid var(--divider);display:flex;gap:8px;
   }
   .chat-input input{
-    flex:1;
-    border:none;
-    background:transparent;
-    font-size:14px;
-    outline:none;
-    font-family:inherit;
+    flex:1;border:none;background:transparent;font-size:14px;
+    outline:none;font-family:inherit;
   }
   .chat-input button{
-    background:none;
-    border:none;
-    color:var(--accent);
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
+    background:none;border:none;color:var(--accent);
+    font-size:14px;font-weight:600;cursor:pointer;
   }
+
+  /* === Scroll Animations === */
+  .reveal{
+    opacity:0;transform:translateY(32px);
+    transition:opacity 0.7s cubic-bezier(.25,.46,.45,.94),
+               transform 0.7s cubic-bezier(.25,.46,.45,.94);
+  }
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-d1{transition-delay:0.1s}
+  .reveal-d2{transition-delay:0.2s}
+  .reveal-d3{transition-delay:0.3s}
+  .reveal-d4{transition-delay:0.4s}
+
+  /* === Responsive === */
   @media(max-width:768px){
-    .hero{padding:120px 20px 80px}
-    .hero h1{font-size:40px}
+    .nav{padding:0 20px}
+    .hero{padding:140px 20px 80px}
+    .hero h1{font-size:42px}
     .hero p{font-size:18px}
     .stats{grid-template-columns:repeat(2,1fr);margin-bottom:100px}
     .stat-number{font-size:40px}
@@ -331,73 +257,75 @@
     .section h2,.cta h2{font-size:32px}
     .exp-item{grid-template-columns:1fr;gap:4px}
     .chat-panel{width:calc(100vw - 56px);right:28px;bottom:86px}
+    .nav-links{display:none}
   }
 </style>
 </head>
 <body>
 
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">麻明</div>
+  <div class="nav-links">
+    <a href="#capabilities">能力</a>
+    <a href="#experience">经历</a>
+    <a href="#" onclick="toggleChat();return false">联系</a>
+  </div>
+</nav>
+
 <!-- Hero -->
-<section class="hero">
-  <div class="hero-eyebrow">麻明</div>
-  <div class="hero-label">汽车行业 · AI 数字化 · 产品运营</div>
-  <h1>用 AI 把效率<br>翻 10 倍。</h1>
-  <p>在汽车行业干了 15 年。现在用 AI 帮企业搭建自动化运营系统。</p>
+<section class="hero" id="hero">
+  <div class="hero-eyebrow reveal">麻明</div>
+  <div class="hero-label reveal reveal-d1">汽车行业 · AI 数字化 · 产品运营</div>
+  <h1 class="reveal reveal-d2">用 AI 把效率<br>翻 10 倍。</h1>
+  <p class="reveal reveal-d3">在汽车行业干了 15 年。现在用 AI 帮企业搭建自动化运营系统。</p>
 </section>
 
 <!-- Stats -->
 <div class="stats">
-  <div class="stat">
-    <div class="stat-number">15</div>
+  <div class="stat reveal">
+    <div class="stat-number" data-target="15" data-suffix="">0</div>
     <div class="stat-label">年汽车行业<br>经验</div>
   </div>
-  <div class="stat">
-    <div class="stat-number">35+</div>
+  <div class="stat reveal reveal-d1">
+    <div class="stat-number" data-target="35" data-suffix="+">0</div>
     <div class="stat-label">家经销商<br>辅导</div>
   </div>
-  <div class="stat">
-    <div class="stat-number">10×</div>
+  <div class="stat reveal reveal-d2">
+    <div class="stat-number" data-target="10" data-suffix="×">0</div>
     <div class="stat-label">效率<br>提升</div>
   </div>
-  <div class="stat">
-    <div class="stat-number">100+</div>
+  <div class="stat reveal reveal-d3">
+    <div class="stat-number" data-target="100" data-suffix="+">0</div>
     <div class="stat-label">份真实数据<br>案例</div>
   </div>
 </div>
 
 <!-- Capabilities -->
-<section class="capabilities">
+<section class="capabilities reveal" id="capabilities">
   <div class="section-label">能力</div>
   <h2>我能做什么</h2>
   <div class="cap-grid">
-    <div class="cap-card">
+    <div class="cap-card reveal reveal-d1">
       <div class="cap-icon">
-        <svg viewBox="0 0 44 44">
-          <circle cx="22" cy="22" r="18"/>
-          <path d="M14 22 L20 28 L30 16"/>
-        </svg>
+        <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"/><path d="M14 22 L20 28 L30 16"/></svg>
       </div>
       <h3>AI 运营系统搭建</h3>
       <p>从 0 到 1 搭建 AI Agent 系统，实现企微私域、内容运营、数据分析的全流程自动化。</p>
     </div>
-    <div class="cap-card">
+    <div class="cap-card reveal reveal-d2">
       <div class="cap-icon">
-        <svg viewBox="0 0 44 44">
-          <rect x="8" y="24" width="6" height="12" rx="1"/>
-          <rect x="19" y="16" width="6" height="20" rx="1"/>
-          <rect x="30" y="8" width="6" height="28" rx="1"/>
-        </svg>
+        <svg viewBox="0 0 44 44"><rect x="8" y="24" width="6" height="12" rx="1"/><rect x="19" y="16" width="6" height="20" rx="1"/><rect x="30" y="8" width="6" height="28" rx="1"/></svg>
       </div>
       <h3>经销商诊断与咨询</h3>
       <p>基于 35+ 家经销商辅导经验，用 AI 自动生成诊断报告，10 分钟完成过去 2 天的工作。</p>
     </div>
-    <div class="cap-card">
+    <div class="cap-card reveal reveal-d3">
       <div class="cap-icon">
-        <svg viewBox="0 0 44 44">
-          <path d="M10 30 L16 14 L24 24 L34 8"/>
-          <circle cx="16" cy="14" r="2"/>
-          <circle cx="24" cy="24" r="2"/>
-          <circle cx="34" cy="8" r="2"/>
-        </svg>
+        <svg viewBox="0 0 44 44"><path d="M10 30 L16 14 L24 24 L34 8"/><circle cx="16" cy="14" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="34" cy="8" r="2"/></svg>
       </div>
       <h3>汽车行业数字化转型</h3>
       <p>15 年奔驰、英菲尼迪、安永经验，深谙主机厂 + 经销商 + 咨询三端业务逻辑。</p>
@@ -406,7 +334,7 @@
 </section>
 
 <!-- Experience -->
-<section class="experience">
+<section class="experience reveal" id="experience">
   <div class="section-label">经历</div>
   <h2>职业履历</h2>
   <ul class="exp-list">
@@ -454,7 +382,7 @@
 </section>
 
 <!-- CTA -->
-<section class="cta">
+<section class="cta reveal">
   <h2>想聊聊？</h2>
   <p>加我企微，体验 AI 助理自动接待。</p>
   <a href="weixin://" class="btn">添加企微</a>
@@ -485,31 +413,85 @@
 </div>
 
 <script>
-const kb = {
-  '经历|履历|工作|在哪|公司|职业': '麻明在汽车行业干了 15 年。目前在港泓咨询担任咨询总监（AI 产品方向）。之前先后在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作。',
-  '安永|EY': '在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户，覆盖战略、运营、数字化。',
-  '奔驰|宝马|保时捷': '最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。在安永期间继续服务多个豪华品牌。',
-  '英菲尼迪': '在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建、销售运营优化。',
-  '易车': '在易车担任高级产品运营（AI 方向），探索大模型在汽车内容场景的应用。',
-  '港泓': '目前在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地。',
-  'AI|人工智能|数字化|Agent': '目前最擅长的是 AI 运营系统搭建。开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。',
-  '项目|案例|诊断|经销商': '最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。',
-  '合作|联系|加微信|企微|价格|收费': '点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求提供定制化的 AI 运营方案。',
-  '教育|学校|学历|毕业': '毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。',
-  '你好|hello|hi|嗨|在吗': '你好！我是麻明的 AI 助理。你可以问我关于他的职业经历、项目经验，或者咨询 AI 运营系统的合作。',
-};
+// === Scroll Progress ===
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  progressBar.style.width = pct + '%';
+});
 
-function getAnswer(q) {
-  for (const [keys, ans] of Object.entries(kb)) {
-    if (keys.split('|').some(w => q.toLowerCase().includes(w.toLowerCase()))) return ans;
-  }
-  return '这个问题我还不太了解。你可以添加麻明的企微，他本人会详细回答你。';
-}
+// === Nav visibility ===
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const st = window.pageYOffset;
+  if (st > 400) nav.classList.add('visible');
+  else nav.classList.remove('visible');
+  lastScroll = st;
+});
 
+// === Hero parallax fade ===
+const hero = document.getElementById('hero');
+window.addEventListener('scroll', () => {
+  const st = window.pageYOffset;
+  const opacity = Math.max(0, 1 - st / 600);
+  const scale = 1 - st / 3000;
+  hero.style.opacity = opacity;
+  hero.style.transform = `scale(${Math.max(0.95, scale)})`;
+});
+
+// === Reveal on scroll ===
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+// === Number counter ===
+let counted = false;
+const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !counted) {
+      counted = true;
+      statNumbers.forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 40));
+        const interval = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          el.textContent = current + suffix;
+        }, 30);
+      });
+    }
+  });
+}, { threshold: 0.5 });
+statNumbers.forEach(el => countObserver.observe(el));
+
+// === Card mouse glow ===
+document.querySelectorAll('.cap-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+
+// === Chat ===
 function toggleChat() {
   document.getElementById('chatPanel').classList.toggle('active');
 }
-
 function sendMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
@@ -521,6 +503,25 @@ function sendMessage() {
     messages.innerHTML += '<div class="msg bot">' + getAnswer(msg) + '</div>';
     messages.scrollTop = messages.scrollHeight;
   }, 300);
+}
+const kb = {
+  '经历|履历|工作|在哪|公司|职业': '麻明在汽车行业干了 15 年。目前在港泓咨询担任咨询总监（AI 产品方向）。之前先后在易车、安永、东风英菲尼迪、梅赛德斯-奔驰工作。',
+  '安永|EY': '在安永工作了 7 年（2017-2024），担任高级项目经理，服务奔驰、宝马、保时捷等头部客户。',
+  '奔驰|宝马|保时捷': '最早在梅赛德斯-奔驰做项目经理（2011-2014），负责经销商辅导和销售卓越。',
+  '英菲尼迪': '在东风英菲尼迪工作了 3 年（2014-2017），负责经销商网络发展、培训体系搭建。',
+  '易车': '在易车担任高级产品运营（AI 方向），探索大模型在汽车内容场景的应用。',
+  '港泓': '目前在港泓咨询担任咨询总监（AI 产品方向），主导 AI 产品在汽车行业的落地。',
+  'AI|人工智能|数字化|Agent': '目前最擅长的是 AI 运营系统搭建。开发了一套 AI Agent 系统，可以实现企微私域、内容运营、数据分析的全流程自动化。服务了 35+ 家奔驰经销商，诊断报告从 2 天缩短到 10 分钟。',
+  '项目|案例|诊断|经销商': '最近做了一个 AI 经销商诊断系统。基于 35+ 家经销商的真实数据，用 AI 自动提取 KPI、对比行业基准、生成诊断报告，效率提升 10 倍。',
+  '合作|联系|加微信|企微|价格|收费': '点击页面上的"添加企微"按钮，或者直接在这里提问。麻明会根据你的需求提供定制化的 AI 运营方案。',
+  '教育|学校|学历|毕业': '毕业于中国农业大学，国际经济与贸易专业，2003-2007 年本科。',
+  '你好|hello|hi|嗨|在吗': '你好！我是麻明的 AI 助理。你可以问我关于他的职业经历、项目经验，或者咨询 AI 运营系统的合作。',
+};
+function getAnswer(q) {
+  for (const [keys, ans] of Object.entries(kb)) {
+    if (keys.split('|').some(w => q.toLowerCase().includes(w.toLowerCase()))) return ans;
+  }
+  return '这个问题我还不太了解。你可以添加麻明的企微，他本人会详细回答你。';
 }
 </script>
 

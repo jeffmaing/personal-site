@@ -1,121 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>麻明</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fff;--text:#1d1d1f;--ts:#86868b;--div:#e8e8ed;--bg2:#f5f5f7}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:60px;line-height:1.6}
-.sp{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#0071e3,#6366f1);z-index:9999;transition:width .1s}
-.nav{position:fixed;top:0;left:0;right:0;padding:0 32px;height:48px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .3s}
-.nav.v{opacity:1;transform:none}
-.nb{font-size:14px;font-weight:600}
-.nl{display:flex;gap:20px}
-.nl a{font-size:12px;color:var(--ts);text-decoration:none}
-.content{max-width:600px;margin:0 auto;padding:80px 24px 60px}
-.intro{display:flex;gap:24px;align-items:flex-start;margin-bottom:40px}
-.intro-photo{width:100px;height:100px;border-radius:12px;object-fit:cover;flex-shrink:0}
-.intro-text{flex:1}
-.name{font-size:28px;font-weight:700;margin-bottom:2px}
-.title{font-size:14px;color:var(--ts);margin-bottom:16px}
-.bio{font-size:15px;color:var(--text);line-height:1.8}
-.bio p{margin-bottom:14px}
-.bio strong{font-weight:600}
-.section{margin-bottom:48px}
-.section h2{font-size:20px;font-weight:600;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--div)}
-.timeline{list-style:none}
-.timeline li{padding:12px 0;padding-left:16px;position:relative;border-left:2px solid var(--div)}
-.timeline li:last-child{border-left-color:transparent}
-.timeline li::before{content:"";position:absolute;left:-5px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--bg2);border:2px solid var(--div)}
-.timeline li .period{font-size:12px;color:var(--ts);font-weight:500}
-.timeline li .role{font-size:15px;font-weight:600;margin:2px 0}
-.timeline li .company{font-size:13px;color:var(--ts)}
-.projects{display:flex;flex-direction:column;gap:20px}
-.project{padding:20px;background:var(--bg2);border-radius:12px}
-.project h3{font-size:16px;font-weight:600;margin-bottom:8px}
-.project p{font-size:14px;color:var(--ts);line-height:1.6}
-.thinking{font-size:14px;color:var(--ts);line-height:1.8}
-.thinking p{margin-bottom:12px}
-.contact{margin-top:48px;padding:24px;background:var(--bg2);border-radius:12px;text-align:center}
-.contact p{font-size:14px;color:var(--ts);margin-bottom:12px}
-.contact a{color:#0071e3;text-decoration:none;font-weight:500}
-.foot{padding:20px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div)}
-.rv{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
-.rv.v{opacity:1;transform:none}
-@media(max-width:768px){
-.content{padding:70px 20px 40px}
-.intro{flex-direction:column;gap:16px;align-items:center;text-align:center}
-.intro-photo{width:80px;height:80px}
-.name{font-size:26px}
-.nl{display:none}
-}
-</style></head><body>
-<div class="sp" id="sp"></div>
-<nav class="nav" id="nav"><div class="nb">麻明</div><div class="nl"><a href="#about">关于</a><a href="#work">经历</a><a href="#projects">项目</a><a href="#thinking">想法</a></div></nav>
-
-<div class="content">
-<div class="intro rv" id="about">
-<img src="photo.jpg" alt="麻明" class="intro-photo">
-<div class="intro-text">
-<div class="name">麻明</div>
-<div class="title">汽车行业 15 年，现在探索 AI 在工作中的实际应用</div>
-<div class="bio">
-<p>在汽车行业干了 15 年。从<strong>梅赛德斯 - 奔驰</strong>做经销商辅导，到<strong>东风英菲尼迪</strong>做培训体系，到<strong>安永</strong>做咨询，到<strong>易车</strong>做产品运营，再到现在的<strong>港泓咨询</strong>做 AI 方向。</p>
-<p>一路从一线主机厂到咨询，再到互联网，再到现在的 AI。</p>
-<p>最近在想一件事：AI 到底能帮我干什么活？试了几个月，有一些真实的体会。</p>
-</div>
-</div>
-</div>
-
-<div class="section rv" id="work">
-<h2>工作经历</h2>
-<ul class="timeline">
-<li><div class="period">2025.02 — 至今</div><div class="role">咨询总监（AI 产品方向）</div><div class="company">港泓咨询</div></li>
-<li><div class="period">2024.04 — 2025.02</div><div class="role">高级产品运营（AI 方向）</div><div class="company">易车</div></li>
-<li><div class="period">2017.12 — 2024.04</div><div class="role">高级项目经理（汽车行业）</div><div class="company">安永（中国）</div></li>
-<li><div class="period">2014.12 — 2017.12</div><div class="role">项目经理</div><div class="company">东风英菲尼迪</div></li>
-<li><div class="period">2011.11 — 2014.12</div><div class="role">项目经理</div><div class="company">梅赛德斯 - 奔驰</div></li>
-</ul>
-</div>
-
-<div class="section rv" id="projects">
-<h2>最近在做的事</h2>
-<div class="projects">
-<div class="project">
-<h3>用 AI 做经销商诊断</h3>
-<p>辅导了 35 家奔驰店，攒了近 100 份真实数据。以前教练进店要手动算指标、写报告，一家店 2 天。现在把数据喂给 AI，10 分钟出 35 家店的诊断报告。不是替代人，是把耗时活儿包了，让人做更有价值的事。</p>
-</div>
-<div class="project">
-<h3>把 Excel 沙盘搬上 Web</h3>
-<p>宝马的经销商沙盘是一个 44 个 Sheet 的 Excel 文件，1359 个公式。以前要找人做一个月。现在用 AI 生成，1 星期搞定。而且做出来的不是静态页面，还能加上 AI 分析和数据库对比。</p>
-</div>
-<div class="project">
-<h3>企微客户运营自动化</h3>
-<p>用 AI 把群发广告变成精准运营。工单 + 销售记录 + 个人信息 → 客户画像 → 千人千面话术。24 小时在线，数据沉淀在企业。</p>
-</div>
-</div>
-</div>
-
-<div class="section rv" id="thinking">
-<h2>一些真实的体会</h2>
-<div class="thinking">
-<p><strong>AI 能做代码，但做不出好的 PPT。</strong>写 Python 脚本没问题，但做精致的 PPT 还是得人来。AI 有边界，不是万能的。</p>
-<p><strong>AI 能做"翻译"，但做不出"判断"。</strong>把 Excel 搬到 Web 上 AI 能干，但决定"什么算好、什么算差"这个判断得人来。</p>
-<p><strong>最重要的是：会拆问题。</strong>一个大问题拆成 AI 能干的小块，剩下的我来判断。这不是技术活，是思维方式的转变。</p>
-<p><strong>不是转行，是进化。</strong>我还是那个汽车行业的人，只是手里多了一个工具。</p>
-</div>
-</div>
-
-<div class="contact rv">
-<p>想聊聊 AI 在工作中的实际应用？</p>
-<p><a href="weixin://">加我企微</a>，或者直接留言。</p>
-</div>
-</div>
-
-<div class="foot"><p>© 2026 麻明</p></div>
-
-<script>
-window.addEventListener('scroll',()=>{document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';document.getElementById('nav').classList.toggle('v',window.pageYOffset>200)});
-document.querySelectorAll('.rv').forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting){el.classList.add('v');this.unobserve(el)}},{threshold:.1}).observe(el));
-</script>
-</body></html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/personal-site/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>麻明 · AI × 汽车</title>
+    <script type="module" crossorigin src="/personal-site/assets/index-Cd9ZU8zP.js"></script>
+    <link rel="stylesheet" crossorigin href="/personal-site/assets/index-BaVe_yMQ.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

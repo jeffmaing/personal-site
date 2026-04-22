@@ -9,7 +9,6 @@ import { useState, useRef, useEffect } from 'react'
 // 5. Stability Constraint — 输出边界约束
 // ============================================================
 
-// ===== 核心系统 Prompt（Pre + Coda，基础身份） =====
 const BASE_SYSTEM_PROMPT = `你是麻明的 AI 分身，代表麻明与访客对话。
 
 【身份】
@@ -33,7 +32,6 @@ Harness Engineering 四件套：动态上下文、框架约束、循环反馈、
 
 【底线】不准编数据、不准编经历，不知道就说不知道`
 
-// ===== 领域专家路由（MoE 思路） =====
 const DOMAIN_PROMPTS: Record<string, string> = {
   auto: '请侧重汽车经销商运营、巡检体系、试驾交车SOP等专业视角回答。',
   ai: '请侧重 AI 产品设计、对话逻辑、智能助手落地等专业视角回答。',
@@ -50,7 +48,6 @@ function detectDomain(input: string): string {
   return 'shared'
 }
 
-// ===== 阶段标记模板（Loop Index Embedding 思路） =====
 function buildStage1Prompt(originalInput: string, domain: string): string {
   const domainHint = DOMAIN_PROMPTS[domain] || ''
   return `【Phase 1/2 — 理解与分析】
@@ -66,7 +63,7 @@ ${domainHint ? '专业方向：' + domainHint : ''}
 }
 
 function buildStage2Prompt(originalInput: string, stage1: string, confidence: number): string {
-  if (confidence >= 0.9) return '' // 高置信度，跳过精炼
+  if (confidence >= 0.9) return ''
   return `【Phase 2/2 — 自我精炼】
 原始问题：${originalInput}
 你的初稿：
@@ -79,7 +76,6 @@ ${stage1}
 如有问题，请修正后输出最终回答。如无问题，直接复述初稿。`
 }
 
-// ===== 置信度判断（ACT 自适应停机思路） =====
 function estimateConfidence(response: string, userInput: string): number {
   let score = 0.5
   if (response.length > 30) score += 0.15
@@ -97,11 +93,74 @@ interface Message {
   content: string
 }
 
+// ===== Ollama 本地调用 =====
+const callOllama = async (messages: any[]): Promise<string> => {
+  const res = await fetch('http://localhost:11434/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'qwen3:8b',
+      messages,
+      stream: false,
+    }),
+  })
+  const data = await res.json()
+  return data.message?.content || ''
+}
+
+// ===== 百炼云端调用（兜底） =====
+const callBailian = async (systemPrompt: string, messages: any[]): Promise<string> => {
+  const apiKey = import.meta.env.VITE_DASHSCOPE_API_KEY || ''
+  if (!apiKey) return ''
+  const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'qwen3.6-plus',
+      messages: [{ role: 'system', content: systemPrompt }, ...messages],
+      temperature: 0.7,
+      max_tokens: 1000,
+    }),
+  })
+  const data = await res.json()
+  return data.choices?.[0]?.message?.content || ''
+}
+
+// ===== 智能路由：本地优先，云端兜底 =====
+const callAI = async (
+  systemPrompt: string,
+  userMessages: any[],
+  fullHistory: any[]
+): Promise<string> => {
+  // 先试本地 Ollama
+  try {
+    const ollamaMessages = [{ role: 'system', content: systemPrompt }, ...fullHistory]
+    const reply = await callOllama(ollamaMessages)
+    if (reply) return reply
+  } catch {
+    // Ollama 不可用，静默失败
+  }
+
+  // 兜底：百炼云端
+  try {
+    const reply = await callBailian(systemPrompt, userMessages)
+    if (reply) return reply
+  } catch {
+    // 云端也失败
+  }
+
+  return ''
+}
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [useLocal, setUseLocal] = useState<boolean | null>(null) // null=检测中
   const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 375)
   const messagesEnd = useRef<HTMLDivElement>(null)
 
@@ -115,26 +174,14 @@ export default function ChatWidget() {
     messagesEnd.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const isMobile = w < 480
+  // 检测本地 Ollama 是否可用
+  useEffect(() => {
+    fetch('http://localhost:11434/api/tags', { signal: AbortSignal.timeout(2000) })
+      .then(() => setUseLocal(true))
+      .catch(() => setUseLocal(false))
+  }, [])
 
-  // ===== OpenMythos-style 循环调用 =====
-  const callApi = async (systemPrompt: string, messages: any[]) => {
-    const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${import.meta.env.VITE_DASHSCOPE_API_KEY || ''}`,
-      },
-      body: JSON.stringify({
-        model: 'qwen3.6-plus',
-        messages: [{ role: 'system', content: systemPrompt }, ...messages],
-        temperature: 0.7,
-        max_tokens: 1000,
-      }),
-    })
-    const data = await res.json()
-    return data.choices?.[0]?.message?.content || ''
-  }
+  const isMobile = w < 480
 
   const handleSend = async () => {
     if (!input.trim() || loading) return
@@ -147,28 +194,38 @@ export default function ChatWidget() {
     try {
       const domain = detectDomain(userInput)
       const stage1Prompt = buildStage1Prompt(userInput, domain)
-      const history = messages.slice(-6)
+      const history = messages.filter(m => m.role !== 'thinking').slice(-6)
 
       // Stage 1: 理解与分析
-      setMessages(prev => [...prev, { role: 'thinking', content: '正在思考...' }])
-      const stage1Resp = await callApi(BASE_SYSTEM_PROMPT, [
+      setMessages(prev => [...prev, { role: 'thinking', content: useLocal ? '💻 本地 AI 思考中...' : '☁️ 云端 AI 思考中...' }])
+      const stage1Resp = await callAI(BASE_SYSTEM_PROMPT, [
         { role: 'user', content: stage1Prompt },
         ...history,
         userMsg,
+      ], [
+        { role: 'system', content: BASE_SYSTEM_PROMPT },
+        ...history,
+        userMsg,
       ])
-      // 移除 thinking 状态
       setMessages(prev => prev.filter(m => m.role !== 'thinking'))
 
-      // 置信度判断（ACT 停机）
+      if (!stage1Resp) {
+        setMessages(prev => [...prev, { role: 'assistant', content: '抱歉，AI 引擎暂时不可用。本地 Ollama 未运行且云端 API Key 未配置。' }])
+        setLoading(false)
+        return
+      }
+
       const confidence = estimateConfidence(stage1Resp, userInput)
       let finalReply = stage1Resp
 
       if (confidence < 0.9) {
-        // Stage 2: 自我精炼
         setMessages(prev => [...prev, { role: 'thinking', content: '正在精炼回答...' }])
         const stage2Prompt = buildStage2Prompt(userInput, stage1Resp, confidence)
         if (stage2Prompt) {
-          const stage2Resp = await callApi(BASE_SYSTEM_PROMPT, [
+          const stage2Resp = await callAI(BASE_SYSTEM_PROMPT, [
+            { role: 'user', content: stage2Prompt },
+          ], [
+            { role: 'system', content: BASE_SYSTEM_PROMPT },
             { role: 'user', content: stage2Prompt },
           ])
           if (stage2Resp) finalReply = stage2Resp
@@ -245,7 +302,9 @@ export default function ChatWidget() {
           }}>
             <div>
               <h3 style={{ color: '#fff', fontWeight: 600, fontSize: 16, margin: 0 }}>麻明的 AI 分身</h3>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, margin: '2px 0 0' }}>19年汽车咨询老兵 · 随时在线</p>
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, margin: '2px 0 0' }}>
+                {useLocal === null ? '检测引擎中...' : useLocal ? '💻 本地模式 · qwen3:8b' : '☁️ 云端模式 · qwen3.6-plus'}
+              </p>
             </div>
             <button
               onClick={() => setOpen(false)}
@@ -363,7 +422,7 @@ export default function ChatWidget() {
                 </button>
               </div>
               <p style={{ textAlign: 'center', fontSize: 11, color: '#9ca3af', margin: '8px 0 0' }}>
-                AI 分身基于麻明真实经历 · 循环精炼引擎 v2 · 仅供参考
+                AI 分身 · 本地优先引擎 · 循环精炼 v2 · 仅供参考
               </p>
             </div>
           )}

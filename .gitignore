@@ -1,0 +1,88 @@
+# OpenClaw workspace files - not for GitHub
+/.clawhub/
+/.openclaw/
+MEMORY.md
+MEMORY.md.*
+AGENTS.md
+SOUL.md
+USER.md
+TOOLS.md
+IDENTITY.md
+HEARTBEAT.md*
+BOOTSTRAP.md
+CLAUDE.md
+persona.md
+projects.md
+
+# Memory and logs
+/memory/
+/logs/
+/runtime/
+/data/
+/output/
+/output_xhs/
+/xiaohongshu/
+/backups/
+/cleanup-archive/
+/heartbeat-state.json
+
+# Scripts (workspace automation)
+/scripts/
+
+# Docs
+/docs/
+
+# Config
+/config/
+/context/
+/cron.d/
+/shared-context/
+/workflows/
+/topic-pool/
+/knowledge/
+
+# Other projects (not personal-site)
+/projects/MoneyPrinterTurbo/
+/projects/Pixelle-Video/
+/projects/huashu-design/
+/projects/job-hunter-ai/
+/projects/job-radar/
+/projects/bmw-sandbox-web/
+/projects/bmw-sandtable/
+/projects/design-system/
+/projects/personal-website/
+/projects/profile/
+/projects/xhs-viral-analysis/
+/projects/xiaohongshu/
+/projects/ai-video-workflow-v3/
+
+# Skills
+/skills/
+
+# Toonflow
+/toonflow/
+
+# Liepin auto apply
+/liepin_auto_apply/
+
+# Modules
+/modules/
+
+# Temporary
+/tmp/
+/decoded.txt
+/text_*.json
+*.xlsx
+*.docx
+*.mp4
+*.mp3
+*.wav
+
+# Env files with secrets
+**/.env
+**/*.env
+
+# Node modules and build
+node_modules/
+dist/
+.DS_Store

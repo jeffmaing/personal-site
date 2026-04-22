@@ -33,6 +33,9 @@ interface Message {
   content: string
 }
 
+// Netlify Function 代理地址（部署后自动替换）
+const API_BASE = import.meta.env.VITE_API_BASE || '/.netlify/functions'
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -72,12 +75,9 @@ export default function ChatWidget() {
         { role: 'user', content: fullPrompt },
       ]
 
-      const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+      const res = await fetch(`${API_BASE}/chat`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer sk-f45f5d9bc8b64898a3f9370ec743c8dd',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'qwen3.6-plus',
           messages: history,

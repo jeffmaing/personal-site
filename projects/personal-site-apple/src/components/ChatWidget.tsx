@@ -1,9 +1,37 @@
 import { useState, useRef, useEffect } from "react"
-const SYSTEM_PROMPT = "你是麻明的 AI 分身，19年汽车行业咨询老兵"
-interface Message { role: "user" | "assistant"; content: string }
-const API_URL = "https://ai-chat-proxy.mamng0319.workers.dev"
+import { matchQA, fallbackReply, qaDatabase } from "../digital-maming-qa"
 
-async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = 15000) {
+const SYSTEM_PROMPT = `你是麻明的 AI 分身，代表麻明本人回答问题。用第一人称（"我"）回答。
+
+【麻明的履历】
+19 年汽车行业经验：
+- 2025.02-至今：港泓咨询 咨询总监（AI 产品方向），用 AI 重构传统咨询流程
+- 2024.04-2025.02：易车 高级产品运营（AI 方向），第一次看到互联网用 AI 改变工作流
+- 2017.12-2024.04：安永（中国） 高级项目经理，7 年汽车经销商网络咨询，每年 150+ 家店，服务奔驰/宝马/保时捷
+- 2014.12-2017.12：东风英菲尼迪 项目经理，经销商网络发展、培训体系搭建
+- 2011.11-2014.12：梅赛德斯-奔驰 项目经理，从 0 搭建经销商辅导体系、销售卓越
+- 2007-2011：比亚迪 西非市场开拓，贝宁/马里/喀麦隆 3 国
+- 2003-2007：中国农业大学 国际经济与贸易 本科
+
+【核心项目】
+1. AI 经销商诊断：35 家奔驰店，100+ 份数据，报告从 2 天压缩到 10 分钟
+2. BMW 沙盘上 Web：44 个 Sheet、1359 个公式，AI 生成，1 人 1 星期完成（原来 2 人 1 个月）
+3. 企微客户运营自动化：AI 千人千面话术，24h 在线
+
+【回复规则】
+- 用第一人称（"我"），代表麻明本人
+- 简洁直接，2-4 句话给结论
+- 不知道的问题说"这个建议直接和麻明聊聊"
+- 不用 markdown 格式，用纯文本
+- 语气像一个经验丰富的咨询顾问，沉稳、有观点
+- 核心竞争力：懂业务的没我懂 AI，懂 AI 的没我懂业务
+- 不会写代码，但会拆问题
+- AI 不能替代人，但能替代不会用 AI 的人`
+
+const API_URL = "/.netlify/functions/chat"
+const CF_WORKER_URL = "https://ai-chat-proxy.mamng0319.workers.dev"
+
+async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = 20000) {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
   try {
@@ -21,7 +49,7 @@ async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = 1
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([])
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const [w, setW] = useState(1024)
@@ -41,90 +69,283 @@ export default function ChatWidget() {
 
   const isMobile = w < 480
 
-  const handleSend = async (isRetry = false) => {
-    if (!input.trim() || loading) return
-    const userMsg: Message = { role: "user", content: input.trim() }
-    const userInput = input.trim(); (userInput)
+  const handleSend = async (isRetry = false, text?: string) => {
+    const userInput = (text || input).trim()
+    if (!userInput || loading) return
+
+    const userMsg = { role: "user" as const, content: userInput }
     setMessages(prev => [...prev, userMsg])
     setInput("")
     setLoading(true)
 
+    // 先尝试匹配 QA 数据库
+    const matched = matchQA(userInput)
+    if (matched) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { role: "assistant", content: matched!.answer }])
+        setLoading(false)
+      }, 300)
+      return
+    }
+
     try {
       const history = [
         { role: "system", content: SYSTEM_PROMPT },
-        ...messages.slice(-6),
+        ...messages.slice(-8),
         userMsg,
       ]
-      const timeoutMs = isMobile ? 8000 : 12000
-      const res = await fetchWithTimeout(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "qwen-turbo",
-          messages: history,
-          max_tokens: 500,
-        }),
-      }, timeoutMs)
+
+      const timeoutMs = isMobile ? 20000 : 25000
+
+      // 先试 Netlify Function，失败再试 Cloudflare Worker
+      let res: Response
+      try {
+        res = await fetchWithTimeout(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "qwen-turbo",
+            messages: history,
+            max_tokens: 500,
+          }),
+        }, timeoutMs)
+      } catch {
+        res = await fetchWithTimeout(CF_WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "qwen-turbo",
+            messages: history,
+            max_tokens: 500,
+          }),
+        }, timeoutMs)
+      }
+
       const data = await res.json()
       const reply = data.choices?.[0]?.message?.content || "稍后再聊~"
       setMessages(prev => [...prev, { role: "assistant", content: reply }])
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : "网络异常"
       if (!isRetry && errorMsg.includes("超时")) {
-        setMessages(prev => [...prev, { role: "assistant", content: "网络较慢，重试中..." }])
-        setTimeout(() => { setInput(userInput); handleSend(true); }, 500)
+        setTimeout(() => handleSend(true, userInput), 500)
         return
       }
-      setMessages(prev => [...prev, { role: "assistant", content: errorMsg + "，请刷新重试" }])
+      setMessages(prev => [...prev, { role: "assistant", content: fallbackReply }])
     } finally {
       setLoading(false)
     }
   }
 
-  const quickQuestions = ["你最近在忙什么？", "聊聊合作？"]
+  const quickQuestions = qaDatabase.slice(0, 3).map(qa => qa.question)
 
   return (
     <>
+      {/* FAB */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          style={{ position: "fixed", bottom: isMobile ? 20 : 24, right: isMobile ? 16 : 24, zIndex: 10000, width: 56, height: 56, borderRadius: "50%", background: "#1a1a2e", color: "white", border: "none", cursor: "pointer" }}
+          aria-label="打开 AI 助理"
+          style={{
+            position: "fixed",
+            bottom: isMobile ? 20 : 24,
+            right: isMobile ? 16 : 24,
+            zIndex: 10000,
+            width: 56,
+            height: 56,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #0071e3, #6366f1)",
+            color: "white",
+            border: "none",
+            cursor: "pointer",
+            boxShadow: "0 4px 20px rgba(0,113,227,0.35)",
+            fontSize: 24,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "transform 0.2s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.08)")}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
         >
           💬
         </button>
       )}
+
+      {/* Chat Panel */}
       {open && (
-        <div style={{ position: "fixed", bottom: isMobile ? 0 : 24, right: isMobile ? 0 : 24, width: isMobile ? "100%" : 380, height: isMobile ? "100%" : 600, zIndex: 10001, background: "#fff", display: "flex", flexDirection: "column" }}>
-          <div style={{ padding: 16, background: "#1a1a2e", color: "#fff", display: "flex", justifyContent: "space-between" }}>
-            <h3>AI 分身</h3>
-            <button onClick={() => setOpen(false)} style={{ background: "transparent", border: "none", color: "#fff", cursor: "pointer" }}>✕</button>
+        <div
+          style={{
+            position: "fixed",
+            bottom: isMobile ? 0 : 24,
+            right: isMobile ? 0 : 24,
+            width: isMobile ? "100vw" : 380,
+            height: isMobile ? "100vh" : 600,
+            zIndex: 10001,
+            background: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            borderRadius: isMobile ? 0 : 20,
+            overflow: "hidden",
+            boxShadow: isMobile ? "none" : "0 20px 60px rgba(0,0,0,0.15)",
+          }}
+        >
+          {/* Header */}
+          <div style={{
+            padding: "16px 18px 12px",
+            background: "#fff",
+            borderBottom: "1px solid #eee",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+          }}>
+            <div style={{
+              width: 36, height: 36, borderRadius: 10,
+              background: "linear-gradient(135deg, #0071e3, #6366f1)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 18,
+            }}>🤖</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#1a1a2e" }}>麻明的 AI 助理</div>
+              <div style={{ fontSize: 11, color: "#30d158", display: "flex", alignItems: "center", gap: 3 }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#30d158", display: "inline-block" }} />
+                在线
+              </div>
+            </div>
+            <button
+              onClick={() => setOpen(false)}
+              style={{
+                background: "transparent", border: "none", cursor: "pointer",
+                fontSize: 18, color: "#999", padding: 4,
+              }}
+            >✕</button>
           </div>
-          <div style={{ flex: 1, overflow: "auto", padding: 16 }}>
-            {messages.length === 0 && quickQuestions.map((q, i) => (
-              <button key={i} onClick={() => { setInput(q); handleSend(); }} style={{ display: "block", width: "100%", marginBottom: 8, padding: 10, textAlign: "left" }}>{q}</button>
-            ))}
+
+          {/* Messages */}
+          <div style={{
+            flex: 1,
+            overflow: "auto",
+            padding: "16px 18px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}>
+            {messages.length === 0 && (
+              <div style={{ marginBottom: 8 }}>
+                <div style={{
+                  padding: 12, background: "#f5f5f7", borderRadius: 12,
+                  fontSize: 13, color: "#6b7280", lineHeight: 1.6, marginBottom: 12,
+                }}>
+                  你好！我是麻明的 AI 助理 👋<br />
+                  你可以问我他的职业经历、项目经验，或者 AI 在汽车行业的实际应用。
+                </div>
+                {quickQuestions.map((q, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSend(false, q)}
+                    style={{
+                      display: "block", width: "100%", marginBottom: 8,
+                      padding: "10px 14px", textAlign: "left",
+                      background: "#f5f5f7", border: "1px solid #e5e7eb",
+                      borderRadius: 10, fontSize: 13, color: "#1a1a2e",
+                      cursor: "pointer", transition: "background 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "#e5e7eb")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "#f5f5f7")}
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {messages.map((m, i) => (
-              <div key={i} style={{ marginBottom: 8, textAlign: m.role === "user" ? "right" : "left" }}>
-                <span style={{ display: "inline-block", padding: 8, background: m.role === "user" ? "#1a1a2e" : "#eee", color: m.role === "user" ? "#fff" : "#000", borderRadius: 8 }}>{m.content}</span>
+              <div key={i} style={{
+                display: "flex",
+                justifyContent: m.role === "user" ? "flex-end" : "flex-start",
+              }}>
+                <div style={{
+                  maxWidth: "85%",
+                  padding: "10px 14px",
+                  borderRadius: 16,
+                  fontSize: 14,
+                  lineHeight: 1.6,
+                  whiteSpace: "pre-wrap",
+                  background: m.role === "user"
+                    ? "linear-gradient(135deg, #0071e3, #6366f1)"
+                    : "#f5f5f7",
+                  color: m.role === "user" ? "#fff" : "#1a1a2e",
+                  borderBottomRightRadius: m.role === "user" ? 4 : 16,
+                  borderBottomLeftRadius: m.role === "assistant" ? 4 : 16,
+                }}>
+                  {m.content}
+                </div>
               </div>
             ))}
-            {loading && <div>思考中...</div>}
+
+            {loading && (
+              <div style={{ display: "flex", gap: 4, padding: "8px 0" }}>
+                {[0, 1, 2].map(i => (
+                  <span key={i} style={{
+                    width: 6, height: 6, borderRadius: "50%", background: "#ccc",
+                    animation: `blink 1.4s infinite ${i * 0.2}s`,
+                  }} />
+                ))}
+              </div>
+            )}
             <div ref={messagesEnd} />
           </div>
-          <div style={{ padding: 16, borderTop: "1px solid #eee", display: "flex", gap: 8 }}>
+
+          {/* Input */}
+          <div style={{
+            padding: "10px 14px",
+            borderTop: "1px solid #eee",
+            display: "flex",
+            gap: 8,
+            background: "#fff",
+          }}>
             <input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              style={{ flex: 1, padding: 10, borderRadius: 8, border: "1px solid #ddd" }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault()
+                  handleSend()
+                }
+              }}
+              placeholder="问我关于麻明的一切…"
+              disabled={loading}
+              style={{
+                flex: 1, padding: "10px 14px",
+                borderRadius: 10, border: "1px solid #e5e7eb",
+                fontSize: 14, outline: "none",
+                background: "#f5f5f7",
+              }}
             />
-            <button onClick={() => handleSend()} disabled={loading} style={{ padding: "10px 20px", background: "#1a1a2e", color: "#fff", border: "none", borderRadius: 8 }}>
+            <button
+              onClick={() => handleSend()}
+              disabled={loading || !input.trim()}
+              style={{
+                padding: "10px 16px",
+                background: "linear-gradient(135deg, #0071e3, #6366f1)",
+                color: "#fff", border: "none", borderRadius: 10,
+                fontSize: 14, cursor: (loading || !input.trim()) ? "not-allowed" : "pointer",
+                opacity: (loading || !input.trim()) ? 0.5 : 1,
+              }}
+            >
               发送
             </button>
           </div>
         </div>
       )}
+
+      {/* Blink animation */}
+      <style>{`
+        @keyframes blink {
+          0%, 80%, 100% { opacity: 0.3; }
+          40% { opacity: 1; }
+        }
+      `}</style>
     </>
   )
 }

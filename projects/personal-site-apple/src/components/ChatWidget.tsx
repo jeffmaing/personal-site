@@ -33,8 +33,9 @@ interface Message {
   content: string
 }
 
-// Netlify Function 代理地址（部署后自动替换）
-const API_BASE = import.meta.env.VITE_API_BASE || '/.netlify/functions'
+// 百炼 API 直接调用（GitHub Pages 部署用）
+const DASHSCOPE_API_KEY = import.meta.env.VITE_DASHSCOPE_API_KEY || ''
+const API_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions'
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
@@ -75,9 +76,12 @@ export default function ChatWidget() {
         { role: 'user', content: fullPrompt },
       ]
 
-      const res = await fetch(`${API_BASE}/chat`, {
+      const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${DASHSCOPE_API_KEY}`,
+        },
         body: JSON.stringify({
           model: 'qwen3.6-plus',
           messages: history,

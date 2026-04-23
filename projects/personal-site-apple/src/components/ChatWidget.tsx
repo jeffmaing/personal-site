@@ -2,31 +2,24 @@ import { useState, useRef, useEffect } from 'react'
 
 const SYSTEM_PROMPT = `你是麻明的 AI 分身，代表麻明与访客对话。
 
-【身份】19年汽车行业咨询老兵 | 前奔驰·英菲尼迪·安永·易车 → 现港泓咨询 AI 咨询总监
-
-【实战项目】小鹏智能助手POC / 宝马金融AI项目 / 奔驰经销商落地方案 / 雷克萨斯新媒体运营体系 / 易慧数字员工
+【身份】麻明，19年汽车行业咨询老兵。完整履历：
+- 2025.02-至今：港泓咨询 AI咨询总监
+- 2024.04-2025.02：易车 高级产品运营（AI）
+- 2017.12-2024.04：安永（中国）高级项目经理（汽车行业，累计1000+店次巡检）
+- 2014.12-2017.12：东风英菲尼迪 项目经理
+- 2011.11-2014.12：梅赛德斯-奔驰 项目经理
+- 更早：比亚迪（非洲项目）、一汽丰田
 
 【AI哲学】AI是"数字牛马"——水质好了养什么都能活。Harness Engineering四件套：动态上下文、框架约束、循环反馈、定期清理
 
-【规则】先给结论再给证据 · 第一人称代表麻明 · 3-5句话 · 专业不死板 · 想了解更多引导联系 jeffmaming@163.com
+【规则】
+- 先给结论再给证据
+- 第一人称"我"回答
+- 2-4句话，简洁有力
+- 专业不死板，像真人聊天
+- 想了解更多引导联系 jeffmaming@163.com
 
-【底线】不准编数据、不准编经历，不知道就说不知道`
-
-const DOMAIN_EXTRAS: Record<string, string> = {
-  auto: '（侧重汽车经销商运营、巡检体系、试驾交车SOP视角）',
-  ai: '（侧重AI产品设计、对话逻辑、智能助手落地视角）',
-  consulting: '（侧重咨询方法论、项目管理、客户交付视角）',
-  career: '（侧重职业发展、行业趋势、转型建议视角）',
-}
-
-function detectDomain(input: string): string {
-  const l = input.toLowerCase()
-  if (l.match(/奔驰|宝马|bmw|雷克萨斯|小鹏|经销商|试驾|交车|sop|巡检|新媒体|运营|店次/)) return 'auto'
-  if (l.match(/\bai\b|智能助手|对话|产品|落地|ai 哲学|数字牛马|harness|数字员工/)) return 'ai'
-  if (l.match(/咨询|方法论|项目|交付|管理|方案|合作/)) return 'consulting'
-  if (l.match(/职业|跳槽|转型|发展|建议|简历|面试|行业/)) return 'career'
-  return 'shared'
-}
+【底线】不准编数据、不准编经历，不知道就说不知道。基于上述真实履历回答。`
 
 interface Message {
   role: 'user' | 'assistant'
@@ -72,24 +65,21 @@ export default function ChatWidget() {
     setLoading(true)
 
     try {
-      const domain = detectDomain(userInput)
-      const extra = DOMAIN_EXTRAS[domain] || ''
-      const fullPrompt = extra ? `${userInput} ${extra}` : userInput
-
+      // 直接发送用户输入，不加 extra 后缀，保持上下文干净
       const history = [
         { role: 'system', content: SYSTEM_PROMPT },
-        ...messages.slice(-6),
-        { role: 'user', content: fullPrompt },
+        ...messages.slice(-4), // 只保留最近 4 条历史，避免上下文过长
+        { role: 'user', content: userInput },
       ]
 
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'qwen3.6-plus',
+          model: 'qwen-turbo', // 用 turbo 更快
           messages: history,
           temperature: 0.7,
-          max_tokens: 600,
+          max_tokens: 300, // 减少到 300，加快响应
         }),
       })
 
@@ -107,7 +97,7 @@ export default function ChatWidget() {
   const quickQuestions = [
     '你最近在忙什么项目？',
     '雷克萨斯新媒体怎么做？',
-    '宝马/小鹏 AI 项目怎么落地？',
+    '你在奔驰做过什么？',
     '能不能聊聊合作？',
   ]
 

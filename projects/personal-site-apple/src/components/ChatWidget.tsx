@@ -43,6 +43,7 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false)
   const [w, setW] = useState(typeof window !== 'undefined' ? window.innerWidth : 375)
   const messagesEnd = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const h = () => setW(window.innerWidth)
@@ -53,6 +54,12 @@ export default function ChatWidget() {
   useEffect(() => {
     messagesEnd.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => inputRef.current?.focus(), 300)
+    }
+  }, [open])
 
   const isMobile = w < 480
 
@@ -89,7 +96,8 @@ export default function ChatWidget() {
       const data = await res.json()
       const reply = data.choices?.[0]?.message?.content || '抱歉，我现在有点忙，稍后再聊~'
       setMessages(prev => [...prev, { role: 'assistant', content: reply }])
-    } catch {
+    } catch (err) {
+      console.error('Chat error:', err)
       setMessages(prev => [...prev, { role: 'assistant', content: '抱歉，我暂时无法回复，请稍后再试。' }])
     } finally {
       setLoading(false)
@@ -102,6 +110,45 @@ export default function ChatWidget() {
     '宝马/小鹏 AI 项目怎么落地？',
     '能不能聊聊合作？',
   ]
+
+  // 输入区域组件（手机电脑共用）
+  const InputBar = () => (
+    <div style={{
+      padding: isMobile ? 12 : 12,
+      background: '#fff',
+      borderTop: '1px solid #e5e7eb',
+    }}>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <input
+          ref={inputRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+          placeholder="和麻明聊聊..."
+          style={{
+            flex: 1, background: '#f3f4f6', color: '#1a1a2e', fontSize: 14,
+            padding: '10px 14px', borderRadius: 10, border: '1px solid #e5e7eb', outline: 'none',
+          }}
+          disabled={loading}
+        />
+        <button
+          onClick={handleSend}
+          disabled={loading || !input.trim()}
+          style={{
+            background: '#1a1a2e', color: '#fff',
+            padding: '10px 16px', borderRadius: 10, border: 'none',
+            fontSize: 14, fontWeight: 500, cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
+            opacity: loading || !input.trim() ? 0.5 : 1,
+          }}
+        >
+          发送
+        </button>
+      </div>
+      <p style={{ textAlign: 'center', fontSize: 11, color: '#9ca3af', margin: '8px 0 0' }}>
+        AI 分身基于麻明真实经历 · 仅供参考
+      </p>
+    </div>
+  )
 
   return (
     <>
@@ -228,40 +275,7 @@ export default function ChatWidget() {
             <div ref={messagesEnd} />
           </div>
 
-          {!isMobile && (
-            <div style={{
-              padding: 12, background: '#fff', borderTop: '1px solid #e5e7eb',
-            }}>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-                  placeholder="和麻明聊聊..."
-                  style={{
-                    flex: 1, background: '#f3f4f6', color: '#1a1a2e', fontSize: 14,
-                    padding: '10px 14px', borderRadius: 10, border: '1px solid #e5e7eb', outline: 'none',
-                  }}
-                  disabled={loading}
-                />
-                <button
-                  onClick={handleSend}
-                  disabled={loading || !input.trim()}
-                  style={{
-                    background: '#1a1a2e', color: '#fff',
-                    padding: '10px 16px', borderRadius: 10, border: 'none',
-                    fontSize: 14, fontWeight: 500, cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
-                    opacity: loading || !input.trim() ? 0.5 : 1,
-                  }}
-                >
-                  发送
-                </button>
-              </div>
-              <p style={{ textAlign: 'center', fontSize: 11, color: '#9ca3af', margin: '8px 0 0' }}>
-                AI 分身基于麻明真实经历 · 仅供参考
-              </p>
-            </div>
-          )}
+          <InputBar />
         </div>
       )}
     </>

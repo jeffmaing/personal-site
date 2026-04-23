@@ -33,9 +33,8 @@ interface Message {
   content: string
 }
 
-// 百炼 API 直接调用（GitHub Pages 部署用）
-const DASHSCOPE_API_KEY = import.meta.env.VITE_DASHSCOPE_API_KEY || ''
-const API_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions'
+// Cloudflare Worker 代理（隐藏 API Key）
+const API_URL = 'https://ai-chat-proxy.mamng0319.workers.dev'
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
@@ -78,10 +77,7 @@ export default function ChatWidget() {
 
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${DASHSCOPE_API_KEY}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'qwen3.6-plus',
           messages: history,

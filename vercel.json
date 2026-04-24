@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd projects/personal-site-apple && npm install && npm run build",
+  "outputDirectory": "projects/personal-site-apple/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/projects/personal-site-apple/dist/$1" }
+  ],
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    }
+  }
+}

@@ -1,25 +1,336 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/personal-site/favicon.svg" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="x5-orientation" content="portrait" />
-    <meta name="x5-fullscreen" content="true" />
-    <style>
-      /* 微信浏览器兼容 */
-      * { -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 100%; overflow-x: hidden; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: #fff; color: #1a1a2e; }
-      #root { width: 100%; min-height: 100vh; }
-    </style>
-    <title>麻明 · AI × 汽车</title>
-    <script type="module" crossorigin src="/personal-site/assets/index-TMYWLBGd.js"></script>
-    <link rel="stylesheet" crossorigin href="/personal-site/assets/index-CwSaLzdL.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>麻明 · AI × 汽车</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+<style>
+/* Kenya Hara 东方极简风格 */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fff;--text:#1d1d1f;--ts:#86868b;--div:#e8e8ed;--bg2:#f5f5f7}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","PingFang SC",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+
+/* 滚动进度条 */
+.sp{position:fixed;top:0;left:0;height:2px;width:0;background:#1d1d1f;z-index:9999;transition:width .1s}
+
+/* 导航 */
+.nav{position:fixed;top:0;left:0;right:0;padding:0 32px;height:48px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);z-index:1000;opacity:0;transform:translateY(-100%);transition:all .3s}
+.nav.v{opacity:1;transform:none}
+.nb{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.nl{display:flex;gap:20px}
+.nl a{font-size:12px;color:var(--ts);text-decoration:none;transition:color .2s}
+.nl a:hover{color:var(--text)}
+
+/* 内容区 */
+.content{max-width:600px;margin:0 auto;padding:80px 24px 60px}
+
+/* 头部介绍 */
+.intro{display:flex;gap:24px;align-items:flex-start;margin-bottom:40px}
+.intro-photo{width:100px;height:100px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.intro-text{flex:1}
+.name{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-bottom:2px}
+.title{font-size:14px;color:var(--ts);margin-bottom:16px}
+.bio{font-size:15px;color:var(--text);line-height:1.8}
+.bio p{margin-bottom:14px}
+.bio strong{font-weight:600}
+
+/* 章节 */
+.section{margin-bottom:48px}
+.section h2{font-size:20px;font-weight:600;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--div);letter-spacing:-.01em}
+
+/* 时间线 */
+.timeline{list-style:none}
+.timeline li{padding:12px 0;padding-left:16px;position:relative;border-left:2px solid var(--div)}
+.timeline li:last-child{border-left-color:transparent}
+.timeline li::before{content:"";position:absolute;left:-5px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--bg2);border:2px solid var(--div)}
+.timeline li .period{font-size:12px;color:var(--ts);font-weight:500}
+.timeline li .role{font-size:15px;font-weight:600;margin:2px 0}
+.timeline li .company{font-size:13px;color:var(--ts)}
+
+/* 项目卡片 */
+.projects{display:flex;flex-direction:column;gap:20px}
+.project{padding:20px;background:var(--bg2);border-radius:12px}
+.project h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.project p{font-size:14px;color:var(--ts);line-height:1.6}
+
+/* 思考 */
+.thinking{font-size:14px;color:var(--ts);line-height:1.8}
+.thinking p{margin-bottom:12px}
+
+/* 联系 */
+.contact{margin-top:48px;padding:24px;background:var(--bg2);border-radius:12px;text-align:center}
+.contact p{font-size:14px;color:var(--ts);margin-bottom:12px}
+.contact a{color:#1d1d1f;text-decoration:none;font-weight:500}
+
+/* 页脚 */
+.foot{padding:20px;text-align:center;font-size:12px;color:var(--ts);border-top:1px solid var(--div)}
+
+/* 滚动动画 */
+.rv{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+.rv.v{opacity:1;transform:none}
+
+@media(max-width:768px){
+.content{padding:70px 20px 40px}
+.intro{flex-direction:column;gap:16px;align-items:center;text-align:center}
+.intro-photo{width:80px;height:80px}
+.name{font-size:26px}
+.nl{display:none}
+}
+
+/* ===== Chat Widget ===== */
+.chat-fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#1d1d1f;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;z-index:9998;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab:active{transform:scale(.95)}
+.chat-fab svg{width:24px;height:24px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.chat-badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#ff3b30;border-radius:50%;border:2px solid #fff;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+
+.chat-overlay{position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:9999;opacity:0;pointer-events:none;transition:opacity .3s}
+.chat-overlay.show{opacity:1;pointer-events:auto}
+
+.chat-window{position:fixed;bottom:90px;right:24px;width:380px;max-height:520px;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.15);z-index:10000;display:flex;flex-direction:column;overflow:hidden;transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.chat-window.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+
+.chat-top{padding:16px 18px 12px;border-bottom:1px solid var(--div);display:flex;align-items:center;gap:10px}
+.chat-avatar{width:36px;height:36px;border-radius:10px;background:#1d1d1f;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-avatar svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+.chat-info{flex:1}
+.chat-info h4{font-size:14px;font-weight:600}
+.chat-info span{font-size:11px;color:#30d158;display:flex;align-items:center;gap:3px}
+.chat-info span::before{content:"";width:6px;height:6px;border-radius:50%;background:#30d158}
+
+.chat-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px;min-height:280px;scroll-behavior:smooth}
+
+.msg{max-width:85%;animation:msgIn .3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg-bubble{padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.6;word-break:break-word}
+.msg.user{align-self:flex-end}
+.msg.user .msg-bubble{background:#1d1d1f;color:#fff;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start}
+.msg.bot .msg-bubble{background:var(--bg2);color:var(--text);border-bottom-left-radius:4px}
+.msg.bot .msg-bubble p{margin-bottom:6px}
+.msg.bot .msg-bubble p:last-child{margin-bottom:0}
+
+.typing{align-self:flex-start}
+.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ts);margin-right:3px;animation:blink 1.4s infinite both}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+
+.chat-bottom{padding:10px 14px;border-top:1px solid var(--div);display:flex;gap:8px}
+.chat-bottom input{flex:1;border:none;background:transparent;font-size:14px;outline:none;font-family:inherit;color:var(--text);padding:4px 0}
+.chat-bottom input::placeholder{color:var(--ts)}
+.chat-send{width:32px;height:32px;border-radius:10px;background:#1d1d1f;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s}
+.chat-send:hover{opacity:.85}
+.chat-send:active{transform:scale(.9)}
+.chat-send svg{width:16px;height:16px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.chat-send:disabled{opacity:.4;cursor:not-allowed}
+
+@media(max-width:768px){
+.chat-window{width:calc(100vw - 16px);right:8px;bottom:84px;max-height:calc(100vh - 120px)}
+.chat-fab{bottom:18px;right:18px;width:50px;height:50px}
+}
+</style>
+</head>
+<body>
+<div class="sp" id="sp"></div>
+<nav class="nav" id="nav"><div class="nb">麻明</div><div class="nl"><a href="#about">关于</a><a href="#work">经历</a><a href="#projects">项目</a><a href="#thinking">想法</a></div></nav>
+
+<div class="content">
+<div class="intro rv" id="about">
+<img src="photo.jpg" alt="麻明" class="intro-photo">
+<div class="intro-text">
+<div class="name">麻明</div>
+<div class="title">汽车行业 19 年，AI 数字化探索者</div>
+<div class="bio">
+<p>在汽车行业干了 19 年。从梅赛德斯 - 奔驰到东风英菲尼迪，到安永咨询，到易车，再到港泓咨询做 AI 方向。</p>
+<p>30%-40% 的工作已经由 AI 替我干了。</p>
+</div>
+</div>
+</div>
+
+<div class="section rv" id="work">
+<h2>工作经历</h2>
+<ul class="timeline">
+<li><div class="period">2025.02 — 至今</div><div class="role">咨询总监（AI 产品方向）</div><div class="company">港泓咨询</div></li>
+<li><div class="period">2024.04 — 2025.02</div><div class="role">高级产品运营（AI 方向）</div><div class="company">易车</div></li>
+<li><div class="period">2017.12 — 2024.04</div><div class="role">高级项目经理</div><div class="company">安永（中国）</div></li>
+<li><div class="period">2014.12 — 2017.12</div><div class="role">项目经理</div><div class="company">东风英菲尼迪</div></li>
+<li><div class="period">2011.11 — 2014.12</div><div class="role">项目经理</div><div class="company">梅赛德斯 - 奔驰</div></li>
+<li><div class="period">2007 — 2011</div><div class="role">西非市场开拓</div><div class="company">比亚迪</div></li>
+</ul>
+</div>
+
+<div class="section rv" id="projects">
+<h2>最近在做的事</h2>
+<div class="projects">
+<div class="project">
+<h3>AI 经销商诊断</h3>
+<p>35 家奔驰店，100+ 份数据。诊断报告从 2 天压缩到 10 分钟。</p>
+</div>
+<div class="project">
+<h3>Excel 沙盘上 Web</h3>
+<p>宝马 44 个 Sheet、1359 个公式，AI 生成，1 人 1 星期完成。</p>
+</div>
+<div class="project">
+<h3>企微客户运营自动化</h3>
+<p>AI 千人千面话术，24h 在线，数据沉淀在企业。</p>
+</div>
+</div>
+</div>
+
+<div class="section rv" id="thinking">
+<h2>一些体会</h2>
+<div class="thinking">
+<p><strong>AI 能做代码，但做不出好的 PPT。</strong>AI 有边界，不是万能的。</p>
+<p><strong>AI 能做"翻译"，但做不出"判断"。</strong>决定什么算好、什么算差——这个得人来。</p>
+<p><strong>最重要的是：会拆问题。</strong>不是技术活，是思维方式的转变。</p>
+<p><strong>不是转行，是进化。</strong></p>
+</div>
+</div>
+
+<div class="contact rv">
+<p>想聊聊 AI 在工作中的实际应用？</p>
+<p><a href="weixin://">加我企微</a>，或者直接和 AI 助理聊聊 👇</p>
+</div>
+</div>
+
+<div class="foot"><p>© 2026 麻明</p></div>
+
+<!-- Chat Overlay -->
+<div class="chat-overlay" id="chatOverlay"></div>
+
+<!-- Chat FAB -->
+<button class="chat-fab" id="chatFab" aria-label="打开聊天">
+<span class="chat-badge"></span>
+<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+</button>
+
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-top">
+    <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 3-2 5.5-4 7l-3 3.5L9 16c-2-1.5-4-4-4-7a7 7 0 017-7z"/><circle cx="9.5" cy="9.5" r="1"/><circle cx="14.5" cy="9.5" r="1"/></svg></div>
+    <div class="chat-info"><h4>麻明的 AI 助理</h4><span>在线</span></div>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-bottom">
+    <input id="chatInput" placeholder="问我关于麻明的一切…" autocomplete="off">
+    <button class="chat-send" id="chatSend" disabled>
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// Scroll & nav
+window.addEventListener('scroll',()=>{
+  document.getElementById('sp').style.width=(document.documentElement.scrollTop/(document.documentElement.scrollHeight-document.documentElement.clientHeight))*100+'%';
+  document.getElementById('nav').classList.toggle('v',window.pageYOffset>200);
+});
+document.querySelectorAll('.rv').forEach(el=>new IntersectionObserver(e=>{if(e[0].isIntersecting){el.classList.add('v');this.unobserve(el)}},{threshold:.1}).observe(el));
+
+// ===== Chat =====
+// ⚠️ 替换为你的阿里云函数计算地址
+const CHAT_URL = '你的阿里云函数地址';
+
+const SYSTEM_MSG={role:'system',content:`你是麻明的 AI 助理，代表麻明回答问题。用中文简洁回复。
+
+关于麻明：
+- 汽车行业 19 年经验
+- 2025.02-至今：港泓咨询 咨询总监（AI 产品方向）
+- 2024.04-2025.02：易车 高级产品运营（AI 方向）
+- 2017.12-2024.04：安永（中国） 高级项目经理，服务奔驰、宝马、保时捷
+- 2014.12-2017.12：东风英菲尼迪 项目经理
+- 2011.11-2014.12：梅赛德斯-奔驰 项目经理
+- 2007-2011：比亚迪 西非市场开拓
+- 2003-2007：中国农业大学 国际经济与贸易 本科
+
+最近项目：
+1. AI 经销商诊断：35 家奔驰店，10 分钟出报告（原来 2 天）
+2. Excel 沙盘上 Web：宝马 44 个 Sheet，1 周完成
+3. 企微客户运营自动化：AI 千人千面话术，24h 在线
+
+回复规则：
+- 用第一人称代表麻明
+- 简洁，2-4 句话
+- 不用 markdown`};
+
+let history=[SYSTEM_MSG];
+let generating=false;
+
+function toggleChat(){
+  const w=document.getElementById('chatWindow');
+  const f=document.getElementById('chatFab');
+  const o=document.getElementById('chatOverlay');
+  const isOpen=w.classList.toggle('open');
+  f.classList.toggle('open',isOpen);
+  o.classList.toggle('show',isOpen);
+  if(isOpen){
+    const badge=f.querySelector('.chat-badge');
+    if(badge)badge.remove();
+    if(document.getElementById('chatBody').children.length===0) addBot('你好！我是麻明的 AI 助理 🤖\n你可以问我他的职业经历、项目经验，或者 AI 在汽车行业的实际应用。');
+  }
+}
+
+document.getElementById('chatFab').onclick=toggleChat;
+document.getElementById('chatOverlay').onclick=toggleChat;
+
+const chatBody=document.getElementById('chatBody');
+const chatInput=document.getElementById('chatInput');
+const chatSend=document.getElementById('chatSend');
+
+chatInput.addEventListener('input',()=>{chatSend.disabled=!chatInput.value.trim()});
+chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
+chatSend.onclick=send;
+
+function addBot(text){
+  const d=document.createElement('div');d.className='msg bot';
+  const b=document.createElement('div');b.className='msg-bubble';
+  b.innerHTML=text.replace(/\n/g,'<br>');
+  d.appendChild(b);chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
+}
+
+function addUser(text){
+  const d=document.createElement('div');d.className='msg user';
+  const b=document.createElement('div');b.className='msg-bubble';
+  b.textContent=text;d.appendChild(b);chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
+}
+
+function addTyping(){
+  const d=document.createElement('div');d.className='typing';d.id='typing';
+  d.innerHTML='<span></span><span></span><span></span>';
+  chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
+}
+
+function removeTyping(){const t=document.getElementById('typing');if(t)t.remove()}
+
+async function send(){
+  const text=chatInput.value.trim();
+  if(!text||generating)return;
+  generating=true;
+  chatSend.disabled=true;
+  chatInput.value='';
+  addUser(text);
+  history.push({role:'user',content:text});
+  addTyping();
+
+  try{
+    const res=await fetch(CHAT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'qwen-turbo',messages:history,max_tokens:300})});
+    removeTyping();
+    const data=await res.json();
+    const reply=data.choices?.[0]?.message?.content||'抱歉，暂时无法回复。你可以加麻明的企微直接聊。';
+    history.push({role:'assistant',content:reply});
+    addBot(reply);
+  }catch(e){
+    removeTyping();
+    addBot('网络出了点小问题 😅 你可以加麻明的企微直接聊。');
+  }
+  generating=false;
+  chatSend.disabled=!chatInput.value.trim();
+  chatInput.focus();
+}
+</script>
+</body>
 </html>

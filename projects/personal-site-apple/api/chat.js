@@ -8,17 +8,18 @@ export default async function handler(req, res) {
   }
 
   try {
+    const requestBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
     const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.DASHSCOPE_API_KEY}`,
       },
-      body: JSON.stringify(req.body),
+      body: requestBody,
     });
 
     const data = await response.json();
-    res.status(200).json(data);
+    res.status(response.status).json(data);
   } catch (error) {
     res.status(500).json({ error: 'AI service error', details: error.message });
   }

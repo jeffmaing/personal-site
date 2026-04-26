@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 const SYSTEM_PROMPT = "你是麻明的 AI 分身，19年汽车行业咨询老兵"
 interface Message { role: "user" | "assistant"; content: string }
-const API_URL = "https://ai-chat-proxy.mamng0319.workers.dev"
+const API_URL = "https://maming-app.cn/api/chat"
 
 async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = 15000) {
   const controller = new AbortController()
@@ -55,7 +55,7 @@ export default function ChatWidget() {
         ...messages.slice(-6),
         userMsg,
       ]
-      const timeoutMs = isMobile ? 8000 : 12000
+      const timeoutMs = isMobile ? 20000 : 30000
       const res = await fetchWithTimeout(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

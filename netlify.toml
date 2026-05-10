@@ -1,0 +1,6 @@
+[build]
+  publish = "projects/personal-site-v2/dist"
+  command = "cd projects/personal-site-v2 && npm install && npm run build"
+
+[functions]
+  directory = "netlify/functions"

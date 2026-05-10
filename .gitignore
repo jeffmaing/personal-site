@@ -87,3 +87,5 @@ node_modules/
 dist/
 .DS_Store
 .vercel
+.git.bak/
+projects/personal-site-apple/

@@ -1,4 +1,5 @@
-@theme {
+/* CSS custom properties — McKinsey consulting style */
+:root {
   --color-dark: #f7f8fc;
   --color-dark-soft: #f0f2f7;
   --color-dark-card: #ffffff;

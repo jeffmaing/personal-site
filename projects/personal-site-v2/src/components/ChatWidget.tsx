@@ -92,10 +92,10 @@ export default function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
     }
 
     try {
+      // Fix: use updated messages (includes userMsg) instead of stale closure snapshot
       const history = [
         { role: "system", content: SYSTEM_PROMPT },
-        ...messages.slice(-8),
-        userMsg,
+        ...[...messages, userMsg].slice(-8),
       ]
 
       const timeoutMs = isMobile ? 30000 : 35000

@@ -224,7 +224,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
 function CopyIntroButton() {
   const [copied, setCopied] = useState(false)
 
-  const introText = `麻明 · 19年汽车行业经验\n从比亚迪西非拓荒到AI重构诊断体系\n懂业务的没我懂AI，懂AI的没我懂业务\n📞 185-1359-5306 | 📧 jeffmaming@163.com\n🔗 https://jeffmaming.github.io/personal-site`
+  const introText = `麻明 · 19年汽车行业经验\n从比亚迪西非拓荒到AI重构诊断体系\n懂业务的没我懂AI，懂AI的没我懂业务\n电话 185-1359-5306 | 邮箱 jeffmaming@163.com\n链接 https://jeffmaming.github.io/personal-site`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(introText).then(() => {

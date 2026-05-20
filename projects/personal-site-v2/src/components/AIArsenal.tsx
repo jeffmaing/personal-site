@@ -46,15 +46,15 @@ export default function AIArsenal() {
       id="arsenal"
       ref={ref}
       style={{
-        padding: isMobile ? '80px 20px' : 'clamp(80px, 12vw, 160px) 60px',
+        padding: isMobile ? '60px 16px' : 'clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px)',
         background: '#f0f2f7',
       }}
     >
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
         {/* Header */}
         <div style={{
           textAlign: 'center',
-          marginBottom: '64px',
+          marginBottom: '40px',
           opacity: visible ? 1 : 0,
           transform: visible ? 'none' : 'translateY(30px)',
           transition: 'opacity 1s ease, transform 1s ease',
@@ -68,17 +68,17 @@ export default function AIArsenal() {
             02 — 精选产品
           </div>
           <h2 style={{
-            fontSize: isMobile ? '32px' : 'clamp(40px, 6vw, 64px)',
+            fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 40px)',
             fontWeight: 800,
             color: '#1e2a3a',
-            marginBottom: '16px',
+            marginBottom: '10px',
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
           }}>
             {arsenal.title}
           </h2>
           <p style={{
-            fontSize: 'clamp(15px, 2vw, 18px)',
+            fontSize: 'clamp(13px, 1.5vw, 15px)',
             color: '#888',
             lineHeight: 1.6,
           }}>
@@ -90,7 +90,7 @@ export default function AIArsenal() {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: isMobile ? '20px' : '32px',
+          gap: isMobile ? '14px' : '20px',
         }}>
           {flagshipProducts.map((product, i) => (
             <FlagshipCard
@@ -106,7 +106,7 @@ export default function AIArsenal() {
         {/* Expand / Collapse button */}
         <div style={{
           textAlign: 'center',
-          marginTop: '48px',
+          marginTop: '32px',
           opacity: visible ? 1 : 0,
           transition: 'opacity 1s ease 0.5s',
         }}>
@@ -229,42 +229,42 @@ function FlagshipCard({
       <TiltCard
         style={{
           background: '#ffffff',
-          borderRadius: isMobile ? '16px' : '20px',
-          padding: isMobile ? '24px' : 'clamp(32px, 5vw, 48px)',
+          borderRadius: isMobile ? '14px' : '16px',
+          padding: isMobile ? '18px 20px' : 'clamp(22px, 3vw, 32px) clamp(24px, 4vw, 40px)',
           border: '1px solid rgba(0,0,0,0.06)',
           boxShadow: '0 2px 12px rgba(0,0,0,0.03)',
         }}
         onHoverChange={(h) => setHovered(h)}
       >
-        {/* Product name — big */}
+        {/* Product name */}
         <h3 style={{
-          fontSize: 'clamp(20px, 3vw, 28px)',
+          fontSize: 'clamp(16px, 2.2vw, 20px)',
           fontWeight: 700,
           color: '#1e2a3a',
-          marginBottom: '12px',
+          marginBottom: '8px',
           lineHeight: 1.3,
           letterSpacing: '-0.02em',
         }}>
           {product.name}
         </h3>
 
-        {/* Description — gray, readable */}
+        {/* Description */}
         <p style={{
-          fontSize: 'clamp(14px, 1.8vw, 16px)',
+          fontSize: 'clamp(13px, 1.5vw, 14px)',
           color: '#888',
-          lineHeight: 1.7,
-          marginBottom: '28px',
+          lineHeight: 1.6,
+          marginBottom: '16px',
           maxWidth: '600px',
         }}>
           {product.description}
         </p>
 
-        {/* Metrics — big numbers */}
+        {/* Metrics */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: isMobile ? '16px' : '24px',
-          marginBottom: isMobile ? '20px' : '28px',
+          gap: isMobile ? '12px' : '18px',
+          marginBottom: isMobile ? '12px' : '16px',
         }}>
           {metricsParsed.map((m, i) => (
             <div key={i}>
@@ -275,7 +275,7 @@ function FlagshipCard({
                   gap: '8px',
                 }}>
                   <span style={{
-                    fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
+                    fontSize: isMobile ? '18px' : 'clamp(20px, 2.5vw, 28px)',
                     fontWeight: 800,
                     color: '#1e2a3a',
                     letterSpacing: '-0.03em',
@@ -284,12 +284,12 @@ function FlagshipCard({
                     {m.before}
                   </span>
                   <span style={{
-                    fontSize: isMobile ? '14px' : '18px',
+                    fontSize: isMobile ? '12px' : '14px',
                     color: '#bbb',
                     fontWeight: 300,
                   }}>→</span>
                   <span style={{
-                    fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
+                    fontSize: isMobile ? '18px' : 'clamp(20px, 2.5vw, 28px)',
                     fontWeight: 800,
                     color: '#52b788',
                     letterSpacing: '-0.03em',
@@ -300,7 +300,7 @@ function FlagshipCard({
                 </div>
               ) : (
                 <div style={{
-                  fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
+                  fontSize: isMobile ? '18px' : 'clamp(20px, 2.5vw, 28px)',
                   fontWeight: 800,
                   color: '#5b7db1',
                   letterSpacing: '-0.03em',

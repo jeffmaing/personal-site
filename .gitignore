@@ -87,8 +87,5 @@ node_modules/
 dist/
 .DS_Store
 .vercel
-<<<<<<< HEAD
-=======
 .git.bak/
 projects/personal-site-apple/
->>>>>>> bb85ef8bc407ee93a1e2fef80482e279f8ac6fff

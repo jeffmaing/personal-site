@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useInView, useWidth } from '../hooks/useAnimatedNumber'
 
 interface MetricItem {
@@ -94,6 +94,406 @@ const CAREER_DATA: CareerStep[] = [
   },
 ]
 
+/** Short label for timeline dot (e.g. "07-11") */
+function shortYear(year: string): string {
+  // "2007-2011" -> "07-11", "2025-至今" -> "25-"
+  const parts = year.split('-')
+  if (parts.length === 2) {
+    const a = parts[0].slice(-2)
+    const b = parts[1] === '至今' ? '今' : parts[1].slice(-2)
+    return `${a}-${b}`
+  }
+  return year.slice(-2)
+}
+
+/**
+ * Hook: tracks which section ID is currently in viewport
+ */
+function useActiveSection(ids: string[]): string | null {
+  const [active, setActive] = useState<string | null>(null)
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = []
+    const els: HTMLElement[] = []
+
+    ids.forEach((id) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      els.push(el)
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActive(id)
+          }
+        },
+        { threshold: 0.35, rootMargin: '-80px 0px -40% 0px' }
+      )
+
+      observer.observe(el)
+      observers.push(observer)
+    })
+
+    return () => {
+      observers.forEach((o) => o.disconnect())
+    }
+  }, [ids.join(',')])
+
+  return active
+}
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
+export default function CareerTimeline() {
+  const [ref, visible] = useInView(0.05)
+  const [selectedCareer, setSelectedCareer] = useState<CareerStep | null>(null)
+  const w = useWidth()
+  const isMobile = w < 768
+
+  const sectionIds = CAREER_DATA.map((_, i) => `career-${i}`)
+  const activeSection = useActiveSection(sectionIds)
+
+  // Determine which index is active
+  const activeIndex = sectionIds.indexOf(activeSection ?? '')
+
+  const handleDotClick = useCallback((index: number) => {
+    scrollToSection(sectionIds[index])
+  }, [sectionIds])
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(20px)',
+        transition: 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s',
+      }}
+    >
+      {/* Section label */}
+      <div style={{
+        fontSize: '11px',
+        color: '#bbb',
+        letterSpacing: '0.2em',
+        marginBottom: isMobile ? '24px' : '32px',
+      }}>
+        职业历程
+      </div>
+
+      <div style={{
+        display: 'flex',
+        gap: '0',
+        position: 'relative',
+      }}>
+        {/* ===== LEFT TIMELINE SIDEBAR (desktop only) ===== */}
+        {!isMobile && (
+          <div
+            style={{
+              width: '140px',
+              flexShrink: 0,
+              position: 'sticky',
+              top: '100px',
+              alignSelf: 'flex-start',
+              paddingRight: '32px',
+              paddingTop: '8px',
+            }}
+          >
+            {/* Vertical line */}
+            <div
+              style={{
+                position: 'absolute',
+                left: '11px',
+                top: '8px',
+                bottom: '8px',
+                width: '2px',
+                background: 'linear-gradient(to bottom, transparent, #d0d5e0 40px, #d0d5e0 calc(100% - 40px), transparent)',
+              }}
+            />
+
+            {/* Dots */}
+            <div style={{ position: 'relative' }}>
+              {CAREER_DATA.map((step, i) => {
+                const isActive = i === activeIndex
+                return (
+                  <div
+                    key={i}
+                    onClick={() => handleDotClick(i)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '14px 0',
+                      cursor: 'pointer',
+                      transition: 'opacity 0.3s ease',
+                    }}
+                  >
+                    {/* Dot */}
+                    <div style={{
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'relative',
+                      zIndex: 1,
+                      flexShrink: 0,
+                    }}>
+                      {/* Glow ring (active only) */}
+                      {isActive && (
+                        <div style={{
+                          position: 'absolute',
+                          inset: '-6px',
+                          borderRadius: '50%',
+                          background: 'rgba(91, 125, 177, 0.15)',
+                          animation: 'timelineGlow 2s ease-in-out infinite',
+                        }} />
+                      )}
+                      {/* Outer ring */}
+                      <div style={{
+                        width: '14px',
+                        height: '14px',
+                        borderRadius: '50%',
+                        border: isActive ? '3px solid #5b7db1' : '2.5px solid #c8cdd6',
+                        background: isActive ? '#5b7db1' : 'transparent',
+                        transition: 'all 0.35s ease',
+                        boxShadow: isActive ? '0 0 0 3px rgba(91, 125, 177, 0.12)' : 'none',
+                      }} />
+                    </div>
+
+                    {/* Label */}
+                    <span style={{
+                      fontSize: '12px',
+                      fontWeight: isActive ? 700 : 500,
+                      color: isActive ? '#5b7db1' : '#999',
+                      fontFamily: "'JetBrains Mono', 'SF Mono', monospace",
+                      letterSpacing: '0.04em',
+                      transition: 'all 0.35s ease',
+                      userSelect: 'none',
+                    }}>
+                      {shortYear(step.year)}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ===== RIGHT CONTENT AREA ===== */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {CAREER_DATA.map((step, i) => {
+            const sectionId = sectionIds[i]
+            const isActive = i === activeIndex
+
+            return (
+              <div
+                key={i}
+                id={sectionId}
+                style={{
+                  marginBottom: '16px',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  padding: '24px 24px',
+                  border: isActive
+                    ? '1.5px solid rgba(91, 125, 177, 0.25)'
+                    : '1px solid rgba(0,0,0,0.04)',
+                  boxShadow: isActive
+                    ? '0 4px 20px rgba(91, 125, 177, 0.06)'
+                    : '0 2px 8px rgba(0,0,0,0.03)',
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? 'none' : 'translateY(12px)',
+                  transition: `opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease`,
+                  transitionDelay: `${0.1 + i * 0.08}s`,
+                  cursor: 'pointer',
+                }}
+                onClick={() => setSelectedCareer(step)}
+              >
+                {/* Header row */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  justifyContent: 'space-between',
+                  marginBottom: '16px',
+                  flexWrap: 'wrap',
+                  gap: '8px',
+                }}>
+                  <div>
+                    {/* Year badge */}
+                    <div style={{
+                      display: 'inline-block',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      color: step.color,
+                      background: `${step.color}12`,
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      marginBottom: '8px',
+                    }}>
+                      {step.year}
+                    </div>
+
+                    {/* Company + Role */}
+                    <div style={{
+                      fontSize: '18px',
+                      fontWeight: 700,
+                      color: '#1e2a3a',
+                      marginBottom: '2px',
+                    }}>
+                      {step.label}
+                    </div>
+                    <div style={{
+                      fontSize: '13px',
+                      color: step.color,
+                      fontWeight: 500,
+                    }}>
+                      {step.role}
+                    </div>
+                  </div>
+
+                  {/* View detail hint (desktop) */}
+                  {!isMobile && (
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#bbb',
+                      marginTop: '4px',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      点击查看详情 →
+                    </div>
+                  )}
+                </div>
+
+                {/* Description */}
+                <div style={{
+                  fontSize: '14px',
+                  lineHeight: 1.75,
+                  color: '#555',
+                  marginBottom: '18px',
+                }}>
+                  {step.description}
+                </div>
+
+                {/* Metrics */}
+                <div style={{ marginBottom: '16px' }}>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#aaa',
+                    letterSpacing: '0.08em',
+                    marginBottom: '10px',
+                    fontWeight: 600,
+                  }}>
+                    量化成果
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
+                  }}>
+                    {step.metrics.map((metric, mi) => (
+                      <div
+                        key={mi}
+                        style={{
+                          background: 'linear-gradient(135deg, #f8f9fa 0%, #fff 100%)',
+                          borderRadius: '12px',
+                          padding: '14px 16px',
+                          border: '1px solid rgba(0,0,0,0.04)',
+                          boxShadow: '0 1px 6px rgba(0,0,0,0.02)',
+                          minWidth: '120px',
+                          flex: '1 1 140px',
+                        }}
+                      >
+                        <div style={{
+                          fontSize: '11px',
+                          color: '#888',
+                          marginBottom: '4px',
+                        }}>
+                          {metric.label}
+                        </div>
+                        <div style={{
+                          fontSize: '20px',
+                          fontWeight: 700,
+                          color: step.color,
+                          marginBottom: '2px',
+                        }}>
+                          {metric.value}
+                        </div>
+                        <div style={{
+                          fontSize: '11px',
+                          color: '#aaa',
+                          lineHeight: 1.4,
+                        }}>
+                          {metric.detail}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Projects */}
+                <div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#aaa',
+                    letterSpacing: '0.08em',
+                    marginBottom: '10px',
+                    fontWeight: 600,
+                  }}>
+                    代表项目
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '8px',
+                  }}>
+                    {step.projects.map((project, pi) => (
+                      <span
+                        key={pi}
+                        style={{
+                          display: 'inline-block',
+                          background: `${step.color}10`,
+                          color: step.color,
+                          padding: '8px 14px',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          fontWeight: 500,
+                          border: `1px solid ${step.color}20`,
+                        }}
+                      >
+                        {project}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Modal (for both desktop click and mobile) */}
+      {selectedCareer && (
+        <CareerModal
+          data={selectedCareer}
+          onClose={() => setSelectedCareer(null)}
+        />
+      )}
+
+      <style>{`
+        @keyframes timelineGlow {
+          0%, 100% { transform: scale(1); opacity: 0.6; }
+          50% { transform: scale(1.3); opacity: 0.2; }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+// ============ MODAL (unchanged logic, re-added for completeness) ============
+
 function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void }) {
   const w = useWidth()
   const isMobile = w < 768
@@ -135,7 +535,6 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           position: 'relative',
         }}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           aria-label="关闭"
@@ -161,7 +560,6 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           ✕
         </button>
 
-        {/* Header */}
         <div style={{ marginBottom: '24px', paddingRight: '40px' }}>
           <div style={{
             display: 'inline-block',
@@ -192,7 +590,6 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           </div>
         </div>
 
-        {/* Description */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{
             fontSize: '12px',
@@ -213,7 +610,6 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           </p>
         </div>
 
-        {/* Metrics */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{
             fontSize: '12px',
@@ -267,7 +663,6 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           </div>
         </div>
 
-        {/* Projects */}
         <div>
           <div style={{
             fontSize: '12px',
@@ -319,118 +714,5 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
         }
       `}</style>
     </div>
-  )
-}
-
-export default function CareerTimeline() {
-  const [ref, visible] = useInView(0.1)
-  const [selectedCareer, setSelectedCareer] = useState<CareerStep | null>(null)
-  const w = useWidth()
-  const isMobile = w < 768
-
-  return (
-    <>
-      <div
-        ref={ref}
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'none' : 'translateY(20px)',
-          transition: 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s',
-        }}
-      >
-        {/* Section label */}
-        <div style={{
-          fontSize: '11px',
-          color: '#bbb',
-          letterSpacing: '0.2em',
-          marginBottom: isMobile ? '24px' : '32px',
-        }}>
-          职业历程
-        </div>
-
-        {/* Milestone cards grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-          gap: '16px',
-        }}>
-          {CAREER_DATA.map((step, i) => (
-            <div
-              key={i}
-              onClick={() => setSelectedCareer(step)}
-              style={{
-                background: '#fff',
-                borderRadius: '14px',
-                padding: '20px 16px',
-                border: '1px solid rgba(0,0,0,0.04)',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(12px)',
-                transition: 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease',
-                transitionDelay: `${0.1 + i * 0.08}s`,
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)'
-                e.currentTarget.style.borderColor = step.color + '30'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.03)'
-                e.currentTarget.style.borderColor = 'rgba(0,0,0,0.04)'
-              }}
-            >
-              {/* Year badge */}
-              <div style={{
-                display: 'inline-block',
-                fontSize: '12px',
-                fontWeight: 700,
-                color: step.color,
-                background: `${step.color}12`,
-                padding: '4px 10px',
-                borderRadius: '6px',
-                marginBottom: '10px',
-              }}>
-                {step.year}
-              </div>
-
-              {/* Company */}
-              <div style={{
-                fontSize: '16px',
-                fontWeight: 700,
-                color: '#1e2a3a',
-                marginBottom: '4px',
-              }}>
-                {step.label}
-              </div>
-
-              {/* Role */}
-              <div style={{
-                fontSize: '12px',
-                color: '#999',
-                letterSpacing: '0.02em',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-                <span>{step.role}</span>
-                <span style={{
-                  fontSize: '10px',
-                  color: '#bbb',
-                  marginLeft: '8px',
-                }}>查看详情 →</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Modal */}
-      {selectedCareer && (
-        <CareerModal
-          data={selectedCareer}
-          onClose={() => setSelectedCareer(null)}
-        />
-      )}
-    </>
   )
 }

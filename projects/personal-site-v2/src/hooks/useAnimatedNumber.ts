@@ -6,9 +6,13 @@ import { useRef, useEffect, useState } from 'react'
  */
 export function useAnimatedNumber(
   target: number,
-  duration = 2000,
-  threshold = 0.3
+  options?: {
+    duration?: number   // animation duration in ms (default: 1200)
+    threshold?: number  // intersection threshold (default: 0.3)
+    delay?: number      // delay before animation starts in ms (default: 0)
+  }
 ): { ref: React.RefObject<HTMLDivElement | null>; value: number } {
+  const { duration = 1200, threshold = 0.3, delay = 0 } = options ?? {}
   const ref = useRef<HTMLDivElement>(null)
   const [value, setValue] = useState(0)
   const [started, setStarted] = useState(false)
@@ -33,24 +37,28 @@ export function useAnimatedNumber(
   useEffect(() => {
     if (!started) return
 
-    const startTime = Date.now()
-    const animate = () => {
-      const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
+    const timer = setTimeout(() => {
+      const startTime = Date.now()
+      const animate = () => {
+        const elapsed = Date.now() - startTime
+        const progress = Math.min(elapsed / duration, 1)
 
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setValue(Math.round(eased * target))
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setValue(Math.round(eased * target))
 
-      if (progress < 1) {
-        requestAnimationFrame(animate)
-      } else {
-        setValue(target)
+        if (progress < 1) {
+          requestAnimationFrame(animate)
+        } else {
+          setValue(target)
+        }
       }
-    }
 
-    requestAnimationFrame(animate)
-  }, [started, target, duration])
+      requestAnimationFrame(animate)
+    }, delay)
+
+    return () => clearTimeout(timer)
+  }, [started, target, duration, delay])
 
   return { ref: ref as React.RefObject<HTMLDivElement | null>, value }
 }

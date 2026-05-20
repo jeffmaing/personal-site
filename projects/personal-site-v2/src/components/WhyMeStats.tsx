@@ -1,11 +1,18 @@
-import { useState, useEffect } from 'react'
-import { useInView, useWidth } from '../hooks/useAnimatedNumber'
+import { useAnimatedNumber, useInView, useWidth } from '../hooks/useAnimatedNumber'
 import CareerTimeline from './CareerTimeline'
 
 export default function WhyMeStats() {
   const [ref, visible] = useInView(0.15)
   const w = useWidth()
   const isMobile = w < 768
+
+  // Hero number: "10" (minutes)
+  const heroNum = useAnimatedNumber(10, { duration: 1500, delay: 200 })
+
+  // Supporting stats
+  const stat1 = useAnimatedNumber(19, { duration: 1200, delay: 200 })   // 19 年
+  const stat2 = useAnimatedNumber(1000, { duration: 1500, delay: 300 })  // 1000+
+  const stat3 = useAnimatedNumber(5, { duration: 1000, delay: 400 })     // 5 个
 
   return (
     <div
@@ -28,15 +35,18 @@ export default function WhyMeStats() {
       </div>
 
       {/* Hero metric — 2天→10分钟 as visual center */}
-      <div style={{
-        background: 'linear-gradient(135deg, #52b788 0%, #5b7db1 100%)',
-        borderRadius: '20px',
-        padding: isMobile ? '40px 24px' : '56px 40px',
-        textAlign: 'center',
-        marginBottom: isMobile ? '32px' : '48px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
+      <div
+        ref={heroNum.ref}
+        style={{
+          background: 'linear-gradient(135deg, #52b788 0%, #5b7db1 100%)',
+          borderRadius: '20px',
+          padding: isMobile ? '40px 24px' : '56px 40px',
+          textAlign: 'center',
+          marginBottom: isMobile ? '32px' : '48px',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
         {/* Subtle pattern overlay */}
         <div style={{
           position: 'absolute',
@@ -62,7 +72,7 @@ export default function WhyMeStats() {
             lineHeight: 1,
             letterSpacing: '-0.04em',
           }}>
-            <AnimatedHeroNumber visible={visible} />
+            {heroNum.value} 分钟
           </div>
 
           <div style={{
@@ -83,9 +93,9 @@ export default function WhyMeStats() {
         gap: isMobile ? '16px' : '24px',
         marginBottom: isMobile ? '32px' : '48px',
       }}>
-        <SupportingStat value={19} suffix="年" label="汽车行业深耕" visible={visible} delay={0.2} />
-        <SupportingStat value={1000} suffix="+" label="累计服务店次" visible={visible} delay={0.3} />
-        <SupportingStat value={5} suffix="个" label="头部豪华品牌" visible={visible} delay={0.4} />
+        <SupportingStat ref={stat1.ref} value={stat1.value} suffix="年" label="汽车行业深耕" />
+        <SupportingStat ref={stat2.ref} value={stat2.value} suffix="+" label="累计服务店次" />
+        <SupportingStat ref={stat3.ref} value={stat3.value} suffix="个" label="头部豪华品牌" />
       </div>
 
       {/* Career timeline */}
@@ -94,57 +104,26 @@ export default function WhyMeStats() {
   )
 }
 
-function AnimatedHeroNumber({ visible }: { visible: boolean }) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!visible) return
-    const duration = 1500
-    const startTime = Date.now()
-    const animate = () => {
-      const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.round(eased * 10))
-      if (progress < 1) requestAnimationFrame(animate)
-    }
-    requestAnimationFrame(animate)
-  }, [visible])
-
-  return <>{count} 分钟</>
-}
-
 function SupportingStat({
-  value, suffix, label, visible, delay,
+  ref, value, suffix, label,
 }: {
-  value: number; suffix: string; label: string; visible: boolean; delay: number;
+  ref: React.RefObject<HTMLDivElement | null>
+  value: number
+  suffix: string
+  label: string
 }) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!visible) return
-    const duration = 2000
-    const startTime = Date.now()
-    const animate = () => {
-      const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.round(eased * value))
-      if (progress < 1) requestAnimationFrame(animate)
-    }
-    const timer = setTimeout(() => requestAnimationFrame(animate), delay * 1000)
-    return () => clearTimeout(timer)
-  }, [visible, value, delay])
-
   return (
-    <div style={{
-      background: '#fff',
-      borderRadius: '16px',
-      padding: '28px 20px',
-      textAlign: 'center',
-      border: '1px solid rgba(0,0,0,0.04)',
-      boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-    }}>
+    <div
+      ref={ref}
+      style={{
+        background: '#fff',
+        borderRadius: '16px',
+        padding: '28px 20px',
+        textAlign: 'center',
+        border: '1px solid rgba(0,0,0,0.04)',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+      }}
+    >
       <div style={{
         fontSize: 'clamp(32px, 5vw, 48px)',
         fontWeight: 800,
@@ -153,7 +132,7 @@ function SupportingStat({
         letterSpacing: '-0.03em',
         marginBottom: '8px',
       }}>
-        {count}{suffix}
+        {value}{suffix}
       </div>
       <div style={{
         fontSize: '13px',

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { siteConfig } from '../site-config'
 import Modal from './Modal'
+import TiltCard from './TiltCard'
 import { useInView, useWidth } from '../hooks/useAnimatedNumber'
 
 interface ProductDetail {
@@ -209,8 +210,6 @@ function FlagshipCard({
   return (
     <div
       onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
@@ -220,108 +219,114 @@ function FlagshipCard({
       role="button"
       tabIndex={0}
       style={{
-        background: '#ffffff',
-        borderRadius: isMobile ? '16px' : '20px',
-        padding: isMobile ? '24px' : 'clamp(32px, 5vw, 48px)',
         cursor: 'pointer',
-        transition: 'all 0.6s ease',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(20px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
         transitionDelay: `${index * 0.12}s`,
-        boxShadow: hovered ? '0 16px 48px rgba(0,0,0,0.06)' : '0 2px 12px rgba(0,0,0,0.03)',
-        border: '1px solid rgba(0,0,0,0.06)',
       }}
     >
-      {/* Product name — big */}
-      <h3 style={{
-        fontSize: 'clamp(20px, 3vw, 28px)',
-        fontWeight: 700,
-        color: '#1e2a3a',
-        marginBottom: '12px',
-        lineHeight: 1.3,
-        letterSpacing: '-0.02em',
-      }}>
-        {product.name}
-      </h3>
+      <TiltCard
+        style={{
+          background: '#ffffff',
+          borderRadius: isMobile ? '16px' : '20px',
+          padding: isMobile ? '24px' : 'clamp(32px, 5vw, 48px)',
+          border: '1px solid rgba(0,0,0,0.06)',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.03)',
+        }}
+        onHoverChange={(h) => setHovered(h)}
+      >
+        {/* Product name — big */}
+        <h3 style={{
+          fontSize: 'clamp(20px, 3vw, 28px)',
+          fontWeight: 700,
+          color: '#1e2a3a',
+          marginBottom: '12px',
+          lineHeight: 1.3,
+          letterSpacing: '-0.02em',
+        }}>
+          {product.name}
+        </h3>
 
-      {/* Description — gray, readable */}
-      <p style={{
-        fontSize: 'clamp(14px, 1.8vw, 16px)',
-        color: '#888',
-        lineHeight: 1.7,
-        marginBottom: '28px',
-        maxWidth: '600px',
-      }}>
-        {product.description}
-      </p>
+        {/* Description — gray, readable */}
+        <p style={{
+          fontSize: 'clamp(14px, 1.8vw, 16px)',
+          color: '#888',
+          lineHeight: 1.7,
+          marginBottom: '28px',
+          maxWidth: '600px',
+        }}>
+          {product.description}
+        </p>
 
-      {/* Metrics — big numbers */}
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: isMobile ? '16px' : '24px',
-        marginBottom: isMobile ? '20px' : '28px',
-      }}>
-        {metricsParsed.map((m, i) => (
-          <div key={i}>
-            {m.before ? (
-              <div style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: '8px',
-              }}>
-                <span style={{
-                  fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
-                  fontWeight: 800,
-                  color: '#1e2a3a',
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1,
+        {/* Metrics — big numbers */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: isMobile ? '16px' : '24px',
+          marginBottom: isMobile ? '20px' : '28px',
+        }}>
+          {metricsParsed.map((m, i) => (
+            <div key={i}>
+              {m.before ? (
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: '8px',
                 }}>
-                  {m.before}
-                </span>
-                <span style={{
-                  fontSize: isMobile ? '14px' : '18px',
-                  color: '#bbb',
-                  fontWeight: 300,
-                }}>→</span>
-                <span style={{
+                  <span style={{
+                    fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
+                    fontWeight: 800,
+                    color: '#1e2a3a',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1,
+                  }}>
+                    {m.before}
+                  </span>
+                  <span style={{
+                    fontSize: isMobile ? '14px' : '18px',
+                    color: '#bbb',
+                    fontWeight: 300,
+                  }}>→</span>
+                  <span style={{
+                    fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
+                    fontWeight: 800,
+                    color: '#52b788',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1,
+                  }}>
+                    {m.after}
+                  </span>
+                </div>
+              ) : (
+                <div style={{
                   fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
                   fontWeight: 800,
-                  color: '#52b788',
+                  color: '#5b7db1',
                   letterSpacing: '-0.03em',
                   lineHeight: 1,
                 }}>
                   {m.after}
-                </span>
-              </div>
-            ) : (
-              <div style={{
-                fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 48px)',
-                fontWeight: 800,
-                color: '#5b7db1',
-                letterSpacing: '-0.03em',
-                lineHeight: 1,
-              }}>
-                {m.after}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
 
-      {/* CTA — right aligned */}
-      <div style={{
-        textAlign: 'right',
-        fontSize: '14px',
-        color: '#5b7db1',
-        transition: 'color 0.5s ease',
-      }}>
-        查看案例 <span style={{
-          display: 'inline-block',
-          transition: 'transform 0.5s ease',
-          transform: hovered ? 'translateX(4px)' : 'translateX(0)',
-        }}>→</span>
-      </div>
+        {/* CTA — right aligned */}
+        <div style={{
+          textAlign: 'right',
+          fontSize: '14px',
+          color: '#5b7db1',
+          transition: 'color 0.5s ease',
+        }}>
+          查看案例 <span style={{
+            display: 'inline-block',
+            transition: 'transform 0.5s ease',
+            transform: hovered ? 'translateX(4px)' : 'translateX(0)',
+          }}>→</span>
+        </div>
+      </TiltCard>
     </div>
   )
 }
@@ -340,8 +345,6 @@ function CompactCard({
   return (
     <div
       onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
@@ -351,38 +354,46 @@ function CompactCard({
       role="button"
       tabIndex={0}
       style={{
-        background: '#ffffff',
-        borderRadius: '12px',
-        padding: '24px',
         cursor: 'pointer',
-        transition: 'all 0.5s ease',
-        border: hovered ? '1px solid #5b7db1' : '1px solid rgba(0,0,0,0.06)',
-        boxShadow: hovered ? '0 4px 16px rgba(0,0,0,0.04)' : 'none',
         animationDelay: `${index * 0.08}s`,
       }}
     >
-      <h4 style={{
-        fontSize: '15px',
-        fontWeight: 600,
-        color: '#1e2a3a',
-        marginBottom: '6px',
-      }}>
-        {product.name}
-      </h4>
-      <p style={{
-        fontSize: '13px',
-        color: '#999',
-        lineHeight: 1.5,
-        marginBottom: '12px',
-      }}>
-        {product.description}
-      </p>
-      <div style={{
-        fontSize: '12px',
-        color: '#5b7db1',
-      }}>
-        查看案例 →
-      </div>
+      <TiltCard
+        style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px',
+          border: '1px solid rgba(0,0,0,0.06)',
+          boxShadow: 'none',
+        }}
+        onHoverChange={(h) => setHovered(h)}
+        maxTilt={2}
+      >
+        <h4 style={{
+          fontSize: '15px',
+          fontWeight: 600,
+          color: '#1e2a3a',
+          marginBottom: '6px',
+        }}>
+          {product.name}
+        </h4>
+        <p style={{
+          fontSize: '13px',
+          color: '#999',
+          lineHeight: 1.5,
+          marginBottom: '12px',
+        }}>
+          {product.description}
+        </p>
+        <div style={{
+          fontSize: '12px',
+          color: '#5b7db1',
+          transition: 'transform 0.3s ease',
+          transform: hovered ? 'translateX(3px)' : 'translateX(0)',
+        }}>
+          查看案例 →
+        </div>
+      </TiltCard>
     </div>
   )
 }

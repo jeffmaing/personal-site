@@ -5,6 +5,7 @@ import Story from './components/Story'
 import AIArsenal from './components/AIArsenal'
 import AIBoundaries from './components/AIBoundaries'
 import CTA from './components/CTA'
+import TimeCalculator from './components/TimeCalculator'
 import ChatWidget from './components/ChatWidget'
 
 function Footer() {
@@ -39,6 +40,15 @@ function App() {
       <Story />
       <AIArsenal />
       <AIBoundaries />
+      <section
+        id="calculator"
+        style={{
+          padding: 'clamp(60px, 10vw, 120px) 24px 0',
+          background: '#f7f8fc',
+        }}
+      >
+        <TimeCalculator />
+      </section>
       <CTA onOpenChat={() => setChatOpen(true)} />
       <Footer />
       <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} />

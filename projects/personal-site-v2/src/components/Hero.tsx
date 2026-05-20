@@ -1,4 +1,5 @@
 import { siteConfig } from '../site-config'
+import ParticleBackground from './ParticleBackground'
 
 export default function Hero() {
   const { hero } = siteConfig
@@ -15,6 +16,9 @@ export default function Hero() {
       position: 'relative',
       overflow: 'hidden',
     }}>
+      {/* Particle background */}
+      <ParticleBackground />
+
       {/* Subtle radial glow */}
       <div style={{
         position: 'absolute',

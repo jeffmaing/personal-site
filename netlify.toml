@@ -1,11 +1,6 @@
 [build]
-<<<<<<< HEAD
-  publish = "projects/personal-site-apple/dist"
-  command = "cd projects/personal-site-apple && npm install && npm run build"
-=======
   publish = "projects/personal-site-v2/dist"
   command = "cd projects/personal-site-v2 && npm install && npm run build"
->>>>>>> bb85ef8bc407ee93a1e2fef80482e279f8ac6fff
 
 [functions]
   directory = "netlify/functions"

@@ -1,6 +1,10 @@
 // Netlify Function - AI 代理（服务端，Key 不暴露）
 
+<<<<<<< HEAD
 const API_KEY = 'sk-f45f5d9bc8b64898a3f9370ec743c8dd';
+=======
+const API_KEY = process.env.DASHSCOPE_API_KEY || '';
+>>>>>>> bb85ef8bc407ee93a1e2fef80482e279f8ac6fff
 const API_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
 
 exports.handler = async (event) => {

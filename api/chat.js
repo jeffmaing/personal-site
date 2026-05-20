@@ -7,7 +7,11 @@ export default async function handler(req, res) {
   try {
     const r = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
       method: 'POST',
+<<<<<<< HEAD
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer sk-f45f5d9bc8b64898a3f9370ec743c8dd' },
+=======
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.DASHSCOPE_API_KEY}` },
+>>>>>>> bb85ef8bc407ee93a1e2fef80482e279f8ac6fff
       body: JSON.stringify(req.body)
     });
     const d = await r.json();

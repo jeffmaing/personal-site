@@ -60,7 +60,7 @@ export function useAnimatedNumber(
  */
 export function useInView(threshold = 0.1): [React.RefObject<HTMLDivElement | null>, boolean] {
   const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)  // 默认可见，避免初始空白
 
   useEffect(() => {
     const el = ref.current

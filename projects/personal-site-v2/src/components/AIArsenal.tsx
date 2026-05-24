@@ -233,9 +233,29 @@ function FlagshipCard({
           padding: isMobile ? '18px 20px' : 'clamp(22px, 3vw, 32px) clamp(24px, 4vw, 40px)',
           border: '1px solid rgba(0,0,0,0.06)',
           boxShadow: '0 2px 12px rgba(0,0,0,0.03)',
+          position: 'relative',
         }}
         onHoverChange={(h) => setHovered(h)}
       >
+        {/* Status badge */}
+        <div style={{
+          position: 'absolute',
+          top: isMobile ? '18px' : '24px',
+          right: isMobile ? '20px' : '32px',
+          display: 'inline-block',
+          padding: '4px 12px',
+          borderRadius: '100px',
+          fontSize: '11px',
+          fontWeight: 600,
+          letterSpacing: '0.05em',
+          background: product.status === '在跑'
+            ? 'rgba(82, 183, 136, 0.1)'
+            : 'rgba(224, 112, 112, 0.1)',
+          color: product.status === '在跑' ? '#52b788' : '#e07070',
+        }}>
+          {product.status}
+        </div>
+
         {/* Product name */}
         <h3 style={{
           fontSize: 'clamp(16px, 2.2vw, 20px)',
@@ -244,6 +264,7 @@ function FlagshipCard({
           marginBottom: '8px',
           lineHeight: 1.3,
           letterSpacing: '-0.02em',
+          paddingRight: isMobile ? '80px' : '100px', // Make room for badge
         }}>
           {product.name}
         </h3>
@@ -365,31 +386,39 @@ function CompactCard({
           padding: '24px',
           border: '1px solid rgba(0,0,0,0.06)',
           boxShadow: 'none',
+          minHeight: '120px', // Ensure minimum touch target size
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
         onHoverChange={(h) => setHovered(h)}
         maxTilt={2}
       >
-        <h4 style={{
-          fontSize: '15px',
-          fontWeight: 600,
-          color: '#1e2a3a',
-          marginBottom: '6px',
-        }}>
-          {product.name}
-        </h4>
-        <p style={{
-          fontSize: '13px',
-          color: '#999',
-          lineHeight: 1.5,
-          marginBottom: '12px',
-        }}>
-          {product.description}
-        </p>
+        <div>
+          <h4 style={{
+            fontSize: '15px',
+            fontWeight: 600,
+            color: '#1e2a3a',
+            marginBottom: '6px',
+          }}>
+            {product.name}
+          </h4>
+          <p style={{
+            fontSize: '13px',
+            color: '#999',
+            lineHeight: 1.5,
+            marginBottom: '12px',
+          }}>
+            {product.description}
+          </p>
+        </div>
         <div style={{
-          fontSize: '12px',
+          fontSize: '13px', // Increased from 12px for better readability
           color: '#5b7db1',
           transition: 'transform 0.3s ease',
           transform: hovered ? 'translateX(3px)' : 'translateX(0)',
+          fontWeight: 500,
+          padding: '8px 0', // Add padding for larger touch target
         }}>
           查看案例 →
         </div>

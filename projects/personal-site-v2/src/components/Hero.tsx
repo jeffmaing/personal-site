@@ -1,5 +1,6 @@
 import { siteConfig } from '../site-config'
 import ParticleBackground from './ParticleBackground'
+import LazyImage from './LazyImage'
 
 export default function Hero() {
   const { hero } = siteConfig
@@ -30,7 +31,13 @@ export default function Hero() {
         borderRadius: '50%',
         background: 'radial-gradient(circle, rgba(82,183,136,0.06) 0%, rgba(91,125,177,0.04) 40%, transparent 70%)',
         pointerEvents: 'none',
-      }} />
+      }}>
+
+        {/* Skip link for accessibility */}
+        <a href="#main-content" className="skip-to-content">
+          跳转到主要内容
+        </a>
+      </div>
 
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '900px' }}>
         {/* Profile photo — bigger, with elegant border */}
@@ -40,20 +47,18 @@ export default function Hero() {
           borderRadius: '50%',
           margin: '0 auto 40px',
           padding: '4px',
-          background: 'linear-gradient(135deg, #52b788, #5b7db1)',
-          boxShadow: '0 12px 40px rgba(82,183,136,0.15), 0 4px 16px rgba(91,125,177,0.1)',
+          background: 'var(--accent-gradient)',
+          boxShadow: 'var(--shadow-lg)',
         }}>
-          <img
+          <LazyImage
             src="/personal-site-v2/profile.png"
             alt="麻明"
-            loading="lazy"
-            decoding="async"
             style={{
               width: '100%',
               height: '100%',
               borderRadius: '50%',
               objectFit: 'cover',
-              border: '4px solid #f7f8fc',
+              border: '4px solid var(--bg-primary)',
             }}
           />
         </div>
@@ -64,7 +69,7 @@ export default function Hero() {
           fontWeight: 800,
           lineHeight: 1.05,
           letterSpacing: '-0.04em',
-          color: '#1e2a3a',
+          color: 'var(--text-primary)',
           marginBottom: '24px',
         }}>
           {hero.headline}
@@ -75,7 +80,7 @@ export default function Hero() {
           fontSize: 'clamp(20px, 4vw, 40px)',
           fontWeight: 500,
           lineHeight: 1.3,
-          color: '#5b7db1',
+          color: 'var(--accent-primary)',
           marginBottom: '48px',
           maxWidth: '680px',
           marginLeft: 'auto',
@@ -88,16 +93,89 @@ export default function Hero() {
         <div style={{
           display: 'inline-block',
           padding: '12px 28px',
-          border: '1px solid rgba(0,0,0,0.06)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '100px',
           fontSize: 'clamp(13px, 1.5vw, 15px)',
-          color: '#6b7a8d',
+          color: 'var(--text-secondary)',
           letterSpacing: '0.03em',
           marginBottom: '56px',
           background: 'rgba(255,255,255,0.5)',
           backdropFilter: 'blur(8px)',
         }}>
           {hero.meta}
+        </div>
+
+        {/* CTA Buttons */}
+        <div style={{
+          display: 'flex',
+          gap: '16px',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          marginBottom: '48px',
+        }}>
+          {/* Primary CTA */}
+          <a
+            href="#arsenal"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '16px 32px',
+              background: 'var(--accent-primary)',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '100px',
+              fontSize: '16px',
+              fontWeight: 600,
+              letterSpacing: '0.02em',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 16px rgba(91, 125, 177, 0.25)',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)'
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(91, 125, 177, 0.35)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(91, 125, 177, 0.25)'
+            }}
+          >
+            查看我的案例
+            <span style={{ fontSize: '18px' }}>↓</span>
+          </a>
+
+          {/* Secondary CTA */}
+          <a
+            href="#calculator"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '16px 32px',
+              background: 'transparent',
+              color: 'var(--accent-primary)',
+              textDecoration: 'none',
+              borderRadius: '100px',
+              fontSize: '16px',
+              fontWeight: 600,
+              letterSpacing: '0.02em',
+              transition: 'all 0.3s ease',
+              border: '2px solid var(--accent-primary)',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--accent-primary)'
+              e.currentTarget.style.color = 'white'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = 'var(--accent-primary)'
+            }}
+          >
+            计算提效空间
+          </a>
         </div>
 
         {/* Trust bar */}
@@ -114,14 +192,14 @@ export default function Hero() {
               key={i}
               style={{
                 fontSize: '14px',
-                color: '#b0b8c4',
+                color: 'var(--text-light)',
                 fontWeight: 400,
                 letterSpacing: '0.1em',
                 transition: 'color 0.5s ease',
                 cursor: 'default',
               }}
-              onMouseEnter={e => { e.currentTarget.style.color = '#1e2a3a' }}
-              onMouseLeave={e => { e.currentTarget.style.color = '#b0b8c4' }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-primary)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-light)' }}
             >
               {brand}
             </span>

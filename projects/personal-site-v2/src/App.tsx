@@ -1,12 +1,37 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense, useEffect } from 'react'
 import NavBar from './components/NavBar'
 import Hero from './components/Hero'
 import Story from './components/Story'
-import AIArsenal from './components/AIArsenal'
-import AIBoundaries from './components/AIBoundaries'
-import CTA from './components/CTA'
-import TimeCalculator from './components/TimeCalculator'
-import ChatWidget from './components/ChatWidget'
+import { setupSmoothScroll } from './utils/smoothScroll'
+
+// Lazy load components that are not immediately visible
+const AIArsenal = lazy(() => import('./components/AIArsenal'))
+const AIBoundaries = lazy(() => import('./components/AIBoundaries'))
+const CTA = lazy(() => import('./components/CTA'))
+const TimeCalculator = lazy(() => import('./components/TimeCalculator'))
+const ChatWidget = lazy(() => import('./components/ChatWidget'))
+
+// Loading fallback component
+function LoadingFallback() {
+  return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '200px',
+      background: '#f7f8fc',
+    }}>
+      <div style={{
+        width: '40px',
+        height: '40px',
+        border: '3px solid #f0f0f0',
+        borderTopColor: '#5b7db1',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+      }} />
+    </div>
+  )
+}
 
 function Footer() {
   const year = new Date().getFullYear()
@@ -14,10 +39,10 @@ function Footer() {
     <footer style={{
       padding: '32px 24px',
       textAlign: 'center',
-      borderTop: '1px solid rgba(0,0,0,0.06)',
+      borderTop: '1px solid var(--border-subtle)',
       fontSize: '12px',
-      color: '#b0b8c4',
-      background: '#f7f8fc',
+      color: 'var(--text-light)',
+      background: 'var(--bg-primary)',
       letterSpacing: '0.03em',
     }}>
       © {year} 麻明 · 用 AI 放大自己
@@ -27,6 +52,11 @@ function Footer() {
 
 function App() {
   const [chatOpen, setChatOpen] = useState(false)
+
+  // Setup smooth scroll on mount
+  useEffect(() => {
+    setupSmoothScroll()
+  }, [])
 
   return (
     <div style={{
@@ -38,20 +68,27 @@ function App() {
       <NavBar />
       <Hero />
       <Story />
-      <AIArsenal />
-      <AIBoundaries />
-      <section
-        id="calculator"
-        style={{
-          padding: 'clamp(60px, 10vw, 120px) 24px 0',
-          background: '#f7f8fc',
-        }}
-      >
-        <TimeCalculator />
-      </section>
-      <CTA onOpenChat={() => setChatOpen(true)} />
+      <Suspense fallback={<LoadingFallback />}>
+        <AIArsenal />
+        <AIBoundaries />
+        <section
+          id="calculator"
+          style={{
+            padding: 'clamp(60px, 10vw, 120px) 24px 0',
+            background: '#f7f8fc',
+          }}
+        >
+          <TimeCalculator />
+        </section>
+        <CTA onOpenChat={() => setChatOpen(true)} />
+        <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+      </Suspense>
       <Footer />
-      <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   )
 }

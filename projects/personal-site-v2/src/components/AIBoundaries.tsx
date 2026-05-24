@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { siteConfig } from '../site-config'
 import { useInView, useWidth } from '../hooks/useAnimatedNumber'
 
-const HANDLE_WIDTH = 36
+const HANDLE_WIDTH = 44 // Increased from 36px for better touch targets (minimum 44px recommended)
 const MIN_PCT = 20
 const MAX_PCT = 80
 
@@ -76,7 +76,7 @@ export default function AIBoundaries() {
   const listStyle = (delay: string, tx: string): React.CSSProperties => ({
     background: '#fff',
     borderRadius: '16px',
-    padding: isMobile ? '32px 24px' : '40px 32px',
+    padding: isMobile ? '28px 20px' : '40px 32px',
     border: '1px solid rgba(0,0,0,0.06)',
     opacity: visible ? 1 : 0,
     transform: visible ? 'none' : `translateX(${tx})`,
@@ -202,6 +202,8 @@ export default function AIBoundaries() {
               position: 'relative',
               cursor: 'col-resize',
               zIndex: 2,
+              // Larger touch target for mobile (invisible hit area)
+              padding: '8px 0',
             }}
             onMouseDown={onMouseDown}
             onTouchStart={onTouchStart}
@@ -218,11 +220,11 @@ export default function AIBoundaries() {
                 transform: 'translateX(-50%)',
               }}
             />
-            {/* circular handle */}
+            {/* circular handle - increased size for better touch */}
             <div
               style={{
-                width: '36px',
-                height: '36px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 background: '#fff',
                 border: '2px solid rgba(91,125,177,0.35)',
@@ -235,8 +237,8 @@ export default function AIBoundaries() {
                 position: 'relative',
               }}
             >
-              <span style={{ fontSize: '12px', color: '#5b7db1', lineHeight: 1, fontWeight: 600 }}>‹</span>
-              <span style={{ fontSize: '12px', color: '#5b7db1', lineHeight: 1, fontWeight: 600 }}>›</span>
+              <span style={{ fontSize: '14px', color: '#5b7db1', lineHeight: 1, fontWeight: 600 }}>‹</span>
+              <span style={{ fontSize: '14px', color: '#5b7db1', lineHeight: 1, fontWeight: 600 }}>›</span>
             </div>
           </div>
 
@@ -424,13 +426,16 @@ function SectionTitle({ label, dot }: { label: string; dot: string }) {
 }
 
 function ItemText({ text }: { text: string }) {
+  const w = useWidth()
+  const isMobile = w < 768
   return (
     <div
       style={{
-        fontSize: '16px',
+        fontSize: isMobile ? '16px' : '17px',
         fontWeight: 500,
         color: '#333',
         marginBottom: '4px',
+        lineHeight: 1.5,
       }}
     >
       {text}

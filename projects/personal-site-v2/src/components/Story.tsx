@@ -1,6 +1,7 @@
 import { siteConfig } from '../site-config'
 import WhyMeStats from './WhyMeStats'
 import { useInView, useWidth } from '../hooks/useAnimatedNumber'
+import LazyImage from './LazyImage'
 
 export default function Story() {
   const { story } = siteConfig
@@ -92,16 +93,14 @@ export default function Story() {
           maxWidth: isMobile ? '280px' : '320px',
           margin: isMobile ? '0 auto' : '0',
         }}>
-          <img
+          <LazyImage
             src={story.photoSrc}
             alt="麻明"
-            loading="lazy"
-            decoding="async"
+            aspectRatio="3/4"
             style={{
               width: '100%',
               borderRadius: '16px',
               boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-              aspectRatio: '3/4',
               objectFit: 'cover',
               display: 'block',
               border: '1px solid rgba(0,0,0,0.08)',

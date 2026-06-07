@@ -1,5 +1,4 @@
 import { siteConfig } from '../site-config'
-import ParticleBackground from './ParticleBackground'
 import LazyImage from './LazyImage'
 
 export default function Hero() {
@@ -13,42 +12,25 @@ export default function Hero() {
       justifyContent: 'center',
       alignItems: 'center',
       padding: 'clamp(120px, 15vh, 200px) 24px 120px',
-      background: '#f7f8fc',
+      background: 'var(--bg-primary)',
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Particle background */}
-      <ParticleBackground />
-
-      {/* Subtle radial glow */}
-      <div style={{
-        position: 'absolute',
-        top: '30%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '900px',
-        height: '900px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(82,183,136,0.06) 0%, rgba(91,125,177,0.04) 40%, transparent 70%)',
-        pointerEvents: 'none',
-      }}>
-
-        {/* Skip link for accessibility */}
-        <a href="#main-content" className="skip-to-content">
-          跳转到主要内容
-        </a>
-      </div>
+      {/* Skip link for accessibility */}
+      <a href="#main-content" className="skip-to-content">
+        跳转到主要内容
+      </a>
 
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '900px' }}>
-        {/* Profile photo — bigger, with elegant border */}
+        {/* Profile photo — clean circle with subtle border */}
         <div style={{
-          width: 'clamp(140px, 20vw, 200px)',
-          height: 'clamp(140px, 20vw, 200px)',
+          width: 'clamp(120px, 16vw, 160px)',
+          height: 'clamp(120px, 16vw, 160px)',
           borderRadius: '50%',
           margin: '0 auto 40px',
-          padding: '4px',
+          padding: '3px',
           background: 'var(--accent-gradient)',
-          boxShadow: 'var(--shadow-lg)',
+          boxShadow: 'var(--shadow-md)',
         }}>
           <LazyImage
             src="/personal-site-v2/profile.png"
@@ -58,54 +40,56 @@ export default function Hero() {
               height: '100%',
               borderRadius: '50%',
               objectFit: 'cover',
-              border: '4px solid var(--bg-primary)',
+              border: '3px solid var(--bg-primary)',
             }}
           />
         </div>
 
-        {/* Main headline — cleaner hierarchy */}
+        {/* Main headline — Stripe style: large, light weight, confident */}
         <h1 style={{
-          fontSize: 'clamp(42px, 10vw, 108px)',
-          fontWeight: 800,
-          lineHeight: 1.05,
-          letterSpacing: '-0.04em',
+          fontSize: 'clamp(36px, 8vw, 56px)',
+          fontWeight: 300,
+          lineHeight: 1.15,
+          letterSpacing: '-0.02em',
           color: 'var(--text-primary)',
           marginBottom: '24px',
+          fontFamily: 'var(--font-heading)',
         }}>
           {hero.headline}
         </h1>
 
-        {/* Subtitle — static, no typewriter */}
+        {/* Subtitle — clean, medium weight */}
         <p style={{
-          fontSize: 'clamp(20px, 4vw, 40px)',
-          fontWeight: 500,
-          lineHeight: 1.3,
+          fontSize: 'clamp(20px, 3vw, 28px)',
+          fontWeight: 400,
+          lineHeight: 1.4,
           color: 'var(--accent-primary)',
-          marginBottom: '48px',
+          marginBottom: '40px',
           maxWidth: '680px',
           marginLeft: 'auto',
           marginRight: 'auto',
+          fontFamily: 'var(--font-body)',
         }}>
           {hero.headline2}
         </p>
 
-        {/* Meta badge */}
+        {/* Meta badge — conservative styling */}
         <div style={{
           display: 'inline-block',
-          padding: '12px 28px',
+          padding: '8px 20px',
           border: '1px solid var(--border-subtle)',
-          borderRadius: '100px',
-          fontSize: 'clamp(13px, 1.5vw, 15px)',
+          borderRadius: 'var(--radius-lg)',
+          fontSize: 'clamp(13px, 1.5vw, 14px)',
           color: 'var(--text-secondary)',
           letterSpacing: '0.03em',
-          marginBottom: '56px',
-          background: 'rgba(255,255,255,0.5)',
-          backdropFilter: 'blur(8px)',
+          marginBottom: '48px',
+          background: 'var(--bg-card)',
+          fontFamily: 'var(--font-body)',
         }}>
           {hero.meta}
         </div>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — consistent design */}
         <div style={{
           display: 'flex',
           gap: '16px',
@@ -120,30 +104,31 @@ export default function Hero() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '16px 32px',
+              padding: '14px 28px',
               background: 'var(--accent-primary)',
               color: 'white',
               textDecoration: 'none',
-              borderRadius: '100px',
-              fontSize: '16px',
-              fontWeight: 600,
+              borderRadius: 'var(--radius-lg)',
+              fontSize: '15px',
+              fontWeight: 500,
               letterSpacing: '0.02em',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 16px rgba(91, 125, 177, 0.25)',
+              transition: 'all 0.2s ease',
+              boxShadow: 'var(--shadow-sm)',
               border: 'none',
               cursor: 'pointer',
+              fontFamily: 'var(--font-body)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)'
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(91, 125, 177, 0.35)'
+              e.currentTarget.style.transform = 'translateY(-1px)'
+              e.currentTarget.style.boxShadow = 'var(--shadow-md)'
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(91, 125, 177, 0.25)'
+              e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
             }}
           >
             查看我的案例
-            <span style={{ fontSize: '18px' }}>↓</span>
+            <span style={{ fontSize: '16px' }}>↓</span>
           </a>
 
           {/* Secondary CTA */}
@@ -153,17 +138,18 @@ export default function Hero() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '16px 32px',
+              padding: '14px 28px',
               background: 'transparent',
               color: 'var(--accent-primary)',
               textDecoration: 'none',
-              borderRadius: '100px',
-              fontSize: '16px',
-              fontWeight: 600,
+              borderRadius: 'var(--radius-lg)',
+              fontSize: '15px',
+              fontWeight: 500,
               letterSpacing: '0.02em',
-              transition: 'all 0.3s ease',
-              border: '2px solid var(--accent-primary)',
+              transition: 'all 0.2s ease',
+              border: '1px solid var(--accent-primary)',
               cursor: 'pointer',
+              fontFamily: 'var(--font-body)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'var(--accent-primary)'
@@ -191,12 +177,13 @@ export default function Hero() {
             <span
               key={i}
               style={{
-                fontSize: '14px',
+                fontSize: '13px',
                 color: 'var(--text-light)',
                 fontWeight: 400,
                 letterSpacing: '0.1em',
-                transition: 'color 0.5s ease',
+                transition: 'color 0.3s ease',
                 cursor: 'default',
+                fontFamily: 'var(--font-body)',
               }}
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-primary)' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-light)' }}

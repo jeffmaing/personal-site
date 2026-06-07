@@ -64,8 +64,8 @@ export default function TimeCalculator() {
   return (
     <div
       style={{
-        background: '#ffffff',
-        borderRadius: '20px',
+        background: 'var(--bg-card)',
+        borderRadius: 'var(--radius-xl)',
         padding: 'clamp(32px, 5vw, 56px)',
         maxWidth: '680px',
         margin: '0 auto 64px',
@@ -78,7 +78,7 @@ export default function TimeCalculator() {
         style={{
           fontSize: 'clamp(22px, 3.5vw, 30px)',
           fontWeight: 700,
-          color: '#1e2a3a',
+          color: 'var(--text-primary)',
           textAlign: 'center',
           marginBottom: '8px',
           letterSpacing: '-0.02em',

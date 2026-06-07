@@ -19,13 +19,13 @@ function LoadingFallback() {
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '200px',
-      background: '#f7f8fc',
+      background: 'var(--bg-primary)',
     }}>
       <div style={{
         width: '40px',
         height: '40px',
         border: '3px solid #f0f0f0',
-        borderTopColor: '#5b7db1',
+        borderTopColor: 'var(--accent-primary)',
         borderRadius: '50%',
         animation: 'spin 1s linear infinite',
       }} />
@@ -44,6 +44,7 @@ function Footer() {
       color: 'var(--text-light)',
       background: 'var(--bg-primary)',
       letterSpacing: '0.03em',
+      fontFamily: 'var(--font-body)',
     }}>
       © {year} 麻明 · 用 AI 放大自己
     </footer>
@@ -60,8 +61,8 @@ function App() {
 
   return (
     <div style={{
-      fontFamily: '-apple-system, "PingFang SC", "Helvetica Neue", sans-serif',
-      background: '#f7f8fc',
+      fontFamily: 'var(--font-body)',
+      background: 'var(--bg-primary)',
       maxWidth: '100vw',
       overflowX: 'hidden',
     }}>
@@ -75,7 +76,7 @@ function App() {
           id="calculator"
           style={{
             padding: 'clamp(60px, 10vw, 120px) 24px 0',
-            background: '#f7f8fc',
+            background: 'var(--bg-primary)',
           }}
         >
           <TimeCalculator />

@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import { useInView, useWidth } from '../hooks/useAnimatedNumber'
+import Modal from './Modal'
 
 interface MetricItem {
   label: string
@@ -94,76 +95,11 @@ const CAREER_DATA: CareerStep[] = [
   },
 ]
 
-/** Short label for timeline dot (e.g. "07-11") */
-function shortYear(year: string): string {
-  // "2007-2011" -> "07-11", "2025-至今" -> "25-"
-  const parts = year.split('-')
-  if (parts.length === 2) {
-    const a = parts[0].slice(-2)
-    const b = parts[1] === '至今' ? '今' : parts[1].slice(-2)
-    return `${a}-${b}`
-  }
-  return year.slice(-2)
-}
-
-/**
- * Hook: tracks which section ID is currently in viewport
- */
-function useActiveSection(ids: string[]): string | null {
-  const [active, setActive] = useState<string | null>(null)
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = []
-    const els: HTMLElement[] = []
-
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (!el) return
-      els.push(el)
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActive(id)
-          }
-        },
-        { threshold: 0.35, rootMargin: '-80px 0px -40% 0px' }
-      )
-
-      observer.observe(el)
-      observers.push(observer)
-    })
-
-    return () => {
-      observers.forEach((o) => o.disconnect())
-    }
-  }, [ids.join(',')])
-
-  return active
-}
-
-function scrollToSection(id: string) {
-  const el = document.getElementById(id)
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-}
-
 export default function CareerTimeline() {
   const [ref, visible] = useInView(0.05)
   const [selectedCareer, setSelectedCareer] = useState<CareerStep | null>(null)
   const w = useWidth()
   const isMobile = w < 768
-
-  const sectionIds = CAREER_DATA.map((_, i) => `career-${i}`)
-  const activeSection = useActiveSection(sectionIds)
-
-  // Determine which index is active
-  const activeIndex = sectionIds.indexOf(activeSection ?? '')
-
-  const handleDotClick = useCallback((index: number) => {
-    scrollToSection(sectionIds[index])
-  }, [sectionIds])
 
   return (
     <div
@@ -175,324 +111,255 @@ export default function CareerTimeline() {
       }}
     >
       {/* Section label */}
-      <div style={{
-        fontSize: '11px',
-        color: '#bbb',
-        letterSpacing: '0.2em',
-        marginBottom: isMobile ? '24px' : '32px',
-      }}>
+      <div className="section-label" style={{ marginBottom: isMobile ? '24px' : '32px' }}>
         职业历程
       </div>
 
+      {/* Static timeline — clean vertical list */}
       <div style={{
-        display: 'flex',
-        gap: '0',
         position: 'relative',
+        paddingLeft: isMobile ? '0' : '28px',
       }}>
-        {/* ===== LEFT TIMELINE SIDEBAR (desktop only) ===== */}
+        {/* Vertical timeline line (desktop) */}
         {!isMobile && (
-          <div
-            style={{
-              width: '140px',
-              flexShrink: 0,
-              position: 'sticky',
-              top: '100px',
-              alignSelf: 'flex-start',
-              paddingRight: '32px',
-              paddingTop: '8px',
-            }}
-          >
-            {/* Vertical line */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '11px',
-                top: '8px',
-                bottom: '8px',
-                width: '2px',
-                background: 'linear-gradient(to bottom, transparent, #d0d5e0 40px, #d0d5e0 calc(100% - 40px), transparent)',
-              }}
-            />
-
-            {/* Dots */}
-            <div style={{ position: 'relative' }}>
-              {CAREER_DATA.map((step, i) => {
-                const isActive = i === activeIndex
-                return (
-                  <div
-                    key={i}
-                    onClick={() => handleDotClick(i)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '14px 0',
-                      cursor: 'pointer',
-                      transition: 'opacity 0.3s ease',
-                    }}
-                  >
-                    {/* Dot */}
-                    <div style={{
-                      width: '24px',
-                      height: '24px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative',
-                      zIndex: 1,
-                      flexShrink: 0,
-                    }}>
-                      {/* Glow ring (active only) */}
-                      {isActive && (
-                        <div style={{
-                          position: 'absolute',
-                          inset: '-6px',
-                          borderRadius: '50%',
-                          background: 'rgba(91, 125, 177, 0.15)',
-                          animation: 'timelineGlow 2s ease-in-out infinite',
-                        }} />
-                      )}
-                      {/* Outer ring */}
-                      <div style={{
-                        width: '14px',
-                        height: '14px',
-                        borderRadius: '50%',
-                        border: isActive ? '3px solid #5b7db1' : '2.5px solid #c8cdd6',
-                        background: isActive ? '#5b7db1' : 'transparent',
-                        transition: 'all 0.35s ease',
-                        boxShadow: isActive ? '0 0 0 3px rgba(91, 125, 177, 0.12)' : 'none',
-                      }} />
-                    </div>
-
-                    {/* Label */}
-                    <span style={{
-                      fontSize: '12px',
-                      fontWeight: isActive ? 700 : 500,
-                      color: isActive ? '#5b7db1' : '#999',
-                      fontFamily: "'JetBrains Mono', 'SF Mono', monospace",
-                      letterSpacing: '0.04em',
-                      transition: 'all 0.35s ease',
-                      userSelect: 'none',
-                    }}>
-                      {shortYear(step.year)}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
+          <div style={{
+            position: 'absolute',
+            left: '7px',
+            top: '12px',
+            bottom: '12px',
+            width: '2px',
+            background: 'var(--border-subtle)',
+          }} />
         )}
 
-        {/* ===== RIGHT CONTENT AREA ===== */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          {CAREER_DATA.map((step, i) => {
-            const sectionId = sectionIds[i]
-            const isActive = i === activeIndex
+        {CAREER_DATA.map((step, i) => (
+          <div
+            key={i}
+            style={{
+              position: 'relative',
+              marginBottom: '16px',
+              paddingLeft: isMobile ? '0' : '32px',
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'none' : 'translateY(12px)',
+              transition: `opacity 0.5s ease, transform 0.5s ease`,
+              transitionDelay: `${0.1 + i * 0.08}s`,
+            }}
+          >
+            {/* Timeline dot (desktop) */}
+            {!isMobile && (
+              <div style={{
+                position: 'absolute',
+                left: '0',
+                top: '24px',
+                width: '16px',
+                height: '16px',
+                borderRadius: '50%',
+                border: `3px solid ${step.color}`,
+                background: 'var(--bg-primary)',
+                zIndex: 1,
+              }} />
+            )}
 
-            return (
-              <div
-                key={i}
-                id={sectionId}
-                style={{
-                  marginBottom: '16px',
-                  background: '#fff',
-                  borderRadius: '16px',
-                  padding: '24px 24px',
-                  border: isActive
-                    ? '1.5px solid rgba(91, 125, 177, 0.25)'
-                    : '1px solid rgba(0,0,0,0.04)',
-                  boxShadow: isActive
-                    ? '0 4px 20px rgba(91, 125, 177, 0.06)'
-                    : '0 2px 8px rgba(0,0,0,0.03)',
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? 'none' : 'translateY(12px)',
-                  transition: `opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease`,
-                  transitionDelay: `${0.1 + i * 0.08}s`,
-                  cursor: 'pointer',
-                }}
-                onClick={() => setSelectedCareer(step)}
-              >
-                {/* Header row */}
+            {/* Card */}
+            <div
+              style={{
+                background: 'var(--bg-card)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '20px 24px',
+                border: '1px solid var(--border-subtle)',
+                boxShadow: 'var(--shadow-sm)',
+                cursor: 'pointer',
+                transition: 'box-shadow 0.2s ease',
+              }}
+              onClick={() => setSelectedCareer(step)}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)' }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = 'var(--shadow-sm)' }}
+            >
+              {/* Header row */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                marginBottom: '12px',
+                flexWrap: 'wrap',
+                gap: '8px',
+              }}>
+                <div>
+                  {/* Year badge */}
+                  <div style={{
+                    display: 'inline-block',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    color: step.color,
+                    background: `${step.color}12`,
+                    padding: '3px 8px',
+                    borderRadius: 'var(--radius-md)',
+                    marginBottom: '6px',
+                    fontFamily: 'var(--font-heading)',
+                  }}>
+                    {step.year}
+                  </div>
+
+                  {/* Company + Role */}
+                  <div style={{
+                    fontSize: '17px',
+                    fontWeight: 600,
+                    color: 'var(--text-primary)',
+                    marginBottom: '2px',
+                    fontFamily: 'var(--font-heading)',
+                  }}>
+                    {step.label}
+                  </div>
+                  <div style={{
+                    fontSize: '13px',
+                    color: step.color,
+                    fontWeight: 500,
+                    fontFamily: 'var(--font-body)',
+                  }}>
+                    {step.role}
+                  </div>
+                </div>
+
+                {/* View detail hint (desktop) */}
+                {!isMobile && (
+                  <div style={{
+                    fontSize: '11px',
+                    color: 'var(--text-light)',
+                    marginTop: '4px',
+                    whiteSpace: 'nowrap',
+                    fontFamily: 'var(--font-body)',
+                  }}>
+                    点击查看详情 →
+                  </div>
+                )}
+              </div>
+
+              {/* Description */}
+              <div style={{
+                fontSize: '14px',
+                lineHeight: 1.75,
+                color: 'var(--text-secondary)',
+                marginBottom: '14px',
+                fontFamily: 'var(--font-body)',
+              }}>
+                {step.description}
+              </div>
+
+              {/* Metrics */}
+              <div style={{ marginBottom: '14px' }}>
+                <div style={{
+                  fontSize: '11px',
+                  color: 'var(--text-light)',
+                  letterSpacing: '0.08em',
+                  marginBottom: '8px',
+                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                }}>
+                  量化成果
+                </div>
                 <div style={{
                   display: 'flex',
-                  alignItems: 'flex-start',
-                  justifyContent: 'space-between',
-                  marginBottom: '16px',
                   flexWrap: 'wrap',
                   gap: '8px',
                 }}>
-                  <div>
-                    {/* Year badge */}
-                    <div style={{
-                      display: 'inline-block',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: step.color,
-                      background: `${step.color}12`,
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      marginBottom: '8px',
-                    }}>
-                      {step.year}
-                    </div>
-
-                    {/* Company + Role */}
-                    <div style={{
-                      fontSize: '18px',
-                      fontWeight: 700,
-                      color: '#1e2a3a',
-                      marginBottom: '2px',
-                    }}>
-                      {step.label}
-                    </div>
-                    <div style={{
-                      fontSize: '13px',
-                      color: step.color,
-                      fontWeight: 500,
-                    }}>
-                      {step.role}
-                    </div>
-                  </div>
-
-                  {/* View detail hint (desktop) */}
-                  {!isMobile && (
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#bbb',
-                      marginTop: '4px',
-                      whiteSpace: 'nowrap',
-                    }}>
-                      点击查看详情 →
-                    </div>
-                  )}
-                </div>
-
-                {/* Description */}
-                <div style={{
-                  fontSize: '14px',
-                  lineHeight: 1.75,
-                  color: '#555',
-                  marginBottom: '18px',
-                }}>
-                  {step.description}
-                </div>
-
-                {/* Metrics */}
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{
-                    fontSize: '11px',
-                    color: '#aaa',
-                    letterSpacing: '0.08em',
-                    marginBottom: '10px',
-                    fontWeight: 600,
-                  }}>
-                    量化成果
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '10px',
-                  }}>
-                    {step.metrics.map((metric, mi) => (
-                      <div
-                        key={mi}
-                        style={{
-                          background: 'linear-gradient(135deg, #f8f9fa 0%, #fff 100%)',
-                          borderRadius: '12px',
-                          padding: '14px 16px',
-                          border: '1px solid rgba(0,0,0,0.04)',
-                          boxShadow: '0 1px 6px rgba(0,0,0,0.02)',
-                          minWidth: '120px',
-                          flex: '1 1 140px',
-                        }}
-                      >
-                        <div style={{
-                          fontSize: '11px',
-                          color: '#888',
-                          marginBottom: '4px',
-                        }}>
-                          {metric.label}
-                        </div>
-                        <div style={{
-                          fontSize: '20px',
-                          fontWeight: 700,
-                          color: step.color,
-                          marginBottom: '2px',
-                        }}>
-                          {metric.value}
-                        </div>
-                        <div style={{
-                          fontSize: '11px',
-                          color: '#aaa',
-                          lineHeight: 1.4,
-                        }}>
-                          {metric.detail}
-                        </div>
+                  {step.metrics.map((metric, mi) => (
+                    <div
+                      key={mi}
+                      style={{
+                        background: 'var(--bg-primary)',
+                        borderRadius: 'var(--radius-md)',
+                        padding: '10px 14px',
+                        border: '1px solid var(--border-subtle)',
+                        minWidth: '110px',
+                        flex: '1 1 130px',
+                      }}
+                    >
+                      <div style={{
+                        fontSize: '11px',
+                        color: 'var(--text-muted)',
+                        marginBottom: '3px',
+                        fontFamily: 'var(--font-body)',
+                      }}>
+                        {metric.label}
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Projects */}
-                <div>
-                  <div style={{
-                    fontSize: '11px',
-                    color: '#aaa',
-                    letterSpacing: '0.08em',
-                    marginBottom: '10px',
-                    fontWeight: 600,
-                  }}>
-                    代表项目
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '8px',
-                  }}>
-                    {step.projects.map((project, pi) => (
-                      <span
-                        key={pi}
-                        style={{
-                          display: 'inline-block',
-                          background: `${step.color}10`,
-                          color: step.color,
-                          padding: '8px 14px',
-                          borderRadius: '8px',
-                          fontSize: '12px',
-                          fontWeight: 500,
-                          border: `1px solid ${step.color}20`,
-                        }}
-                      >
-                        {project}
-                      </span>
-                    ))}
-                  </div>
+                      <div style={{
+                        fontSize: '18px',
+                        fontWeight: 700,
+                        color: step.color,
+                        marginBottom: '2px',
+                        fontFamily: 'var(--font-heading)',
+                      }}>
+                        {metric.value}
+                      </div>
+                      <div style={{
+                        fontSize: '11px',
+                        color: 'var(--text-light)',
+                        lineHeight: 1.4,
+                        fontFamily: 'var(--font-body)',
+                      }}>
+                        {metric.detail}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            )
-          })}
-        </div>
+
+              {/* Projects */}
+              <div>
+                <div style={{
+                  fontSize: '11px',
+                  color: 'var(--text-light)',
+                  letterSpacing: '0.08em',
+                  marginBottom: '8px',
+                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                }}>
+                  代表项目
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                }}>
+                  {step.projects.map((project, pi) => (
+                    <span
+                      key={pi}
+                      style={{
+                        display: 'inline-block',
+                        background: `${step.color}10`,
+                        color: step.color,
+                        padding: '5px 12px',
+                        borderRadius: 'var(--radius-md)',
+                        fontSize: '12px',
+                        fontWeight: 500,
+                        border: `1px solid ${step.color}20`,
+                        fontFamily: 'var(--font-body)',
+                      }}
+                    >
+                      {project}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Modal (for both desktop click and mobile) */}
+      {/* Modal */}
       {selectedCareer && (
-        <CareerModal
-          data={selectedCareer}
-          onClose={() => setSelectedCareer(null)}
-        />
+        <Modal onClose={() => setSelectedCareer(null)}>
+          <CareerModal
+            data={selectedCareer}
+            onClose={() => setSelectedCareer(null)}
+          />
+        </Modal>
       )}
-
-      <style>{`
-        @keyframes timelineGlow {
-          0%, 100% { transform: scale(1); opacity: 0.6; }
-          50% { transform: scale(1.3); opacity: 0.2; }
-        }
-      `}</style>
     </div>
   )
 }
 
-// ============ MODAL (unchanged logic, re-added for completeness) ============
+// ============ MODAL ============
 
 function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void }) {
   const w = useWidth()
@@ -526,11 +393,11 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           maxHeight: isMobile ? '90vh' : '85vh',
           height: isMobile ? '90vh' : 'auto',
           overflow: 'auto',
-          background: '#ffffff',
-          borderRadius: isMobile ? '24px 24px 0 0' : '20px',
-          border: isMobile ? 'none' : '1px solid rgba(0,0,0,0.06)',
+          background: 'var(--bg-card)',
+          borderRadius: isMobile ? 'var(--radius-xl) var(--radius-xl) 0 0' : 'var(--radius-xl)',
+          border: isMobile ? 'none' : '1px solid var(--border-subtle)',
           padding: isMobile ? '24px 20px 32px' : 'clamp(28px, 4vw, 48px)',
-          boxShadow: '0 24px 80px rgba(0,0,0,0.15)',
+          boxShadow: 'var(--shadow-lg)',
           animation: isMobile ? 'modalSlideUp 0.4s ease' : 'modalSlideIn 0.4s ease',
           position: 'relative',
         }}
@@ -542,18 +409,18 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
             position: 'absolute',
             top: isMobile ? '16px' : '20px',
             right: isMobile ? '16px' : '20px',
-            width: '36px',
-            height: '36px',
+            width: '32px',
+            height: '32px',
             borderRadius: '50%',
-            border: '1px solid rgba(0,0,0,0.1)',
-            background: '#f8f9fa',
+            border: '1px solid var(--border-subtle)',
+            background: 'var(--bg-primary)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '16px',
-            color: '#666',
-            transition: 'all 0.3s ease',
+            fontSize: '14px',
+            color: 'var(--text-secondary)',
+            transition: 'all 0.2s ease',
             zIndex: 10,
           }}
         >
@@ -564,20 +431,22 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
           <div style={{
             display: 'inline-block',
             fontSize: '13px',
-            fontWeight: 700,
+            fontWeight: 600,
             color: data.color,
             background: `${data.color}15`,
-            padding: '6px 14px',
-            borderRadius: '8px',
-            marginBottom: '12px',
+            padding: '4px 12px',
+            borderRadius: 'var(--radius-md)',
+            marginBottom: '10px',
+            fontFamily: 'var(--font-heading)',
           }}>
             {data.year}
           </div>
           <h3 style={{
             fontSize: isMobile ? '22px' : '26px',
-            fontWeight: 700,
-            color: '#1e2a3a',
+            fontWeight: 600,
+            color: 'var(--text-primary)',
             margin: '0 0 6px 0',
+            fontFamily: 'var(--font-heading)',
           }}>
             {data.label}
           </h3>
@@ -585,6 +454,7 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
             fontSize: '15px',
             color: data.color,
             fontWeight: 500,
+            fontFamily: 'var(--font-body)',
           }}>
             {data.role}
           </div>
@@ -593,18 +463,20 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
         <div style={{ marginBottom: '28px' }}>
           <div style={{
             fontSize: '12px',
-            color: '#999',
+            color: 'var(--text-muted)',
             letterSpacing: '0.08em',
             marginBottom: '10px',
             fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
           }}>
             职责描述
           </div>
           <p style={{
             fontSize: '15px',
             lineHeight: 1.8,
-            color: '#444',
+            color: 'var(--text-secondary)',
             margin: 0,
+            fontFamily: 'var(--font-body)',
           }}>
             {data.description}
           </p>
@@ -613,10 +485,11 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
         <div style={{ marginBottom: '28px' }}>
           <div style={{
             fontSize: '12px',
-            color: '#999',
+            color: 'var(--text-muted)',
             letterSpacing: '0.08em',
             marginBottom: '14px',
             fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
           }}>
             量化成果
           </div>
@@ -629,32 +502,35 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
               <div
                 key={i}
                 style={{
-                  background: 'linear-gradient(135deg, #f8f9fa 0%, #fff 100%)',
-                  borderRadius: '14px',
-                  padding: '18px 16px',
-                  border: '1px solid rgba(0,0,0,0.04)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+                  background: 'var(--bg-primary)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '16px',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <div style={{
                   fontSize: '11px',
-                  color: '#888',
-                  marginBottom: '6px',
+                  color: 'var(--text-muted)',
+                  marginBottom: '4px',
+                  fontFamily: 'var(--font-body)',
                 }}>
                   {metric.label}
                 </div>
                 <div style={{
-                  fontSize: '22px',
+                  fontSize: '20px',
                   fontWeight: 700,
                   color: data.color,
-                  marginBottom: '4px',
+                  marginBottom: '3px',
+                  fontFamily: 'var(--font-heading)',
                 }}>
                   {metric.value}
                 </div>
                 <div style={{
                   fontSize: '12px',
-                  color: '#999',
+                  color: 'var(--text-muted)',
                   lineHeight: 1.4,
+                  fontFamily: 'var(--font-body)',
                 }}>
                   {metric.detail}
                 </div>
@@ -666,17 +542,18 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
         <div>
           <div style={{
             fontSize: '12px',
-            color: '#999',
+            color: 'var(--text-muted)',
             letterSpacing: '0.08em',
             marginBottom: '14px',
             fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
           }}>
             代表项目
           </div>
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '10px',
+            gap: '8px',
           }}>
             {data.projects.map((project, i) => (
               <span
@@ -685,11 +562,12 @@ function CareerModal({ data, onClose }: { data: CareerStep; onClose: () => void 
                   display: 'inline-block',
                   background: `${data.color}10`,
                   color: data.color,
-                  padding: '10px 16px',
-                  borderRadius: '10px',
+                  padding: '8px 14px',
+                  borderRadius: 'var(--radius-md)',
                   fontSize: '13px',
                   fontWeight: 500,
                   border: `1px solid ${data.color}20`,
+                  fontFamily: 'var(--font-body)',
                 }}
               >
                 {project}

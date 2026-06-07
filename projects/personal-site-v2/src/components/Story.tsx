@@ -15,7 +15,7 @@ export default function Story() {
       ref={ref}
       style={{
         padding: isMobile ? '80px 24px' : 'clamp(80px, 12vw, 160px) 60px',
-        background: '#fafafa',
+        background: 'var(--bg-tertiary)',
         minHeight: '80vh',
         display: 'flex',
         alignItems: 'center',
@@ -33,19 +33,13 @@ export default function Story() {
         transform: visible ? 'none' : 'translateY(30px)',
         transition: 'opacity 1s ease, transform 1s ease',
       }}>
-        {/* Left: Magazine-style text */}
+        {/* Left: Clean prose text */}
         <div style={{
           flex: isMobile ? 'none' : '65%',
           width: isMobile ? '100%' : 'auto',
         }}>
           {/* Section label */}
-          <div style={{
-            fontSize: '11px',
-            color: '#bbb',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            marginBottom: '40px',
-          }}>
+          <div className="section-label" style={{ marginBottom: '40px' }}>
             01 — 关于我
           </div>
 
@@ -53,19 +47,20 @@ export default function Story() {
             <p
               key={i}
               style={{
-                fontSize: isMobile ? 'clamp(16px, 4vw, 20px)' : 'clamp(18px, 2vw, 22px)',
-                lineHeight: p.highlight ? 1.9 : 2.0,
-                color: p.highlight ? '#3d5a80' : '#555',
-                fontWeight: p.highlight ? 600 : 400,
+                fontSize: isMobile ? 'clamp(16px, 4vw, 20px)' : 'clamp(18px, 2vw, 20px)',
+                lineHeight: 1.8,
+                color: 'var(--text-secondary)',
+                fontWeight: 400,
                 marginBottom: '24px',
-                fontFamily: p.highlight
-                  ? "-apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif"
-                  : "Georgia, 'Noto Serif SC', 'Songti SC', serif",
+                fontFamily: 'var(--font-body)',
                 transition: `opacity 0.8s ease ${i * 0.1}s`,
                 ...(p.highlight ? {
-                  borderLeft: '3px solid #5b7db1',
-                  paddingLeft: '16px',
-                  display: 'block',
+                  background: 'var(--bg-dark)',
+                  color: 'var(--text-white)',
+                  padding: '20px 24px',
+                  borderRadius: 'var(--radius-lg)',
+                  fontWeight: 400,
+                  marginBottom: '32px',
                 } : {}),
               }}
             >
@@ -73,13 +68,14 @@ export default function Story() {
             </p>
           ))}
 
-          {/* Decorative line — longer, subtler */}
+          {/* Decorative line */}
           <div style={{
-            width: '80px',
+            width: '60px',
             height: '2px',
-            background: 'linear-gradient(90deg, rgba(82,183,136,0.4), rgba(91,125,177,0.3))',
+            background: 'var(--accent-primary)',
             marginTop: '40px',
             borderRadius: '1px',
+            opacity: 0.4,
           }} />
 
           {/* Animated stats + career timeline */}
@@ -99,20 +95,21 @@ export default function Story() {
             aspectRatio="3/4"
             style={{
               width: '100%',
-              borderRadius: '16px',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-md)',
               objectFit: 'cover',
               display: 'block',
-              border: '1px solid rgba(0,0,0,0.08)',
+              border: '1px solid var(--border-subtle)',
             }}
           />
           {/* Caption */}
           <div style={{
-            marginTop: '16px',
+            marginTop: '12px',
             fontSize: '11px',
-            color: '#bbb',
+            color: 'var(--text-light)',
             textAlign: 'center',
             letterSpacing: '0.08em',
+            fontFamily: 'var(--font-body)',
           }}>
             麻明 · 北京 · 2026
           </div>

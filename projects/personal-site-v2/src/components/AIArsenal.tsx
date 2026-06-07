@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { siteConfig } from '../site-config'
 import Modal from './Modal'
-import TiltCard from './TiltCard'
 import { useInView, useWidth } from '../hooks/useAnimatedNumber'
 
 interface ProductDetail {
@@ -47,7 +46,7 @@ export default function AIArsenal() {
       ref={ref}
       style={{
         padding: isMobile ? '60px 16px' : 'clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px)',
-        background: '#f0f2f7',
+        background: 'var(--bg-secondary)',
       }}
     >
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
@@ -59,28 +58,25 @@ export default function AIArsenal() {
           transform: visible ? 'none' : 'translateY(30px)',
           transition: 'opacity 1s ease, transform 1s ease',
         }}>
-          <div style={{
-            fontSize: '11px',
-            color: '#bbb',
-            letterSpacing: '0.2em',
-            marginBottom: '20px',
-          }}>
+          <div className="section-label" style={{ marginBottom: '20px' }}>
             02 — 精选产品
           </div>
           <h2 style={{
             fontSize: isMobile ? '24px' : 'clamp(28px, 4vw, 40px)',
-            fontWeight: 800,
-            color: '#1e2a3a',
+            fontWeight: 600,
+            color: 'var(--text-primary)',
             marginBottom: '10px',
             lineHeight: 1.15,
-            letterSpacing: '-0.03em',
+            letterSpacing: '-0.02em',
+            fontFamily: 'var(--font-heading)',
           }}>
             {arsenal.title}
           </h2>
           <p style={{
             fontSize: 'clamp(13px, 1.5vw, 15px)',
-            color: '#888',
+            color: 'var(--text-muted)',
             lineHeight: 1.6,
+            fontFamily: 'var(--font-body)',
           }}>
             {arsenal.subtitle}
           </p>
@@ -114,22 +110,23 @@ export default function AIArsenal() {
             onClick={() => setExpanded(!expanded)}
             style={{
               background: 'transparent',
-              border: '1px solid rgba(0,0,0,0.12)',
-              borderRadius: '100px',
+              border: '1px solid var(--border-medium)',
+              borderRadius: 'var(--radius-lg)',
               padding: '12px 32px',
               fontSize: '14px',
-              color: '#6b7a8d',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
-              transition: 'all 0.5s ease',
+              transition: 'all 0.2s ease',
               letterSpacing: '0.03em',
+              fontFamily: 'var(--font-body)',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = '#5b7db1'
-              e.currentTarget.style.color = '#5b7db1'
+              e.currentTarget.style.borderColor = 'var(--accent-primary)'
+              e.currentTarget.style.color = 'var(--accent-primary)'
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'
-              e.currentTarget.style.color = '#6b7a8d'
+              e.currentTarget.style.borderColor = 'var(--border-medium)'
+              e.currentTarget.style.color = 'var(--text-secondary)'
             }}
           >
             {expanded ? '收起' : `查看其他 ${otherProducts.length} 个项目`} →
@@ -226,16 +223,19 @@ function FlagshipCard({
         transitionDelay: `${index * 0.12}s`,
       }}
     >
-      <TiltCard
+      {/* Static card — no tilt */}
+      <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         style={{
-          background: '#ffffff',
-          borderRadius: isMobile ? '14px' : '16px',
+          background: 'var(--bg-card)',
+          borderRadius: 'var(--radius-lg)',
           padding: isMobile ? '18px 20px' : 'clamp(22px, 3vw, 32px) clamp(24px, 4vw, 40px)',
-          border: '1px solid rgba(0,0,0,0.06)',
-          boxShadow: '0 2px 12px rgba(0,0,0,0.03)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
           position: 'relative',
+          transition: 'box-shadow 0.2s ease',
         }}
-        onHoverChange={(h) => setHovered(h)}
       >
         {/* Status badge */}
         <div style={{
@@ -244,7 +244,7 @@ function FlagshipCard({
           right: isMobile ? '20px' : '32px',
           display: 'inline-block',
           padding: '4px 12px',
-          borderRadius: '100px',
+          borderRadius: 'var(--radius-md)',
           fontSize: '11px',
           fontWeight: 600,
           letterSpacing: '0.05em',
@@ -252,6 +252,7 @@ function FlagshipCard({
             ? 'rgba(82, 183, 136, 0.1)'
             : 'rgba(224, 112, 112, 0.1)',
           color: product.status === '在跑' ? '#52b788' : '#e07070',
+          fontFamily: 'var(--font-body)',
         }}>
           {product.status}
         </div>
@@ -259,12 +260,13 @@ function FlagshipCard({
         {/* Product name */}
         <h3 style={{
           fontSize: 'clamp(16px, 2.2vw, 20px)',
-          fontWeight: 700,
-          color: '#1e2a3a',
+          fontWeight: 600,
+          color: 'var(--text-primary)',
           marginBottom: '8px',
           lineHeight: 1.3,
-          letterSpacing: '-0.02em',
-          paddingRight: isMobile ? '80px' : '100px', // Make room for badge
+          letterSpacing: '-0.01em',
+          paddingRight: isMobile ? '80px' : '100px',
+          fontFamily: 'var(--font-heading)',
         }}>
           {product.name}
         </h3>
@@ -272,10 +274,11 @@ function FlagshipCard({
         {/* Description */}
         <p style={{
           fontSize: 'clamp(13px, 1.5vw, 14px)',
-          color: '#888',
+          color: 'var(--text-muted)',
           lineHeight: 1.6,
           marginBottom: '16px',
           maxWidth: '600px',
+          fontFamily: 'var(--font-body)',
         }}>
           {product.description}
         </p>
@@ -297,24 +300,26 @@ function FlagshipCard({
                 }}>
                   <span style={{
                     fontSize: isMobile ? '18px' : 'clamp(20px, 2.5vw, 28px)',
-                    fontWeight: 800,
-                    color: '#1e2a3a',
-                    letterSpacing: '-0.03em',
+                    fontWeight: 700,
+                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.02em',
                     lineHeight: 1,
+                    fontFamily: 'var(--font-heading)',
                   }}>
                     {m.before}
                   </span>
                   <span style={{
                     fontSize: isMobile ? '12px' : '14px',
-                    color: '#bbb',
+                    color: 'var(--text-light)',
                     fontWeight: 300,
                   }}>→</span>
                   <span style={{
                     fontSize: isMobile ? '18px' : 'clamp(20px, 2.5vw, 28px)',
-                    fontWeight: 800,
-                    color: '#52b788',
-                    letterSpacing: '-0.03em',
+                    fontWeight: 700,
+                    color: 'var(--accent-secondary)',
+                    letterSpacing: '-0.02em',
                     lineHeight: 1,
+                    fontFamily: 'var(--font-heading)',
                   }}>
                     {m.after}
                   </span>
@@ -322,10 +327,11 @@ function FlagshipCard({
               ) : (
                 <div style={{
                   fontSize: isMobile ? '18px' : 'clamp(20px, 2.5vw, 28px)',
-                  fontWeight: 800,
-                  color: '#5b7db1',
-                  letterSpacing: '-0.03em',
+                  fontWeight: 700,
+                  color: 'var(--accent-primary)',
+                  letterSpacing: '-0.02em',
                   lineHeight: 1,
+                  fontFamily: 'var(--font-heading)',
                 }}>
                   {m.after}
                 </div>
@@ -338,16 +344,17 @@ function FlagshipCard({
         <div style={{
           textAlign: 'right',
           fontSize: '14px',
-          color: '#5b7db1',
-          transition: 'color 0.5s ease',
+          color: 'var(--accent-primary)',
+          transition: 'color 0.3s ease',
+          fontFamily: 'var(--font-body)',
         }}>
           查看案例 <span style={{
             display: 'inline-block',
-            transition: 'transform 0.5s ease',
+            transition: 'transform 0.3s ease',
             transform: hovered ? 'translateX(4px)' : 'translateX(0)',
           }}>→</span>
         </div>
-      </TiltCard>
+      </div>
     </div>
   )
 }
@@ -379,50 +386,54 @@ function CompactCard({
         animationDelay: `${index * 0.08}s`,
       }}
     >
-      <TiltCard
+      <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         style={{
-          background: '#ffffff',
-          borderRadius: '12px',
+          background: 'var(--bg-card)',
+          borderRadius: 'var(--radius-lg)',
           padding: '24px',
-          border: '1px solid rgba(0,0,0,0.06)',
-          boxShadow: 'none',
-          minHeight: '120px', // Ensure minimum touch target size
+          border: '1px solid var(--border-subtle)',
+          boxShadow: hovered ? 'var(--shadow-sm)' : 'none',
+          minHeight: '120px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          transition: 'box-shadow 0.2s ease',
         }}
-        onHoverChange={(h) => setHovered(h)}
-        maxTilt={2}
       >
         <div>
           <h4 style={{
             fontSize: '15px',
             fontWeight: 600,
-            color: '#1e2a3a',
+            color: 'var(--text-primary)',
             marginBottom: '6px',
+            fontFamily: 'var(--font-heading)',
           }}>
             {product.name}
           </h4>
           <p style={{
             fontSize: '13px',
-            color: '#999',
+            color: 'var(--text-muted)',
             lineHeight: 1.5,
             marginBottom: '12px',
+            fontFamily: 'var(--font-body)',
           }}>
             {product.description}
           </p>
         </div>
         <div style={{
-          fontSize: '13px', // Increased from 12px for better readability
-          color: '#5b7db1',
+          fontSize: '13px',
+          color: 'var(--accent-primary)',
           transition: 'transform 0.3s ease',
           transform: hovered ? 'translateX(3px)' : 'translateX(0)',
           fontWeight: 500,
-          padding: '8px 0', // Add padding for larger touch target
+          padding: '8px 0',
+          fontFamily: 'var(--font-body)',
         }}>
           查看案例 →
         </div>
-      </TiltCard>
+      </div>
     </div>
   )
 }
@@ -434,13 +445,14 @@ function ProductDetailModal({ product }: { product: Product }) {
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{
           fontSize: '24px',
-          fontWeight: 700,
-          color: '#1e2a3a',
+          fontWeight: 600,
+          color: 'var(--text-primary)',
           marginBottom: '8px',
+          fontFamily: 'var(--font-heading)',
         }}>
           {product.name}
         </h2>
-        <p style={{ fontSize: '15px', color: '#888', lineHeight: 1.6 }}>{product.description}</p>
+        <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: 1.6, fontFamily: 'var(--font-body)' }}>{product.description}</p>
       </div>
 
       {/* Detail sections */}
@@ -453,12 +465,12 @@ function ProductDetailModal({ product }: { product: Product }) {
         <DetailBlock
           label="解决方案"
           content={product.detail.solution}
-          color="#52b788"
+          color="var(--accent-secondary)"
         />
         <DetailBlock
           label="效果数据"
           content={product.detail.result}
-          color="#5b7db1"
+          color="var(--accent-primary)"
         />
       </div>
 
@@ -469,17 +481,18 @@ function ProductDetailModal({ product }: { product: Product }) {
         gap: '12px',
         marginTop: '28px',
         paddingTop: '20px',
-        borderTop: '1px solid #f0f0f0',
+        borderTop: '1px solid var(--border-subtle)',
       }}>
         {product.metrics.map((m, i) => (
           <span
             key={i}
             style={{
               fontSize: '13px',
-              color: '#5b7db1',
+              color: 'var(--accent-primary)',
               background: 'rgba(91,125,177,0.06)',
               padding: '6px 14px',
-              borderRadius: '8px',
+              borderRadius: 'var(--radius-md)',
+              fontFamily: 'var(--font-body)',
             }}
           >
             {m}
@@ -508,14 +521,16 @@ function DetailBlock({
         marginBottom: '8px',
         textTransform: 'uppercase',
         fontWeight: 600,
+        fontFamily: 'var(--font-heading)',
       }}>
         {label}
       </div>
       <p style={{
         fontSize: '14px',
-        color: '#666',
+        color: 'var(--text-secondary)',
         lineHeight: 1.8,
         whiteSpace: 'pre-wrap',
+        fontFamily: 'var(--font-body)',
       }}>
         {content}
       </p>

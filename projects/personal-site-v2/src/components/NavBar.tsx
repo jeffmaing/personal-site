@@ -67,13 +67,13 @@ export default function NavBar() {
           justifyContent: 'space-between',
           padding: isMobile ? '0 20px' : '0 40px',
           zIndex: 9000,
-          transition: 'all 0.5s ease',
+          transition: 'all 0.3s ease',
           background: scrolled
-            ? 'rgba(255,255,255,0.85)'
+            ? 'rgba(255,255,255,0.9)'
             : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid transparent',
+          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
         }}
       >
         {/* Logo */}
@@ -93,14 +93,15 @@ export default function NavBar() {
             style={{
               width: 28,
               height: 28,
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #5b7db1, #8aa5c8)',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--accent-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#fff',
               fontSize: '13px',
               fontWeight: 700,
+              fontFamily: 'var(--font-heading)',
             }}
           >
             M
@@ -109,8 +110,9 @@ export default function NavBar() {
             style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: scrolled ? '#1e2a3a' : '#1e2a3a',
+              color: 'var(--text-primary)',
               letterSpacing: '-0.02em',
+              fontFamily: 'var(--font-heading)',
             }}
           >
             {siteConfig.name}
@@ -130,11 +132,12 @@ export default function NavBar() {
                   cursor: 'pointer',
                   fontSize: '13px',
                   fontWeight: activeSection === section.id ? 600 : 400,
-                  color: activeSection === section.id ? '#5b7db1' : '#888',
-                  transition: 'color 0.3s ease, font-weight 0.3s ease',
+                  color: activeSection === section.id ? 'var(--accent-primary)' : 'var(--text-muted)',
+                  transition: 'color 0.2s ease',
                   padding: '4px 0',
                   position: 'relative',
                   letterSpacing: '0.02em',
+                  fontFamily: 'var(--font-body)',
                 }}
               >
                 {section.label}
@@ -146,7 +149,7 @@ export default function NavBar() {
                       left: 0,
                       right: 0,
                       height: '2px',
-                      background: '#5b7db1',
+                      background: 'var(--accent-primary)',
                       borderRadius: '1px',
                     }}
                   />
@@ -180,7 +183,7 @@ export default function NavBar() {
                 display: 'block',
                 width: 20,
                 height: '2px',
-                background: '#1e2a3a',
+                background: 'var(--text-primary)',
                 borderRadius: '1px',
                 transition: 'all 0.3s ease',
                 transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none',
@@ -191,7 +194,7 @@ export default function NavBar() {
                 display: 'block',
                 width: 20,
                 height: '2px',
-                background: '#1e2a3a',
+                background: 'var(--text-primary)',
                 borderRadius: '1px',
                 transition: 'all 0.3s ease',
                 opacity: menuOpen ? 0 : 1,
@@ -202,7 +205,7 @@ export default function NavBar() {
                 display: 'block',
                 width: 20,
                 height: '2px',
-                background: '#1e2a3a',
+                background: 'var(--text-primary)',
                 borderRadius: '1px',
                 transition: 'all 0.3s ease',
                 transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none',
@@ -242,12 +245,12 @@ export default function NavBar() {
               bottom: 0,
               width: '280px',
               maxWidth: '80vw',
-              background: '#fff',
+              background: 'var(--bg-card)',
               zIndex: 9001,
               padding: '80px 32px 32px',
               transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
               transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: menuOpen ? '-10px 0 40px rgba(0,0,0,0.1)' : 'none',
+              boxShadow: menuOpen ? 'var(--shadow-lg)' : 'none',
             }}
           >
             {NAV_SECTIONS.map((section, i) => (
@@ -264,11 +267,12 @@ export default function NavBar() {
                   padding: '16px 0',
                   fontSize: '18px',
                   fontWeight: activeSection === section.id ? 700 : 400,
-                  color: activeSection === section.id ? '#5b7db1' : '#1e2a3a',
-                  borderBottom: '1px solid rgba(0,0,0,0.06)',
+                  color: activeSection === section.id ? 'var(--accent-primary)' : 'var(--text-primary)',
+                  borderBottom: '1px solid var(--border-subtle)',
                   opacity: menuOpen ? 1 : 0,
                   transform: menuOpen ? 'translateX(0)' : 'translateX(20px)',
                   transition: `all 0.3s ease ${menuOpen ? 0.1 + i * 0.05 : 0}s`,
+                  fontFamily: 'var(--font-body)',
                 }}
               >
                 {section.label}

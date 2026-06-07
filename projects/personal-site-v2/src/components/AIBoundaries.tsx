@@ -74,10 +74,10 @@ export default function AIBoundaries() {
   const rightPct = 100 - split
 
   const listStyle = (delay: string, tx: string): React.CSSProperties => ({
-    background: '#fff',
-    borderRadius: '16px',
+    background: 'var(--bg-card)',
+    borderRadius: 'var(--radius-lg)',
     padding: isMobile ? '28px 20px' : '40px 32px',
-    border: '1px solid rgba(0,0,0,0.06)',
+    border: '1px solid var(--border-subtle)',
     opacity: visible ? 1 : 0,
     transform: visible ? 'none' : `translateX(${tx})`,
     transition: `opacity 1s ease ${delay}, transform 1s ease ${delay}`,
@@ -88,10 +88,9 @@ export default function AIBoundaries() {
   const itemStyle = (
     i: number,
     total: number,
-    border: string,
   ): React.CSSProperties => ({
     padding: '16px 0',
-    borderBottom: i < total - 1 ? `1px solid ${border}` : 'none',
+    borderBottom: i < total - 1 ? `1px solid var(--border-subtle)` : 'none',
   })
 
   /* ========== MOBILE: stacked layout ========== */
@@ -102,7 +101,7 @@ export default function AIBoundaries() {
         ref={ref}
         style={{
           padding: '80px 24px',
-          background: '#fafafa',
+          background: 'var(--bg-tertiary)',
           minHeight: '70vh',
           display: 'flex',
           alignItems: 'center',
@@ -122,7 +121,7 @@ export default function AIBoundaries() {
             <div style={listStyle('0.2s', '-20px')}>
               <SectionTitle label="交给 AI" dot="#52b788" />
               {boundaries.canDo.map((item, i) => (
-                <div key={i} style={itemStyle(i, boundaries.canDo.length, '#f0f0f0')}>
+                <div key={i} style={itemStyle(i, boundaries.canDo.length)}>
                   <ItemText text={item.text} />
                   {item.metric && <ItemMetric text={item.metric} color="#52b788" />}
                 </div>
@@ -131,7 +130,7 @@ export default function AIBoundaries() {
             <div style={listStyle('0.35s', '20px')}>
               <SectionTitle label="留给自己" dot="#e07070" />
               {boundaries.cannotDo.map((item, i) => (
-                <div key={i} style={itemStyle(i, boundaries.cannotDo.length, '#f0f0f0')}>
+                <div key={i} style={itemStyle(i, boundaries.cannotDo.length)}>
                   <ItemText text={item.text} />
                   {item.metric && <ItemMetric text={item.metric} color="#e07070" />}
                 </div>
@@ -177,14 +176,13 @@ export default function AIBoundaries() {
             style={{
               flex: `${leftPct}`,
               ...listStyle('0.2s', '-20px'),
-              borderRadius: '16px 0 0 16px',
               borderRight: 'none',
               paddingRight: '20px',
             }}
           >
             <SectionTitle label="交给 AI" dot="#52b788" />
             {boundaries.canDo.map((item, i) => (
-              <div key={i} style={itemStyle(i, boundaries.canDo.length, '#f0f0f0')}>
+              <div key={i} style={itemStyle(i, boundaries.canDo.length)}>
                 <ItemText text={item.text} />
                 {item.metric && <ItemMetric text={item.metric} color="#52b788" />}
               </div>
@@ -247,14 +245,13 @@ export default function AIBoundaries() {
             style={{
               flex: `${rightPct}`,
               ...listStyle('0.35s', '20px'),
-              borderRadius: '0 16px 16px 0',
               borderLeft: 'none',
               paddingLeft: '20px',
             }}
           >
             <SectionTitle label="留给自己" dot="#e07070" />
             {boundaries.cannotDo.map((item, i) => (
-              <div key={i} style={itemStyle(i, boundaries.cannotDo.length, '#f0f0f0')}>
+              <div key={i} style={itemStyle(i, boundaries.cannotDo.length)}>
                 <ItemText text={item.text} />
                 {item.metric && <ItemMetric text={item.metric} color="#e07070" />}
               </div>
@@ -319,7 +316,7 @@ function MobileHeader({ visible }: { visible: boolean }) {
       <div
         style={{
           fontSize: '11px',
-          color: '#bbb',
+          color: 'var(--text-light)',
           letterSpacing: '0.2em',
           marginBottom: '20px',
         }}
@@ -330,7 +327,7 @@ function MobileHeader({ visible }: { visible: boolean }) {
         style={{
           fontSize: '28px',
           fontWeight: 800,
-          color: '#1e2a3a',
+          color: 'var(--text-primary)',
           marginBottom: '16px',
           lineHeight: 1.2,
           letterSpacing: '-0.03em',
@@ -341,7 +338,7 @@ function MobileHeader({ visible }: { visible: boolean }) {
       <p
         style={{
           fontSize: '15px',
-          color: '#888',
+          color: 'var(--text-muted)',
           lineHeight: 1.6,
         }}
       >
@@ -366,7 +363,7 @@ function DesktopHeader({ visible }: { visible: boolean }) {
       <div
         style={{
           fontSize: '11px',
-          color: '#bbb',
+          color: 'var(--text-light)',
           letterSpacing: '0.2em',
           marginBottom: '20px',
         }}
@@ -377,7 +374,7 @@ function DesktopHeader({ visible }: { visible: boolean }) {
         style={{
           fontSize: 'clamp(36px, 5vw, 52px)',
           fontWeight: 800,
-          color: '#1e2a3a',
+          color: 'var(--text-primary)',
           marginBottom: '16px',
           lineHeight: 1.2,
           letterSpacing: '-0.03em',
@@ -388,7 +385,7 @@ function DesktopHeader({ visible }: { visible: boolean }) {
       <p
         style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#888',
+          color: 'var(--text-muted)',
           lineHeight: 1.6,
         }}
       >
@@ -433,7 +430,7 @@ function ItemText({ text }: { text: string }) {
       style={{
         fontSize: isMobile ? '16px' : '17px',
         fontWeight: 500,
-        color: '#333',
+        color: 'var(--text-secondary)',
         marginBottom: '4px',
         lineHeight: 1.5,
       }}
@@ -475,16 +472,16 @@ function QuoteCard({ visible }: { visible: boolean }) {
           maxWidth: '640px',
           margin: '0 auto',
           padding: isMobile ? '32px 24px' : '48px 40px',
-          background: '#ffffff',
-          borderRadius: '16px',
-          borderLeft: '3px solid #5b7db1',
+          background: 'var(--bg-card)',
+          borderRadius: 'var(--radius-lg)',
+          borderLeft: '3px solid var(--accent-primary)',
           paddingLeft: isMobile ? '24px' : '32px',
         }}
       >
         <p
           style={{
             fontSize: isMobile ? '16px' : 'clamp(17px, 2vw, 20px)',
-            color: '#1e2a3a',
+            color: 'var(--text-primary)',
             lineHeight: 1.8,
             whiteSpace: 'pre-wrap',
             fontWeight: 400,
@@ -497,7 +494,7 @@ function QuoteCard({ visible }: { visible: boolean }) {
         <div
           style={{
             fontSize: '14px',
-            color: '#888',
+            color: 'var(--text-muted)',
             letterSpacing: '0.03em',
             textAlign: 'left',
           }}

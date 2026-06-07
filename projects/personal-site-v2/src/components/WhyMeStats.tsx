@@ -27,7 +27,7 @@ export default function WhyMeStats() {
       {/* Section label */}
       <div style={{
         fontSize: '11px',
-        color: '#bbb',
+        color: 'var(--text-light)',
         letterSpacing: '0.2em',
         marginBottom: isMobile ? '24px' : '32px',
       }}>
@@ -38,8 +38,8 @@ export default function WhyMeStats() {
       <div
         ref={heroNum.ref}
         style={{
-          background: 'linear-gradient(135deg, #52b788 0%, #5b7db1 100%)',
-          borderRadius: '20px',
+          background: 'var(--accent-gradient)',
+          borderRadius: 'var(--radius-xl)',
           padding: isMobile ? '40px 24px' : '56px 40px',
           textAlign: 'center',
           marginBottom: isMobile ? '32px' : '48px',
@@ -116,18 +116,18 @@ function SupportingStat({
     <div
       ref={ref}
       style={{
-        background: '#fff',
-        borderRadius: '16px',
-        padding: '28px 20px',
+        background: 'var(--bg-card)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '24px 20px',
         textAlign: 'center',
-        border: '1px solid rgba(0,0,0,0.04)',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+        border: '1px solid var(--border-subtle)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       <div style={{
         fontSize: 'clamp(32px, 5vw, 48px)',
         fontWeight: 800,
-        color: '#1e2a3a',
+        color: 'var(--text-primary)',
         lineHeight: 1.1,
         letterSpacing: '-0.03em',
         marginBottom: '8px',

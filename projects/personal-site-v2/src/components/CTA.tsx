@@ -42,7 +42,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
         justifyContent: 'center',
         alignItems: 'center',
         padding: isMobile ? '80px 24px' : 'clamp(80px, 12vw, 160px) 60px',
-        background: '#f7f8fc',
+        background: 'var(--bg-primary)',
         textAlign: 'center',
       }}
     >
@@ -55,7 +55,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
         {/* Section label */}
         <div style={{
           fontSize: '11px',
-          color: '#bbb',
+          color: 'var(--text-light)',
           letterSpacing: '0.2em',
           marginBottom: '28px',
         }}>
@@ -66,7 +66,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
         <h2 style={{
           fontSize: isMobile ? '32px' : 'clamp(40px, 6vw, 64px)',
           fontWeight: 800,
-          color: '#1e2a3a',
+          color: 'var(--text-primary)',
           lineHeight: 1.15,
           marginBottom: '20px',
           letterSpacing: '-0.03em',
@@ -83,7 +83,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
         {/* Subtitle */}
         <p style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#888',
+          color: 'var(--text-muted)',
           marginBottom: '48px',
           lineHeight: 1.7,
         }}>
@@ -100,10 +100,10 @@ export default function CTA({ onOpenChat }: CTAProps) {
             alignItems: 'center',
             gap: '8px',
             padding: isMobile ? '16px 32px' : '18px 40px',
-            background: '#5b7db1',
+            background: 'var(--accent-primary)',
             color: '#fff',
-            border: '1px solid rgba(0,0,0,0.08)',
-            borderRadius: '12px',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: 'var(--radius-lg)',
             fontSize: isMobile ? '15px' : 'clamp(16px, 2vw, 18px)',
             fontWeight: 600,
             cursor: 'pointer',
@@ -140,24 +140,24 @@ export default function CTA({ onOpenChat }: CTAProps) {
               alignItems: 'center',
               gap: '8px',
               padding: '12px 24px',
-              borderRadius: '12px',
-              border: '1px solid rgba(0,0,0,0.08)',
-              background: '#fff',
+              borderRadius: 'var(--radius-lg)',
+              border: '1px solid var(--border-subtle)',
+              background: 'var(--bg-card)',
               cursor: 'pointer',
               fontSize: '14px',
               fontWeight: 500,
-              color: '#6b7a8d',
+              color: 'var(--text-secondary)',
               textDecoration: 'none',
               transition: 'all 0.3s ease',
               letterSpacing: '0.02em',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#5b7db1'
-              e.currentTarget.style.color = '#5b7db1'
+              e.currentTarget.style.borderColor = 'var(--accent-primary)'
+              e.currentTarget.style.color = 'var(--accent-primary)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)'
-              e.currentTarget.style.color = '#6b7a8d'
+              e.currentTarget.style.borderColor = 'var(--border-subtle)'
+              e.currentTarget.style.color = 'var(--text-secondary)'
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -178,7 +178,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
         }}>
           <div style={{
             fontSize: '11px',
-            color: '#bbb',
+            color: 'var(--text-light)',
             letterSpacing: '0.15em',
             marginBottom: '20px',
             textTransform: 'uppercase',
@@ -197,7 +197,7 @@ export default function CTA({ onOpenChat }: CTAProps) {
           justifyContent: 'center',
           gap: isMobile ? '12px 20px' : '40px',
           fontSize: isMobile ? '13px' : '14px',
-          color: '#888',
+          color: 'var(--text-muted)',
           lineHeight: 1.8,
         }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
@@ -241,13 +241,13 @@ function CopyIntroButton() {
         alignItems: 'center',
         gap: '8px',
         padding: '12px 24px',
-        borderRadius: '12px',
-        border: '1px solid rgba(0,0,0,0.08)',
-        background: '#fff',
+        borderRadius: 'var(--radius-lg)',
+        border: '1px solid var(--border-subtle)',
+        background: 'var(--bg-card)',
         cursor: 'pointer',
         fontSize: '14px',
         fontWeight: 500,
-        color: copied ? '#52b788' : '#6b7a8d',
+        color: copied ? 'var(--accent-secondary)' : 'var(--text-secondary)',
         transition: 'all 0.3s ease',
         letterSpacing: '0.02em',
         position: 'relative',
@@ -320,7 +320,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       }}>
         <p style={{
           fontSize: '14px',
-          color: '#888',
+          color: 'var(--text-muted)',
           lineHeight: 1.8,
           paddingBottom: '20px',
           whiteSpace: 'pre-wrap',

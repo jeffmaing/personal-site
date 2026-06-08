@@ -41,7 +41,7 @@ export const siteConfig = {
         tab: "data",
         name: "AI 经销商诊断",
         status: "在跑",
-        description: "经销商诊断报告，原来要 2 天做完。用 AI 重构后，10 分钟出报告。",
+        description: "点击试用 → 10 秒生成诊断报告。看看 AI 是怎么做的。",
         metrics: ["100+ 诊断报告", "效率提升 10 倍", "覆盖 35 家经销商"],
         tech: "AI 诊断架构 + 真实数据驱动",
         detail: {
@@ -55,7 +55,7 @@ export const siteConfig = {
         tab: "data",
         name: "雷克萨斯数据看板",
         status: "在跑",
-        description: "总部每天要看 30 个 Excel 报表。搭建自动化数据看板后，所有指标一个页面搞定。",
+        description: "点击看效果 → 200+ 指标一个页面搞定，数据实时同步。",
         metrics: ["4 个数据源自动同步", "零人工整理", "200+ 指标实时更新"],
         tech: "数据整合 + 可视化看板",
         detail: {
@@ -69,7 +69,7 @@ export const siteConfig = {
         tab: "data",
         name: "奔驰排课系统",
         status: "在跑",
-        description: "培训排课全靠人工协调，经常撞车漏排。搭建在线排课平台后，讲师资源一目了然。",
+        description: "点击看效果 → 35 家店一键排课，零冲突。",
         metrics: ["35 家店统一调度", "讲师负载可视化", "自动冲突检测"],
         tech: "在线平台 + 智能调度",
         detail: {
@@ -84,7 +84,7 @@ export const siteConfig = {
         tab: "auto",
         name: "知道社区数据周报",
         status: "在跑",
-        description: "每周人工抓取数据做 PPT，耗时 4 小时。自动化脚本一键生成，5 分钟出报告。",
+        description: "点击看效果 → 4 小时周报 → 5 分钟自动生成。",
         metrics: ["4 小时 → 5 分钟", "零人工干预", "数据 100% 准确"],
         tech: "自动化脚本 + 智能生成",
         detail: {
@@ -98,7 +98,7 @@ export const siteConfig = {
         tab: "auto",
         name: "ES 日报自动化",
         status: "在跑",
-        description: "每天要从 4 个数据源整理报表，耗时 30 分钟。自动化后，10 秒出报告。",
+        description: "点击看效果 → 30 分钟日报 → 10 秒出结果。",
         metrics: ["30 分钟 → 10 秒", "4 个数据源整合", "每天准时推送"],
         tech: "模板引擎 + 数据整合",
         detail: {
@@ -112,7 +112,7 @@ export const siteConfig = {
         tab: "auto",
         name: "论坛自动巡检",
         status: "在跑",
-        description: "每天人工盯论坛看有没有违规内容。用智能代理自动巡检后，每天定时出报告。",
+        description: "点击看效果 → 人工 2 小时/天 → AI 全天候自动巡检。",
         metrics: ["365 天无间断", "异常自动预警", "人工零介入"],
         tech: "自动采集 + AI 分析 + 即时推送",
         detail: {
@@ -126,7 +126,7 @@ export const siteConfig = {
         tab: "auto",
         name: "汽车行业资讯速递",
         status: "在跑",
-        description: "每天从 7 个网站搜集资讯，耗时 1 小时。自动化后，每 8 小时推送摘要。",
+        description: "点击看效果 → 1 小时人工搜集 → 每 8 小时自动推送。",
         metrics: ["7 个信息源自动采集", "每 8 小时推送", "零人工阅读"],
         tech: "多源采集 + AI 摘要",
         detail: {
@@ -141,7 +141,7 @@ export const siteConfig = {
         tab: "tools",
         name: "AI 视频剪辑",
         status: "在跑",
-        description: "商业视频剪辑工具订阅费贵。本地部署后，零订阅费，数据不出本机。",
+        description: "点击看效果 → 商业工具订阅费 → 零成本本地运行。",
         metrics: ["本地部署", "零订阅费", "数据完全本地"],
         tech: "本地 AI 推理 + 语音识别",
         detail: {
@@ -155,7 +155,7 @@ export const siteConfig = {
         tab: "tools",
         name: "本地 AI 智能代理环境",
         status: "在跑",
-        description: "云端 AI 服务有数据泄露风险。搭建本地环境后，数据不出本机，全天可用。",
+        description: "点击看效果 → 依赖云端 → 全流程本地推理，数据不出本机。",
         metrics: ["全流程本地推理", "数据不出本机", "全天候可用"],
         tech: "本地 AI 工作环",
         detail: {
@@ -169,7 +169,7 @@ export const siteConfig = {
         tab: "tools",
         name: "麻明第一款小程序",
         status: "在跑",
-        description: "不懂小程序开发。用 AI 辅助后，从 0 到 1 完成第一款小程序。",
+        description: "点击看效果 → 不懂开发 → AI 辅助从 0 到 1 完成产品。",
         metrics: ["AI 辅助开发", "从 0 到 1", "全流程 AI"],
         tech: "AI 辅助开发",
         detail: {
@@ -183,7 +183,7 @@ export const siteConfig = {
         tab: "tools",
         name: "小红书爆款扫描器",
         status: "调试中",
-        description: "想做小红书内容，不知道什么标题能爆。自动化分析后，建立爆款标题数据库。",
+        description: "点击看效果 → 手动分析 → AI 自动提取爆款规律。",
         metrics: ["自动化分析", "标题规律提取", "爆款特征总结"],
         tech: "自动采集 + AI 分析",
         detail: {
@@ -197,7 +197,7 @@ export const siteConfig = {
         tab: "tools",
         name: "股票监控双智能代理",
         status: "在跑",
-        description: "持仓股票手动盯盘不现实。搭建双智能代理后，实时监控风控指标。",
+        description: "点击看效果 → 手动盯盘 → AI 双代理实时监控。",
         metrics: ["9 只股票实时监控", "双智能代理协作", "异常即时提醒"],
         tech: "实时监控 + AI 辅助决策",
         detail: {

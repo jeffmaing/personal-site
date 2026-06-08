@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense, useEffect } from 'react'
 import NavBar from './components/NavBar'
 import Hero from './components/Hero'
+import LiveDemos from './components/LiveDemos'
 import Story from './components/Story'
 import { setupSmoothScroll } from './utils/smoothScroll'
 
@@ -69,18 +70,26 @@ function App() {
       <NavBar />
       <Hero />
       <Story />
+
+      {/* Live Demos — new interactive section */}
+      <LiveDemos />
+
+      {/* Time Calculator — moved up, more prominent */}
+      <section
+        id="calculator"
+        style={{
+          padding: '0 24px clamp(60px, 10vw, 100px)',
+          background: 'var(--bg-primary)',
+        }}
+      >
+        <Suspense fallback={<LoadingFallback />}>
+          <TimeCalculator />
+        </Suspense>
+      </section>
+
       <Suspense fallback={<LoadingFallback />}>
         <AIArsenal />
         <AIBoundaries />
-        <section
-          id="calculator"
-          style={{
-            padding: 'clamp(60px, 10vw, 120px) 24px 0',
-            background: 'var(--bg-primary)',
-          }}
-        >
-          <TimeCalculator />
-        </section>
         <CTA onOpenChat={() => setChatOpen(true)} />
         <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} />
       </Suspense>

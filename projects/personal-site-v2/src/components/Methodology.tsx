@@ -15,46 +15,49 @@ export default function Methodology() {
       id="methodology"
       ref={ref}
       style={{
-        padding: isMobile ? '80px 24px' : 'clamp(80px, 12vw, 140px) 60px',
+        padding: isMobile
+          ? 'var(--space-3xl) var(--space-sm)'
+          : 'var(--space-section) var(--space-lg)',
         background: 'var(--bg-secondary)',
         borderTop: '1px solid var(--border-subtle)',
         borderBottom: '1px solid var(--border-subtle)',
       }}
     >
-      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
-        {/* Header */}
+      <div style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+        {/* Header — focal */}
         <div
           style={{
-            marginBottom: isMobile ? '40px' : '56px',
+            marginBottom: isMobile ? 'var(--space-xl)' : 'var(--space-2xl)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(20px)',
             transition: 'opacity 0.8s ease, transform 0.8s ease',
           }}
         >
-          <div className="section-label" style={{ marginBottom: '16px' }}>
+          <div className="section-label" style={{ marginBottom: 'var(--space-sm)' }}>
             {methodology.eyebrow}
           </div>
           <h2
             style={{
-              fontSize: isMobile ? '26px' : 'clamp(30px, 4vw, 42px)',
-              fontWeight: 600,
+              fontSize: isMobile ? 'var(--font-h3)' : 'var(--font-h2)',
+              fontWeight: 'var(--weight-semibold)',
               color: 'var(--text-primary)',
-              marginBottom: '12px',
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em',
+              marginBottom: 'var(--space-md)',
+              lineHeight: 'var(--lh-tight)',
+              letterSpacing: 'var(--ls-heading)',
               fontFamily: 'var(--font-heading)',
-              maxWidth: '780px',
+              maxWidth: 'var(--content-max)',
             }}
           >
             {methodology.title}
           </h2>
           <p
             style={{
-              fontSize: isMobile ? '14px' : 'clamp(14px, 1.4vw, 16px)',
+              fontSize: 'var(--font-body)',
               color: 'var(--text-secondary)',
-              lineHeight: 1.7,
+              lineHeight: 'var(--lh-loose)',
               fontFamily: 'var(--font-body)',
-              maxWidth: '720px',
+              maxWidth: 'var(--content-narrow)',
+              opacity: 0.8,
             }}
           >
             {methodology.subtitle}
@@ -66,7 +69,7 @@ export default function Methodology() {
           style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: isMobile ? '20px' : '20px',
+            gap: 'var(--space-md)',
             position: 'relative',
           }}
         >
@@ -85,14 +88,14 @@ export default function Methodology() {
         {/* Outcome band — bridges methodology to proof */}
         <div
           style={{
-            marginTop: isMobile ? '40px' : '56px',
-            padding: isMobile ? '20px' : '24px 32px',
+            marginTop: isMobile ? 'var(--space-xl)' : 'var(--space-2xl)',
+            padding: isMobile ? 'var(--space-md)' : 'var(--space-md) var(--space-lg)',
             background: 'var(--bg-card)',
-            borderRadius: 'var(--radius-xl)',
+            borderRadius: 'var(--radius-md)',
             border: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
-            gap: '20px',
+            gap: 'var(--space-md)',
             flexWrap: 'wrap',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(20px)',
@@ -130,20 +133,22 @@ export default function Methodology() {
           <div style={{ flex: 1, minWidth: '240px' }}>
             <div
               style={{
-                fontSize: '11px',
+                fontSize: 'var(--font-small)',
                 color: 'var(--text-light)',
                 letterSpacing: '0.1em',
                 fontFamily: 'var(--font-heading)',
-                marginBottom: '4px',
+                marginBottom: 'var(--space-xs)',
+                textTransform: 'uppercase',
+                opacity: 0.7,
               }}
             >
               结果导向
             </div>
             <p
               style={{
-                fontSize: isMobile ? '14px' : '15px',
+                fontSize: 'var(--font-caption)',
                 color: 'var(--text-secondary)',
-                lineHeight: 1.6,
+                lineHeight: 'var(--lh-normal)',
                 fontFamily: 'var(--font-body)',
                 margin: 0,
               }}
@@ -188,7 +193,7 @@ function StepCard({
           style={{
             position: 'absolute',
             top: '50%',
-            right: '-14px',
+            right: '-16px',
             transform: 'translateY(-50%)',
             width: '28px',
             height: '28px',
@@ -225,11 +230,11 @@ function StepCard({
         onMouseLeave={() => setHovered(false)}
         style={{
           background: 'var(--bg-card)',
-          borderRadius: 'var(--radius-xl)',
-          padding: isMobile ? '24px 20px' : '28px 24px',
+          borderRadius: 'var(--radius-md)',
+          padding: isMobile ? 'var(--space-md)' : 'var(--space-lg) var(--space-md)',
           border: '1px solid var(--border-subtle)',
           boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
-          transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+          transition: 'box-shadow 0.2s ease, transform 0.2s ease',
           transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
           height: '100%',
           display: 'flex',
@@ -241,17 +246,17 @@ function StepCard({
           style={{
             display: 'flex',
             alignItems: 'baseline',
-            gap: '10px',
-            marginBottom: '20px',
+            gap: 'var(--space-xs)',
+            marginBottom: 'var(--space-md)',
           }}
         >
           <span
             style={{
-              fontSize: '32px',
-              fontWeight: 200,
+              fontSize: 'var(--font-h3)',
+              fontWeight: 'var(--weight-light)',
               color: 'var(--accent-primary)',
               fontFamily: 'var(--font-heading)',
-              letterSpacing: '-0.02em',
+              letterSpacing: 'var(--ls-heading)',
               lineHeight: 1,
             }}
           >
@@ -259,38 +264,40 @@ function StepCard({
           </span>
           <span
             style={{
-              fontSize: '11px',
+              fontSize: 'var(--font-small)',
               color: 'var(--text-light)',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
               fontFamily: 'var(--font-heading)',
-              fontWeight: 600,
+              fontWeight: 'var(--weight-semibold)',
+              opacity: 0.7,
             }}
           >
             {data.key}
           </span>
         </div>
 
-        {/* Title */}
+        {/* Title — focal within card */}
         <h3
           style={{
             fontSize: '20px',
-            fontWeight: 600,
+            fontWeight: 'var(--weight-semibold)',
             color: 'var(--text-primary)',
-            marginBottom: '4px',
+            marginBottom: 'var(--space-xs)',
             fontFamily: 'var(--font-heading)',
-            letterSpacing: '-0.01em',
+            letterSpacing: 'var(--ls-heading)',
           }}
         >
           {data.title}
         </h3>
         <div
           style={{
-            fontSize: '12px',
+            fontSize: 'var(--font-caption)',
             color: 'var(--text-light)',
-            letterSpacing: '0.05em',
+            letterSpacing: 'var(--ls-loose)',
             fontFamily: 'var(--font-mono)',
-            marginBottom: '14px',
+            marginBottom: 'var(--space-md)',
+            opacity: 0.6,
           }}
         >
           {data.subtitle}
@@ -299,10 +306,10 @@ function StepCard({
         {/* Visual */}
         <div
           style={{
-            marginBottom: '20px',
-            padding: '18px',
+            marginBottom: 'var(--space-md)',
+            padding: 'var(--space-md)',
             background: 'var(--bg-tertiary)',
-            borderRadius: 'var(--radius-lg)',
+            borderRadius: 'var(--radius-md)',
             border: '1px solid var(--border-subtle)',
             minHeight: '120px',
             display: 'flex',
@@ -316,12 +323,11 @@ function StepCard({
         {/* Summary */}
         <p
           style={{
-            fontSize: '13px',
+            fontSize: 'var(--font-caption)',
             color: 'var(--text-secondary)',
-            lineHeight: 1.7,
+            lineHeight: 'var(--lh-loose)',
             fontFamily: 'var(--font-body)',
-            marginBottom: '16px',
-            margin: '0 0 16px',
+            margin: '0 0 var(--space-md)',
           }}
         >
           {data.summary}
@@ -335,7 +341,7 @@ function StepCard({
             margin: 0,
             display: 'flex',
             flexDirection: 'column',
-            gap: '8px',
+            gap: 'var(--space-xs)',
           }}
         >
           {data.bullets.map((b, i) => (
@@ -344,11 +350,11 @@ function StepCard({
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '8px',
-                fontSize: '13px',
+                gap: 'var(--space-xs)',
+                fontSize: 'var(--font-caption)',
                 color: 'var(--text-secondary)',
                 fontFamily: 'var(--font-body)',
-                lineHeight: 1.5,
+                lineHeight: 'var(--lh-normal)',
               }}
             >
               <span
@@ -356,7 +362,7 @@ function StepCard({
                   flexShrink: 0,
                   width: '14px',
                   height: '14px',
-                  borderRadius: '3px',
+                  borderRadius: 'var(--radius-sm)',
                   background: `${getStepColor(index)}15`,
                   color: getStepColor(index),
                   display: 'inline-flex',
@@ -394,7 +400,6 @@ function getStepColor(index: number) {
 
 /**
  * Minimal visual representations — McKinsey-style abstract diagrams.
- * No images, pure SVG so they scale cleanly on all devices.
  */
 function StepVisual({ kind }: { kind: string }) {
   if (kind === 'diagnose') return <DiagnoseVisual />
@@ -403,9 +408,6 @@ function StepVisual({ kind }: { kind: string }) {
   return null
 }
 
-/**
- * Step 01 — Diagnose: scattered process nodes converging into identified bottlenecks
- */
 function DiagnoseVisual() {
   const nodes = [
     { x: 20, y: 25, label: '环节 A', w: 60 },
@@ -420,7 +422,6 @@ function DiagnoseVisual() {
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
-      {/* Input nodes */}
       {nodes.map((n, i) => (
         <g key={i}>
           <rect
@@ -445,13 +446,11 @@ function DiagnoseVisual() {
           </text>
         </g>
       ))}
-      {/* Bottleneck markers — red dots */}
       <circle cx="125" cy="32" r="4" fill="#e07070" />
       <circle cx="125" cy="62" r="4" fill="#e07070" />
       <line x1="80" y1="25" x2="120" y2="32" stroke="var(--text-light)" strokeWidth="1" strokeDasharray="2 2" />
       <line x1="80" y1="55" x2="120" y2="62" stroke="var(--text-light)" strokeWidth="1" strokeDasharray="2 2" />
       <line x1="80" y1="85" x2="120" y2="62" stroke="var(--text-light)" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
-      {/* Output — flagged bottlenecks */}
       <rect x="145" y="25" width="40" height="55" rx="4" fill="rgba(224,112,112,0.08)" stroke="#e07070" strokeWidth="1" strokeDasharray="3 2" />
       <text x="165" y="45" textAnchor="middle" fontSize="7" fill="#e07070" fontFamily="var(--font-mono)" fontWeight="600">
         瓶颈
@@ -466,9 +465,6 @@ function DiagnoseVisual() {
   )
 }
 
-/**
- * Step 02 — Rebuild: layered architecture (SOP / BI / Workflow)
- */
 function RebuildVisual() {
   const layers = [
     { y: 25, label: 'SOP 标准化', color: 'rgba(91,125,177,0.12)', text: 'var(--accent-primary)' },
@@ -491,7 +487,6 @@ function RebuildVisual() {
           </text>
         </g>
       ))}
-      {/* Layer connectors */}
       <line x1="100" y1="15" x2="100" y2="85" stroke="var(--text-light)" strokeWidth="1" strokeDasharray="2 3" opacity="0.5" />
       <circle cx="100" cy="25" r="2" fill="var(--text-light)" />
       <circle cx="100" cy="50" r="2" fill="var(--text-light)" />
@@ -500,9 +495,6 @@ function RebuildVisual() {
   )
 }
 
-/**
- * Step 03 — Apply AI: agent node orchestrating automated tasks
- */
 function AIVisual() {
   return (
     <svg
@@ -512,7 +504,6 @@ function AIVisual() {
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
-      {/* Center AI core */}
       <circle cx="100" cy="50" r="18" fill="var(--bg-card)" stroke="var(--accent-primary)" strokeWidth="1.5" />
       <text x="100" y="48" textAnchor="middle" fontSize="8" fill="var(--accent-primary)" fontFamily="var(--font-heading)" fontWeight="700">
         AI
@@ -520,9 +511,7 @@ function AIVisual() {
       <text x="100" y="58" textAnchor="middle" fontSize="6" fill="var(--accent-primary)" fontFamily="var(--font-mono)">
         AGENT
       </text>
-      {/* Pulsing ring */}
       <circle cx="100" cy="50" r="26" fill="none" stroke="var(--accent-primary)" strokeWidth="0.5" opacity="0.4" />
-      {/* Orbiting task nodes */}
       {[
         { x: 30, y: 30, label: '执行' },
         { x: 170, y: 30, label: '决策' },

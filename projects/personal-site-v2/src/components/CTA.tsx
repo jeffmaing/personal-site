@@ -15,7 +15,6 @@ export default function CTA({ onOpenChat }: CTAProps) {
   const w = useWidth()
   const isMobile = w < 768
 
-  // FAQ data
   const faqs = [
     {
       question: 'AI 能帮我做什么？',
@@ -41,126 +40,151 @@ export default function CTA({ onOpenChat }: CTAProps) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: isMobile ? '80px 24px' : 'clamp(80px, 12vw, 160px) 60px',
+        padding: isMobile
+          ? 'var(--space-3xl) var(--space-sm)'
+          : 'var(--space-section) var(--space-lg)',
         background: 'var(--bg-primary)',
         textAlign: 'center',
       }}
     >
-      <div style={{
-        maxWidth: '700px',
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(30px)',
-        transition: 'opacity 1s ease, transform 1s ease',
-      }}>
-        {/* Section label */}
-        <div style={{
-          fontSize: '11px',
-          color: 'var(--text-light)',
-          letterSpacing: '0.2em',
-          marginBottom: '28px',
-        }}>
+      <div
+        style={{
+          maxWidth: '700px',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'none' : 'translateY(30px)',
+          transition: 'opacity 1s ease, transform 1s ease',
+        }}
+      >
+        {/* Section label — tertiary */}
+        <div
+          style={{
+            fontSize: 'var(--font-small)',
+            color: 'var(--text-light)',
+            letterSpacing: '0.2em',
+            marginBottom: 'var(--space-xl)',
+            fontFamily: 'var(--font-heading)',
+            textTransform: 'uppercase',
+            opacity: 0.7,
+          }}
+        >
           04 — 联系我
         </div>
 
-        {/* Main headline */}
-        <h2 style={{
-          fontSize: isMobile ? '32px' : 'clamp(40px, 6vw, 64px)',
-          fontWeight: 800,
-          color: 'var(--text-primary)',
-          lineHeight: 1.15,
-          marginBottom: '20px',
-          letterSpacing: '-0.03em',
-        }}>
+        {/* Headline — focal */}
+        <h2
+          style={{
+            fontSize: isMobile ? 'var(--font-h3)' : 'var(--font-h1)',
+            fontWeight: 'var(--weight-bold)',
+            color: 'var(--text-primary)',
+            lineHeight: 'var(--lh-tight)',
+            marginBottom: 'var(--space-md)',
+            letterSpacing: 'var(--ls-heading)',
+            fontFamily: 'var(--font-heading)',
+          }}
+        >
           想知道 AI 能帮你
           <br />
-          <span style={{
-            color: '#5b7db1',
-          }}>
-            省多少时间？
-          </span>
+          <span style={{ color: 'var(--accent-primary)' }}>省多少时间？</span>
         </h2>
 
-        {/* Subtitle */}
-        <p style={{
-          fontSize: 'clamp(15px, 2vw, 18px)',
-          color: 'var(--text-muted)',
-          marginBottom: '48px',
-          lineHeight: 1.7,
-        }}>
+        {/* Subtitle — secondary */}
+        <p
+          style={{
+            fontSize: 'var(--font-body)',
+            color: 'var(--text-muted)',
+            marginBottom: 'var(--space-2xl)',
+            lineHeight: 'var(--lh-loose)',
+            fontFamily: 'var(--font-body)',
+            opacity: 0.7,
+          }}
+        >
           无论是经销商诊断、数据自动化，还是智能代理搭建
           <br />
           聊聊看，也许你的工作流也能被重构
         </p>
 
-        {/* CTA Button */}
+        {/* Primary CTA */}
         <button
           onClick={onOpenChat}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: 'var(--space-xs)',
             padding: isMobile ? '16px 32px' : '18px 40px',
             background: 'var(--accent-primary)',
             color: '#fff',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-lg)',
-            fontSize: isMobile ? '15px' : 'clamp(16px, 2vw, 18px)',
-            fontWeight: 600,
+            border: 'none',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: isMobile ? '15px' : 'var(--font-body)',
+            fontWeight: 'var(--weight-semibold)',
             cursor: 'pointer',
-            transition: 'all 0.5s ease',
-            boxShadow: 'none',
-            marginBottom: '16px',
-            letterSpacing: '0.02em',
+            transition: 'background 0.2s ease, box-shadow 0.2s ease',
+            boxShadow: 'var(--shadow-sm)',
+            marginBottom: 'var(--space-md)',
+            letterSpacing: 'var(--ls-loose)',
+            fontFamily: 'var(--font-body)',
           }}
           onMouseEnter={e => {
             e.currentTarget.style.background = '#4a6a9e'
-            e.currentTarget.style.transform = 'translateY(-2px)'
+            e.currentTarget.style.boxShadow = 'var(--shadow-md)'
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.background = '#5b7db1'
-            e.currentTarget.style.transform = 'translateY(0)'
+            e.currentTarget.style.background = 'var(--accent-primary)'
+            e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
           }}
         >
           和我聊聊
         </button>
 
-        {/* Download Resume + Copy Intro buttons */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: '12px',
-          marginBottom: '48px',
-        }}>
+        {/* Secondary actions */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 'var(--space-sm)',
+            marginBottom: 'var(--space-2xl)',
+          }}
+        >
           <a
             href="/personal-site-v2/resume-麻明.pdf"
             download
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: 'var(--space-xs)',
               padding: '12px 24px',
-              borderRadius: 'var(--radius-lg)',
+              borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-subtle)',
               background: 'var(--bg-card)',
               cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: 500,
+              fontSize: 'var(--font-caption)',
+              fontWeight: 'var(--weight-medium)',
               color: 'var(--text-secondary)',
               textDecoration: 'none',
-              transition: 'all 0.3s ease',
-              letterSpacing: '0.02em',
+              transition: 'border-color 0.2s ease, color 0.2s ease',
+              letterSpacing: 'var(--ls-loose)',
+              fontFamily: 'var(--font-body)',
             }}
-            onMouseEnter={(e) => {
+            onMouseEnter={e => {
               e.currentTarget.style.borderColor = 'var(--accent-primary)'
               e.currentTarget.style.color = 'var(--accent-primary)'
             }}
-            onMouseLeave={(e) => {
+            onMouseLeave={e => {
               e.currentTarget.style.borderColor = 'var(--border-subtle)'
               e.currentTarget.style.color = 'var(--text-secondary)'
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
@@ -171,18 +195,25 @@ export default function CTA({ onOpenChat }: CTAProps) {
           <CopyIntroButton />
         </div>
 
-        {/* FAQ section with id */}
-        <div id="faq" style={{
-          textAlign: 'left',
-          marginBottom: '48px',
-        }}>
-          <div style={{
-            fontSize: '11px',
-            color: 'var(--text-light)',
-            letterSpacing: '0.15em',
-            marginBottom: '20px',
-            textTransform: 'uppercase',
-          }}>
+        {/* FAQ */}
+        <div
+          id="faq"
+          style={{
+            textAlign: 'left',
+            marginBottom: 'var(--space-2xl)',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 'var(--font-small)',
+              color: 'var(--text-light)',
+              letterSpacing: '0.15em',
+              marginBottom: 'var(--space-md)',
+              textTransform: 'uppercase',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 'var(--weight-medium)',
+            }}
+          >
             常见问题
           </div>
           {faqs.map((faq, i) => (
@@ -191,15 +222,19 @@ export default function CTA({ onOpenChat }: CTAProps) {
         </div>
 
         {/* Contact info */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: isMobile ? '12px 20px' : '40px',
-          fontSize: isMobile ? '13px' : '14px',
-          color: 'var(--text-muted)',
-          lineHeight: 1.8,
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: isMobile ? 'var(--space-xs) var(--space-md)' : '0 var(--space-2xl)',
+            fontSize: 'var(--font-caption)',
+            color: 'var(--text-muted)',
+            lineHeight: 1.8,
+            fontFamily: 'var(--font-body)',
+            opacity: 0.8,
+          }}
+        >
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <IconPhone size={14} />
             {contact.phone}
@@ -214,7 +249,6 @@ export default function CTA({ onOpenChat }: CTAProps) {
           </span>
         </div>
 
-        {/* Social share */}
         <SocialShare />
       </div>
     </section>
@@ -239,38 +273,56 @@ function CopyIntroButton() {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '8px',
+        gap: 'var(--space-xs)',
         padding: '12px 24px',
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 'var(--radius-sm)',
         border: '1px solid var(--border-subtle)',
         background: 'var(--bg-card)',
         cursor: 'pointer',
-        fontSize: '14px',
-        fontWeight: 500,
+        fontSize: 'var(--font-caption)',
+        fontWeight: 'var(--weight-medium)',
         color: copied ? 'var(--accent-secondary)' : 'var(--text-secondary)',
-        transition: 'all 0.3s ease',
-        letterSpacing: '0.02em',
-        position: 'relative',
+        transition: 'border-color 0.2s ease, color 0.2s ease',
+        letterSpacing: 'var(--ls-loose)',
+        fontFamily: 'var(--font-body)',
       }}
-      onMouseEnter={(e) => {
+      onMouseEnter={e => {
         if (!copied) {
-          e.currentTarget.style.borderColor = '#5b7db1'
-          e.currentTarget.style.color = '#5b7db1'
+          e.currentTarget.style.borderColor = 'var(--accent-primary)'
+          e.currentTarget.style.color = 'var(--accent-primary)'
         }
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={e => {
         if (!copied) {
-          e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)'
-          e.currentTarget.style.color = '#6b7a8d'
+          e.currentTarget.style.borderColor = 'var(--border-subtle)'
+          e.currentTarget.style.color = 'var(--text-secondary)'
         }
       }}
     >
       {copied ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polyline points="20 6 9 17 4 12" />
         </svg>
       ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
           <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
         </svg>
@@ -284,9 +336,11 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div style={{
-      borderBottom: '1px solid rgba(0,0,0,0.06)',
-    }}>
+    <div
+      style={{
+        borderBottom: '1px solid var(--border-subtle)',
+      }}
+    >
       <button
         onClick={() => setOpen(!open)}
         style={{
@@ -294,42 +348,50 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           width: '100%',
-          padding: '20px 0',
+          padding: 'var(--space-md) 0',
           background: 'transparent',
           border: 'none',
           cursor: 'pointer',
           textAlign: 'left',
-          gap: '12px',
+          gap: 'var(--space-sm)',
+          fontFamily: 'var(--font-body)',
         }}
       >
-        <span style={{
-          fontSize: '15px',
-          fontWeight: 500,
-          color: open ? '#1e2a3a' : '#6b7a8d',
-          transition: 'color 0.5s ease',
-        }}>
+        <span
+          style={{
+            fontSize: 'var(--font-body)',
+            fontWeight: 'var(--weight-medium)',
+            color: open ? 'var(--text-primary)' : 'var(--text-secondary)',
+            transition: 'color 0.2s ease',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
           {question}
         </span>
         <IconChevron size={16} direction={open ? 'up' : 'down'} />
       </button>
-      <div style={{
-        maxHeight: open ? '300px' : '0',
-        opacity: open ? 1 : 0,
-        overflow: 'hidden',
-        transition: 'max-height 0.6s ease, opacity 0.6s ease',
-      }}>
-        <p style={{
-          fontSize: '14px',
-          color: 'var(--text-muted)',
-          lineHeight: 1.8,
-          paddingBottom: '20px',
-          whiteSpace: 'pre-wrap',
-          margin: 0,
-        }}>
+      <div
+        style={{
+          maxHeight: open ? '300px' : '0',
+          opacity: open ? 1 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.4s ease, opacity 0.4s ease',
+        }}
+      >
+        <p
+          style={{
+            fontSize: 'var(--font-caption)',
+            color: 'var(--text-muted)',
+            lineHeight: 'var(--lh-loose)',
+            paddingBottom: 'var(--space-md)',
+            whiteSpace: 'pre-wrap',
+            margin: 0,
+            fontFamily: 'var(--font-body)',
+          }}
+        >
           {answer}
         </p>
       </div>
     </div>
   )
 }
-

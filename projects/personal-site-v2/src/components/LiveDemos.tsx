@@ -71,7 +71,74 @@ const DEALERS: DealerData[] = [
   },
 ]
 
-// ============ DEMO 1: 案例回放 — Real dealer diagnosis replay ============
+// ============ Shared header for each demo card ============
+function DemoHeader({
+  badge,
+  badgeColor,
+  title,
+  subtitle,
+}: {
+  badge: string
+  badgeColor: string
+  title: string
+  subtitle: string
+}) {
+  return (
+    <div style={{ marginBottom: 'var(--space-md)' }}>
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '4px 12px',
+          borderRadius: '999px',
+          background: `${badgeColor}10`,
+          color: badgeColor,
+          fontSize: 'var(--font-small)',
+          fontWeight: 'var(--weight-semibold)',
+          marginBottom: 'var(--space-sm)',
+          letterSpacing: 'var(--ls-loose)',
+          fontFamily: 'var(--font-heading)',
+        }}
+      >
+        <span
+          style={{
+            width: 5,
+            height: 5,
+            borderRadius: '50%',
+            background: badgeColor,
+          }}
+        />
+        {badge}
+      </div>
+      <h4
+        style={{
+          fontSize: 'var(--font-body)',
+          fontWeight: 'var(--weight-semibold)',
+          color: 'var(--text-primary)',
+          marginBottom: '4px',
+          fontFamily: 'var(--font-heading)',
+          letterSpacing: 'var(--ls-heading)',
+        }}
+      >
+        {title}
+      </h4>
+      <p
+        style={{
+          fontSize: 'var(--font-caption)',
+          color: 'var(--text-muted)',
+          lineHeight: 'var(--lh-normal)',
+          margin: 0,
+          fontFamily: 'var(--font-body)',
+        }}
+      >
+        {subtitle}
+      </p>
+    </div>
+  )
+}
+
+// ============ DEMO 1: 案例回放 ============
 function DealerDiagnosisDemo() {
   const [selectedDealer, setSelectedDealer] = useState<string>('')
   const [loading, setLoading] = useState(false)
@@ -122,55 +189,19 @@ function DealerDiagnosisDemo() {
 
   return (
     <div>
-      <div style={{ marginBottom: '16px' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '3px 10px',
-            borderRadius: '999px',
-            background: 'rgba(82,183,136,0.1)',
-            color: '#52b788',
-            fontSize: '11px',
-            fontWeight: 600,
-            marginBottom: '8px',
-            letterSpacing: '0.03em',
-            fontFamily: 'var(--font-heading)',
-          }}
-        >
-          <span
-            style={{
-              width: 5,
-              height: 5,
-              borderRadius: '50%',
-              background: '#52b788',
-            }}
-          />
-          真实数据回放
-        </div>
-        <h4
-          style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            marginBottom: '4px',
-            fontFamily: 'var(--font-heading)',
-          }}
-        >
-          AI 经销商诊断 · 案例回放
-        </h4>
-        <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-          选一家经销商，AI 在 10 秒内回放真实诊断报告
-        </p>
-      </div>
+      <DemoHeader
+        badge="真实数据回放"
+        badgeColor="#52b788"
+        title="AI 经销商诊断 · 案例回放"
+        subtitle="选一家经销商，AI 在 10 秒内回放真实诊断报告"
+      />
 
       {/* Dealer selector */}
       <div
         style={{
           display: 'flex',
-          gap: '10px',
-          marginBottom: '16px',
+          gap: 'var(--space-sm)',
+          marginBottom: 'var(--space-md)',
           flexWrap: 'wrap',
           alignItems: 'center',
         }}
@@ -182,10 +213,10 @@ function DealerDiagnosisDemo() {
             flex: '1',
             minWidth: '180px',
             padding: '10px 14px',
-            fontSize: '14px',
+            fontSize: 'var(--font-caption)',
             background: 'var(--bg-primary)',
             border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-md)',
+            borderRadius: 'var(--radius-sm)',
             color: 'var(--text-primary)',
             outline: 'none',
             fontFamily: 'var(--font-body)',
@@ -203,14 +234,14 @@ function DealerDiagnosisDemo() {
           disabled={!selectedDealer || loading}
           style={{
             padding: '10px 24px',
-            fontSize: '14px',
-            fontWeight: 600,
+            fontSize: 'var(--font-caption)',
+            fontWeight: 'var(--weight-semibold)',
             color: 'white',
             background: selectedDealer && !loading ? 'var(--accent-primary)' : 'var(--border-medium)',
             border: 'none',
-            borderRadius: 'var(--radius-md)',
+            borderRadius: 'var(--radius-sm)',
             cursor: selectedDealer && !loading ? 'pointer' : 'not-allowed',
-            transition: 'all 0.2s ease',
+            transition: 'background 0.2s ease',
             fontFamily: 'var(--font-body)',
           }}
         >
@@ -223,8 +254,8 @@ function DealerDiagnosisDemo() {
         <div
           style={{
             background: 'var(--bg-primary)',
-            borderRadius: 'var(--radius-md)',
-            padding: '24px',
+            borderRadius: 'var(--radius-sm)',
+            padding: 'var(--space-lg)',
             textAlign: 'center',
           }}
         >
@@ -236,14 +267,15 @@ function DealerDiagnosisDemo() {
               borderTopColor: 'var(--accent-primary)',
               borderRadius: '50%',
               animation: 'spin 1s linear infinite',
-              margin: '0 auto 16px',
+              margin: '0 auto var(--space-md)',
             }}
           />
           <div
             style={{
-              fontSize: '13px',
+              fontSize: 'var(--font-caption)',
               color: 'var(--text-secondary)',
-              marginBottom: '12px',
+              marginBottom: 'var(--space-sm)',
+              fontFamily: 'var(--font-body)',
             }}
           >
             {statusText}
@@ -274,8 +306,8 @@ function DealerDiagnosisDemo() {
         <div
           style={{
             background: 'var(--bg-primary)',
-            borderRadius: 'var(--radius-md)',
-            padding: '24px',
+            borderRadius: 'var(--radius-sm)',
+            padding: 'var(--space-lg)',
             animation: 'fadeIn 0.4s ease',
           }}
         >
@@ -284,9 +316,9 @@ function DealerDiagnosisDemo() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '20px',
-              marginBottom: '20px',
-              paddingBottom: '16px',
+              gap: 'var(--space-md)',
+              marginBottom: 'var(--space-md)',
+              paddingBottom: 'var(--space-md)',
               borderBottom: '1px solid var(--border-subtle)',
               flexWrap: 'wrap',
             }}
@@ -305,18 +337,22 @@ function DealerDiagnosisDemo() {
             >
               <span
                 style={{
-                  fontSize: '24px',
-                  fontWeight: 800,
+                  fontSize: 'var(--font-h3)',
+                  fontWeight: 'var(--weight-bold)',
                   color: getScoreColor(result.score),
+                  fontFamily: 'var(--font-heading)',
+                  lineHeight: 1,
                 }}
               >
                 {result.score}
               </span>
               <span
                 style={{
-                  fontSize: '10px',
+                  fontSize: 'var(--font-small)',
                   color: getScoreColor(result.score),
-                  fontWeight: 600,
+                  fontWeight: 'var(--weight-semibold)',
+                  marginTop: '2px',
+                  fontFamily: 'var(--font-heading)',
                 }}
               >
                 {getScoreLabel(result.score)}
@@ -325,23 +361,32 @@ function DealerDiagnosisDemo() {
             <div style={{ flex: 1, minWidth: '120px' }}>
               <div
                 style={{
-                  fontSize: '16px',
-                  fontWeight: 600,
+                  fontSize: 'var(--font-body)',
+                  fontWeight: 'var(--weight-semibold)',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-heading)',
                 }}
               >
                 {result.name}
               </div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{result.brand}</div>
+              <div
+                style={{
+                  fontSize: 'var(--font-caption)',
+                  color: 'var(--text-muted)',
+                  fontFamily: 'var(--font-body)',
+                }}
+              >
+                {result.brand}
+              </div>
               {result.period && (
                 <div
                   style={{
-                    fontSize: '11px',
+                    fontSize: 'var(--font-small)',
                     color: 'var(--text-light)',
                     marginTop: '4px',
                     fontStyle: 'normal',
                     fontFamily: 'var(--font-body)',
+                    opacity: 0.7,
                   }}
                 >
                   {result.period}
@@ -355,8 +400,8 @@ function DealerDiagnosisDemo() {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-              gap: '12px',
-              marginBottom: '20px',
+              gap: 'var(--space-sm)',
+              marginBottom: 'var(--space-md)',
             }}
           >
             {result.metrics.map(m => (
@@ -365,31 +410,39 @@ function DealerDiagnosisDemo() {
                 style={{
                   background: 'var(--bg-card)',
                   borderRadius: 'var(--radius-sm)',
-                  padding: '12px',
+                  padding: 'var(--space-sm)',
                   textAlign: 'center',
                   border: '1px solid var(--border-subtle)',
                 }}
               >
                 <div
                   style={{
-                    fontSize: '11px',
+                    fontSize: 'var(--font-small)',
                     color: 'var(--text-muted)',
                     marginBottom: '4px',
+                    fontFamily: 'var(--font-body)',
                   }}
                 >
                   {m.label}
                 </div>
                 <div
                   style={{
-                    fontSize: '20px',
-                    fontWeight: 700,
+                    fontSize: 'var(--font-body)',
+                    fontWeight: 'var(--weight-bold)',
                     color: m.value >= m.target ? 'var(--accent-secondary)' : 'var(--accent-primary)',
+                    fontFamily: 'var(--font-heading)',
                   }}
                 >
                   {m.value}
                   {m.unit}
                 </div>
-                <div style={{ fontSize: '10px', color: 'var(--text-light)' }}>
+                <div
+                  style={{
+                    fontSize: 'var(--font-small)',
+                    color: 'var(--text-light)',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                >
                   目标 {m.target}
                   {m.unit}
                 </div>
@@ -401,11 +454,13 @@ function DealerDiagnosisDemo() {
           <div>
             <div
               style={{
-                fontSize: '12px',
-                fontWeight: 600,
+                fontSize: 'var(--font-small)',
+                fontWeight: 'var(--weight-semibold)',
                 color: 'var(--accent-primary)',
-                marginBottom: '8px',
-                letterSpacing: '0.05em',
+                marginBottom: 'var(--space-xs)',
+                letterSpacing: 'var(--ls-loose)',
+                fontFamily: 'var(--font-heading)',
+                textTransform: 'uppercase',
               }}
             >
               AI 改进建议
@@ -414,12 +469,13 @@ function DealerDiagnosisDemo() {
               <div
                 key={i}
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'var(--font-caption)',
                   color: 'var(--text-secondary)',
-                  lineHeight: 1.6,
+                  lineHeight: 'var(--lh-normal)',
                   marginBottom: '4px',
-                  paddingLeft: '16px',
+                  paddingLeft: 'var(--space-sm)',
                   position: 'relative',
+                  fontFamily: 'var(--font-body)',
                 }}
               >
                 <span
@@ -632,57 +688,22 @@ function DashboardPreviewDemo() {
 
   return (
     <div>
-      <div style={{ marginBottom: '16px' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '3px 10px',
-            borderRadius: '999px',
-            background: 'rgba(82,183,136,0.1)',
-            color: '#52b788',
-            fontSize: '11px',
-            fontWeight: 600,
-            marginBottom: '8px',
-            letterSpacing: '0.03em',
-            fontFamily: 'var(--font-heading)',
-          }}
-        >
-          <span
-            style={{
-              width: 5,
-              height: 5,
-              borderRadius: '50%',
-              background: '#52b788',
-            }}
-          />
-          雷克萨斯项目结构
-        </div>
-        <h4
-          style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            marginBottom: '4px',
-            fontFamily: 'var(--font-heading)',
-          }}
-        >
-          数据看板预览
-        </h4>
-        <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-          200+ 指标整合到一个视图，数据实时同步
-        </p>
-      </div>
+      <DemoHeader
+        badge="雷克萨斯项目结构"
+        badgeColor="#52b788"
+        title="数据看板预览"
+        subtitle="200+ 指标整合到一个视图，数据实时同步"
+      />
 
-      <div ref={chartContainerRef} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div ref={chartContainerRef} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
         {!echartsLoaded && (
           <div
             style={{
               textAlign: 'center',
-              padding: '40px 0',
+              padding: 'var(--space-xl) 0',
               color: 'var(--text-muted)',
-              fontSize: '13px',
+              fontSize: 'var(--font-caption)',
+              fontFamily: 'var(--font-body)',
             }}
           >
             正在加载图表引擎...
@@ -693,7 +714,7 @@ function DashboardPreviewDemo() {
   )
 }
 
-// ============ DEMO 3: 场景选择器 — with project citations ============
+// ============ DEMO 3: 场景选择器 ============
 const SCENARIOS = [
   {
     icon: '🏥',
@@ -732,50 +753,21 @@ function ScenarioSelectorDemo() {
 
   return (
     <div>
-      <div style={{ marginBottom: '16px' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '3px 10px',
-            borderRadius: '999px',
-            background: 'rgba(82,183,136,0.1)',
-            color: '#52b788',
-            fontSize: '11px',
-            fontWeight: 600,
-            marginBottom: '8px',
-            letterSpacing: '0.03em',
-            fontFamily: 'var(--font-heading)',
-          }}
-        >
-          <span
-            style={{
-              width: 5,
-              height: 5,
-              borderRadius: '50%',
-              background: '#52b788',
-            }}
-          />
-          已交付项目实测
-        </div>
-        <h4
-          style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            marginBottom: '4px',
-            fontFamily: 'var(--font-heading)',
-          }}
-        >
-          看看 AI 能省多少时间
-        </h4>
-        <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-          点击场景，看看实际能节省多少工作量
-        </p>
-      </div>
+      <DemoHeader
+        badge="已交付项目实测"
+        badgeColor="#52b788"
+        title="看看 AI 能省多少时间"
+        subtitle="点击场景，看看实际能节省多少工作量"
+      />
 
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 'var(--space-sm)',
+          marginBottom: 'var(--space-md)',
+          flexWrap: 'wrap',
+        }}
+      >
         {SCENARIOS.map((s, i) => (
           <button
             key={i}
@@ -783,13 +775,13 @@ function ScenarioSelectorDemo() {
             style={{
               flex: '1',
               minWidth: '100px',
-              padding: '14px 12px',
-              fontSize: '13px',
-              fontWeight: 600,
+              padding: 'var(--space-sm) var(--space-xs)',
+              fontSize: 'var(--font-caption)',
+              fontWeight: 'var(--weight-semibold)',
               color: selected === i ? 'white' : 'var(--text-primary)',
               background: selected === i ? s.color : 'var(--bg-primary)',
-              border: `2px solid ${selected === i ? s.color : 'var(--border-subtle)'}`,
-              borderRadius: 'var(--radius-md)',
+              border: `1px solid ${selected === i ? s.color : 'var(--border-subtle)'}`,
+              borderRadius: 'var(--radius-sm)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
               textAlign: 'center',
@@ -806,8 +798,8 @@ function ScenarioSelectorDemo() {
         <div
           style={{
             background: 'var(--bg-primary)',
-            borderRadius: 'var(--radius-md)',
-            padding: '20px',
+            borderRadius: 'var(--radius-sm)',
+            padding: 'var(--space-md)',
             animation: 'fadeIn 0.3s ease',
           }}
         >
@@ -816,47 +808,59 @@ function ScenarioSelectorDemo() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '16px',
+              marginBottom: 'var(--space-md)',
               flexWrap: 'wrap',
-              gap: '12px',
+              gap: 'var(--space-sm)',
             }}
           >
             <div style={{ textAlign: 'center' }}>
               <div
                 style={{
-                  fontSize: '12px',
+                  fontSize: 'var(--font-small)',
                   color: 'var(--text-muted)',
                   marginBottom: '4px',
+                  fontFamily: 'var(--font-body)',
                 }}
               >
                 原来需要
               </div>
               <div
                 style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
+                  fontSize: 'var(--font-body)',
+                  fontWeight: 'var(--weight-bold)',
                   color: '#e07070',
+                  fontFamily: 'var(--font-heading)',
                 }}
               >
                 {SCENARIOS[selected].before}
               </div>
             </div>
-            <div style={{ fontSize: '24px', color: 'var(--text-light)' }}>→</div>
+            <div
+              style={{
+                fontSize: 'var(--font-h3)',
+                color: 'var(--text-light)',
+                fontFamily: 'var(--font-heading)',
+              }}
+            >
+              →
+            </div>
             <div style={{ textAlign: 'center' }}>
               <div
                 style={{
-                  fontSize: '12px',
+                  fontSize: 'var(--font-small)',
                   color: 'var(--text-muted)',
                   marginBottom: '4px',
+                  fontFamily: 'var(--font-body)',
                 }}
               >
                 现在只要
               </div>
               <div
                 style={{
-                  fontSize: '20px',
-                  fontWeight: 700,
+                  fontSize: 'var(--font-body)',
+                  fontWeight: 'var(--weight-bold)',
                   color: 'var(--accent-secondary)',
+                  fontFamily: 'var(--font-heading)',
                 }}
               >
                 {SCENARIOS[selected].after}
@@ -865,11 +869,12 @@ function ScenarioSelectorDemo() {
             <div
               style={{
                 padding: '6px 16px',
-                borderRadius: 'var(--radius-md)',
+                borderRadius: 'var(--radius-sm)',
                 background: `${SCENARIOS[selected].color}15`,
                 color: SCENARIOS[selected].color,
-                fontWeight: 700,
-                fontSize: '16px',
+                fontWeight: 'var(--weight-bold)',
+                fontSize: 'var(--font-body)',
+                fontFamily: 'var(--font-heading)',
               }}
             >
               节省 {SCENARIOS[selected].saved}
@@ -877,25 +882,27 @@ function ScenarioSelectorDemo() {
           </div>
           <div
             style={{
-              fontSize: '13px',
+              fontSize: 'var(--font-caption)',
               color: 'var(--text-secondary)',
-              lineHeight: 1.6,
-              padding: '12px',
+              lineHeight: 'var(--lh-normal)',
+              padding: 'var(--space-sm)',
               background: 'var(--bg-card)',
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-subtle)',
-              marginBottom: '10px',
+              marginBottom: 'var(--space-xs)',
+              fontFamily: 'var(--font-body)',
             }}
           >
             {SCENARIOS[selected].desc}
           </div>
           <div
             style={{
-              fontSize: '11px',
+              fontSize: 'var(--font-small)',
               color: 'var(--text-light)',
               fontStyle: 'normal',
               fontFamily: 'var(--font-body)',
-              marginBottom: '16px',
+              marginBottom: 'var(--space-md)',
+              opacity: 0.7,
             }}
           >
             {SCENARIOS[selected].citation}
@@ -910,13 +917,13 @@ function ScenarioSelectorDemo() {
               style={{
                 display: 'inline-block',
                 padding: '10px 28px',
-                fontSize: '14px',
-                fontWeight: 600,
+                fontSize: 'var(--font-caption)',
+                fontWeight: 'var(--weight-semibold)',
                 color: 'white',
                 background: 'var(--accent-primary)',
-                borderRadius: 'var(--radius-md)',
+                borderRadius: 'var(--radius-sm)',
                 textDecoration: 'none',
-                transition: 'all 0.2s ease',
+                transition: 'background 0.2s ease',
                 fontFamily: 'var(--font-body)',
               }}
             >
@@ -953,32 +960,32 @@ export default function LiveDemos() {
       id="demos"
       ref={sectionRef}
       style={{
-        padding: 'clamp(60px, 10vw, 100px) clamp(16px, 4vw, 40px)',
+        padding: 'var(--space-section) var(--space-md)',
         background: 'var(--bg-secondary)',
       }}
     >
-      <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-        {/* Section header */}
+      <div style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+        {/* Section header — focal */}
         <div
           style={{
             textAlign: 'center',
-            marginBottom: '40px',
+            marginBottom: 'var(--space-2xl)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(30px)',
             transition: 'opacity 1s ease, transform 1s ease',
           }}
         >
-          <div className="section-label" style={{ marginBottom: '20px' }}>
+          <div className="section-label" style={{ marginBottom: 'var(--space-md)' }}>
             {demos.eyebrow}
           </div>
           <h2
             style={{
-              fontSize: 'clamp(24px, 4vw, 36px)',
-              fontWeight: 700,
+              fontSize: 'var(--font-h2)',
+              fontWeight: 'var(--weight-semibold)',
               color: 'var(--text-primary)',
-              marginBottom: '12px',
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em',
+              marginBottom: 'var(--space-md)',
+              lineHeight: 'var(--lh-tight)',
+              letterSpacing: 'var(--ls-heading)',
               fontFamily: 'var(--font-heading)',
             }}
           >
@@ -986,12 +993,13 @@ export default function LiveDemos() {
           </h2>
           <p
             style={{
-              fontSize: 'clamp(13px, 1.5vw, 15px)',
-              color: 'var(--text-muted)',
-              lineHeight: 1.6,
+              fontSize: 'var(--font-body)',
+              color: 'var(--text-secondary)',
+              lineHeight: 'var(--lh-loose)',
               fontFamily: 'var(--font-body)',
               maxWidth: '600px',
-              margin: '0 auto 14px',
+              margin: '0 auto var(--space-md)',
+              opacity: 0.7,
             }}
           >
             {demos.subtitle}
@@ -1005,9 +1013,10 @@ export default function LiveDemos() {
               borderRadius: '999px',
               background: 'var(--bg-card)',
               border: '1px solid var(--border-subtle)',
-              fontSize: '11px',
+              fontSize: 'var(--font-small)',
               color: 'var(--text-secondary)',
               fontFamily: 'var(--font-body)',
+              opacity: 0.8,
             }}
           >
             <svg
@@ -1028,7 +1037,7 @@ export default function LiveDemos() {
         </div>
 
         {/* Demo cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
           <DemoCard delay={0}>
             <DealerDiagnosisDemo />
           </DemoCard>
@@ -1079,13 +1088,13 @@ function DemoCard({ children, delay }: { children: React.ReactNode; delay: numbe
       onMouseLeave={() => setHovered(false)}
       style={{
         background: 'var(--bg-card)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'clamp(20px, 3vw, 32px)',
+        borderRadius: 'var(--radius-md)',
+        padding: 'clamp(var(--space-md), 3vw, var(--space-xl))',
         border: '1px solid var(--border-subtle)',
         boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(20px)',
-        transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s, box-shadow 0.25s ease`,
+        transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s, box-shadow 0.2s ease`,
       }}
     >
       {children}

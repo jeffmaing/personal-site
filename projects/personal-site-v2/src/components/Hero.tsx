@@ -17,7 +17,9 @@ export default function Hero() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: isMobile ? '120px 24px 80px' : 'clamp(140px, 18vh, 200px) 24px 120px',
+        padding: isMobile
+          ? 'clamp(120px, 18vh, 180px) var(--space-sm) var(--space-2xl)'
+          : 'clamp(160px, 20vh, 240px) var(--space-md) clamp(120px, 15vw, 160px)',
         background: 'var(--bg-primary)',
         position: 'relative',
         overflow: 'hidden',
@@ -31,27 +33,27 @@ export default function Hero() {
         style={{
           position: 'relative',
           zIndex: 1,
-          maxWidth: '960px',
+          maxWidth: 'var(--content-max)',
           width: '100%',
           textAlign: 'center',
         }}
       >
-        {/* Eyebrow — narrow, professional */}
+        {/* Eyebrow — tertiary, muted */}
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: 'var(--space-xs)',
             padding: '6px 14px',
             borderRadius: '999px',
             background: 'var(--bg-card)',
             border: '1px solid var(--border-subtle)',
-            fontSize: '12px',
+            fontSize: 'var(--font-caption)',
             color: 'var(--text-secondary)',
-            letterSpacing: '0.04em',
-            marginBottom: isMobile ? '24px' : '32px',
+            letterSpacing: 'var(--ls-loose)',
+            marginBottom: 'var(--space-lg)',
             fontFamily: 'var(--font-body)',
-            opacity: visible ? 1 : 0,
+            opacity: visible ? 0.7 : 0,
             transform: visible ? 'none' : 'translateY(8px)',
             transition: 'opacity 0.6s ease, transform 0.6s ease',
           }}
@@ -68,15 +70,15 @@ export default function Hero() {
           {hero.eyebrow}
         </div>
 
-        {/* Main headline — value proposition, not "I am" */}
+        {/* H1 — dominant focal point */}
         <h1
           style={{
-            fontSize: isMobile ? 'clamp(32px, 8vw, 44px)' : 'clamp(40px, 6vw, 64px)',
-            fontWeight: 300,
-            lineHeight: 1.12,
-            letterSpacing: '-0.025em',
+            fontSize: isMobile ? 'clamp(36px, 9vw, 48px)' : 'var(--font-h1)',
+            fontWeight: 'var(--weight-bold)',
+            lineHeight: 'var(--lh-tight)',
+            letterSpacing: 'var(--ls-heading)',
             color: 'var(--text-primary)',
-            marginBottom: isMobile ? '20px' : '24px',
+            marginBottom: 'var(--space-lg)',
             fontFamily: 'var(--font-heading)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(20px)',
@@ -91,19 +93,19 @@ export default function Hero() {
           ))}
         </h1>
 
-        {/* Subtitle — who it's for */}
+        {/* Subtitle — secondary, 0.7 opacity */}
         <p
           style={{
-            fontSize: isMobile ? '16px' : 'clamp(17px, 1.8vw, 20px)',
-            fontWeight: 400,
-            lineHeight: 1.6,
+            fontSize: isMobile ? 'var(--font-body)' : 'clamp(17px, 1.8vw, 20px)',
+            fontWeight: 'var(--weight-regular)',
+            lineHeight: 'var(--lh-loose)',
             color: 'var(--text-secondary)',
-            marginBottom: isMobile ? '32px' : '40px',
-            maxWidth: '680px',
+            marginBottom: 'var(--space-xl)',
+            maxWidth: '640px',
             marginLeft: 'auto',
             marginRight: 'auto',
             fontFamily: 'var(--font-body)',
-            opacity: visible ? 1 : 0,
+            opacity: visible ? 0.7 : 0,
             transform: visible ? 'none' : 'translateY(16px)',
             transition: 'opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s',
           }}
@@ -111,14 +113,14 @@ export default function Hero() {
           {hero.subtitle}
         </p>
 
-        {/* CTA buttons */}
+        {/* CTA buttons — primary prominent, secondary subtle */}
         <div
           style={{
             display: 'flex',
-            gap: '12px',
+            gap: 'var(--space-sm)',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: isMobile ? '40px' : '56px',
+            marginBottom: 'var(--space-2xl)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(16px)',
             transition: 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s',
@@ -137,17 +139,17 @@ export default function Hero() {
           />
         </div>
 
-        {/* Social proof — 3 stats */}
+        {/* Stats — tertiary, small, spaced */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(3, minmax(0, 200px))',
-            gap: isMobile ? '8px' : '24px',
+            gap: isMobile ? 'var(--space-xs)' : 'var(--space-lg)',
             justifyContent: 'center',
-            padding: isMobile ? '20px 0' : '28px 0',
+            padding: 'var(--space-lg) 0',
             borderTop: '1px solid var(--border-subtle)',
             borderBottom: '1px solid var(--border-subtle)',
-            marginBottom: isMobile ? '24px' : '32px',
+            marginBottom: 'var(--space-xl)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(20px)',
             transition: 'opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s',
@@ -158,20 +160,21 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Brand bar */}
+        {/* Brand bar — tertiary */}
         <div
           style={{
-            opacity: visible ? 1 : 0,
+            opacity: visible ? 0.6 : 0,
             transition: 'opacity 0.8s ease 0.6s',
           }}
         >
           <div
             style={{
-              fontSize: '11px',
+              fontSize: 'var(--font-small)',
               color: 'var(--text-light)',
               letterSpacing: '0.18em',
-              marginBottom: '12px',
+              marginBottom: 'var(--space-sm)',
               fontFamily: 'var(--font-heading)',
+              textTransform: 'uppercase',
             }}
           >
             服务过的品牌
@@ -182,23 +185,23 @@ export default function Hero() {
               flexWrap: 'wrap',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: isMobile ? '8px 16px' : '0 28px',
+              gap: isMobile ? 'var(--space-xs) var(--space-sm)' : '0 var(--space-xl)',
             }}
           >
             {hero.brands.map((brand, i) => (
               <span
                 key={i}
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'var(--font-caption)',
                   color: 'var(--text-light)',
-                  fontWeight: 500,
-                  letterSpacing: '0.04em',
-                  transition: 'color 0.3s ease',
+                  fontWeight: 'var(--weight-medium)',
+                  letterSpacing: 'var(--ls-loose)',
+                  transition: 'color 0.2s ease',
                   cursor: 'default',
                   fontFamily: 'var(--font-body)',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.color = 'var(--text-primary)'
+                  e.currentTarget.style.color = 'var(--text-secondary)'
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.color = 'var(--text-light)'
@@ -210,11 +213,12 @@ export default function Hero() {
           </div>
           <div
             style={{
-              fontSize: '11px',
+              fontSize: 'var(--font-small)',
               color: 'var(--text-light)',
-              marginTop: '14px',
+              marginTop: 'var(--space-sm)',
               fontStyle: 'normal',
               fontFamily: 'var(--font-body)',
+              opacity: 0.7,
             }}
           >
             {hero.footnote}
@@ -243,15 +247,15 @@ function CTAButton({
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '8px',
+        gap: 'var(--space-xs)',
         padding: '14px 28px',
         background: isPrimary ? 'var(--accent-primary)' : 'transparent',
         color: isPrimary ? 'white' : 'var(--accent-primary)',
         textDecoration: 'none',
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 'var(--radius-sm)',
         fontSize: '15px',
-        fontWeight: 500,
-        letterSpacing: '0.02em',
+        fontWeight: 'var(--weight-medium)',
+        letterSpacing: 'var(--ls-loose)',
         transition: 'all 0.2s ease',
         boxShadow: isPrimary ? 'var(--shadow-sm)' : 'none',
         border: isPrimary ? 'none' : '1px solid var(--accent-primary)',
@@ -260,7 +264,7 @@ function CTAButton({
       }}
       onMouseEnter={e => {
         if (isPrimary) {
-          e.currentTarget.style.transform = 'translateY(-1px)'
+          e.currentTarget.style.background = '#4a6a9e'
           e.currentTarget.style.boxShadow = 'var(--shadow-md)'
         } else {
           e.currentTarget.style.background = 'var(--accent-primary)'
@@ -269,7 +273,7 @@ function CTAButton({
       }}
       onMouseLeave={e => {
         if (isPrimary) {
-          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.background = 'var(--accent-primary)'
           e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
         } else {
           e.currentTarget.style.background = 'transparent'
@@ -303,11 +307,11 @@ function HeroStat({
     <div ref={ref}>
       <div
         style={{
-          fontSize: 'clamp(24px, 4vw, 36px)',
-          fontWeight: 700,
+          fontSize: 'clamp(24px, 4vw, 32px)',
+          fontWeight: 'var(--weight-bold)',
           color: 'var(--text-primary)',
           lineHeight: 1,
-          letterSpacing: '-0.02em',
+          letterSpacing: 'var(--ls-tight)',
           fontFamily: 'var(--font-heading)',
         }}
       >
@@ -316,11 +320,12 @@ function HeroStat({
       </div>
       <div
         style={{
-          fontSize: '11px',
+          fontSize: 'var(--font-small)',
           color: 'var(--text-light)',
-          marginTop: '6px',
-          letterSpacing: '0.04em',
+          marginTop: 'var(--space-xs)',
+          letterSpacing: 'var(--ls-loose)',
           fontFamily: 'var(--font-body)',
+          opacity: 0.7,
         }}
       >
         {label}

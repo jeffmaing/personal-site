@@ -17,44 +17,47 @@ export default function ProofSystem() {
       id="proof"
       ref={ref}
       style={{
-        padding: isMobile ? '80px 24px' : 'clamp(80px, 12vw, 140px) 60px',
+        padding: isMobile
+          ? 'var(--space-3xl) var(--space-sm)'
+          : 'var(--space-section) var(--space-lg)',
         background: 'var(--bg-primary)',
       }}
     >
-      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
-        {/* Header */}
+      <div style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+        {/* Header — focal */}
         <div
           style={{
-            marginBottom: isMobile ? '40px' : '56px',
+            marginBottom: isMobile ? 'var(--space-xl)' : 'var(--space-2xl)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'none' : 'translateY(20px)',
             transition: 'opacity 0.8s ease, transform 0.8s ease',
           }}
         >
-          <div className="section-label" style={{ marginBottom: '16px' }}>
+          <div className="section-label" style={{ marginBottom: 'var(--space-sm)' }}>
             {proof.eyebrow}
           </div>
           <h2
             style={{
-              fontSize: isMobile ? '26px' : 'clamp(30px, 4vw, 42px)',
-              fontWeight: 600,
+              fontSize: isMobile ? 'var(--font-h3)' : 'var(--font-h2)',
+              fontWeight: 'var(--weight-semibold)',
               color: 'var(--text-primary)',
-              marginBottom: '12px',
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em',
+              marginBottom: 'var(--space-md)',
+              lineHeight: 'var(--lh-tight)',
+              letterSpacing: 'var(--ls-heading)',
               fontFamily: 'var(--font-heading)',
-              maxWidth: '720px',
+              maxWidth: 'var(--content-narrow)',
             }}
           >
             {proof.title}
           </h2>
           <p
             style={{
-              fontSize: isMobile ? '14px' : 'clamp(14px, 1.4vw, 16px)',
+              fontSize: 'var(--font-body)',
               color: 'var(--text-secondary)',
-              lineHeight: 1.7,
+              lineHeight: 'var(--lh-loose)',
               fontFamily: 'var(--font-body)',
-              maxWidth: '680px',
+              maxWidth: 'var(--content-narrow)',
+              opacity: 0.7,
             }}
           >
             {proof.subtitle}
@@ -66,7 +69,7 @@ export default function ProofSystem() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: isMobile ? '16px' : '20px',
+            gap: 'var(--space-md)',
           }}
         >
           {proof.cases.map((c, i) => (
@@ -119,37 +122,37 @@ function CaseCard({
         onMouseLeave={() => setHovered(false)}
         style={{
           background: 'var(--bg-card)',
-          borderRadius: 'var(--radius-xl)',
-          padding: isMobile ? '24px 20px' : 'clamp(28px, 3vw, 40px)',
+          borderRadius: 'var(--radius-md)',
+          padding: isMobile ? 'var(--space-md)' : 'var(--space-lg)',
           border: '1px solid var(--border-subtle)',
           boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
-          transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+          transition: 'box-shadow 0.2s ease, transform 0.2s ease',
           transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* Top accent line */}
+        {/* Top accent line — subtle */}
         <div
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: '3px',
+            height: '2px',
             background: data.brandColor,
-            opacity: hovered ? 1 : 0.6,
-            transition: 'opacity 0.3s ease',
+            opacity: hovered ? 0.8 : 0.5,
+            transition: 'opacity 0.2s ease',
           }}
         />
 
-        {/* Header row */}
+        {/* Header row — metadata, de-emphasized */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            marginBottom: '20px',
+            gap: 'var(--space-sm)',
+            marginBottom: 'var(--space-md)',
             flexWrap: 'wrap',
           }}
         >
@@ -162,9 +165,9 @@ function CaseCard({
               borderRadius: '999px',
               background: `${data.brandColor}10`,
               color: data.brandColor,
-              fontSize: '12px',
-              fontWeight: 600,
-              letterSpacing: '0.03em',
+              fontSize: 'var(--font-caption)',
+              fontWeight: 'var(--weight-semibold)',
+              letterSpacing: 'var(--ls-loose)',
               fontFamily: 'var(--font-heading)',
             }}
           >
@@ -181,10 +184,11 @@ function CaseCard({
           </span>
           <span
             style={{
-              fontSize: '12px',
+              fontSize: 'var(--font-caption)',
               color: 'var(--text-light)',
-              letterSpacing: '0.08em',
+              letterSpacing: 'var(--ls-loose)',
               fontFamily: 'var(--font-body)',
+              opacity: 0.7,
             }}
           >
             {data.category}
@@ -193,12 +197,12 @@ function CaseCard({
             style={{
               marginLeft: 'auto',
               padding: '3px 10px',
-              borderRadius: 'var(--radius-md)',
+              borderRadius: 'var(--radius-sm)',
               background: 'var(--bg-tertiary)',
               color: 'var(--text-secondary)',
-              fontSize: '11px',
-              fontWeight: 500,
-              letterSpacing: '0.04em',
+              fontSize: 'var(--font-small)',
+              fontWeight: 'var(--weight-medium)',
+              letterSpacing: 'var(--ls-loose)',
               fontFamily: 'var(--font-body)',
             }}
           >
@@ -211,50 +215,48 @@ function CaseCard({
           style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-            gap: isMobile ? '12px' : '32px',
-            marginBottom: '24px',
+            gap: isMobile ? 'var(--space-sm)' : 'var(--space-xl)',
+            marginBottom: 'var(--space-lg)',
           }}
         >
           <Block label="问题" tone="problem" text={data.problem} />
-          <Block
-            label="方案"
-            tone="solution"
-            text={data.solution}
-          />
+          <Block label="方案" tone="solution" text={data.solution} />
         </div>
 
-        {/* Result — big visual */}
+        {/* Result — focal */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? '12px' : '24px',
-            padding: isMobile ? '16px' : '20px 24px',
+            gap: isMobile ? 'var(--space-sm)' : 'var(--space-lg)',
+            padding: isMobile ? 'var(--space-md)' : 'var(--space-md) var(--space-lg)',
             background: 'linear-gradient(135deg, rgba(82,183,136,0.06), rgba(91,125,177,0.06))',
-            borderRadius: 'var(--radius-lg)',
+            borderRadius: 'var(--radius-md)',
             border: '1px solid rgba(82,183,136,0.15)',
-            marginBottom: '20px',
+            marginBottom: 'var(--space-md)',
             flexWrap: 'wrap',
           }}
         >
           <div>
             <div
               style={{
-                fontSize: '11px',
+                fontSize: 'var(--font-small)',
                 color: 'var(--text-light)',
                 letterSpacing: '0.1em',
-                marginBottom: '4px',
+                marginBottom: '6px',
                 fontFamily: 'var(--font-heading)',
+                textTransform: 'uppercase',
+                opacity: 0.7,
               }}
             >
               结果
             </div>
             <div
               style={{
-                fontSize: isMobile ? '20px' : 'clamp(22px, 2.5vw, 28px)',
-                fontWeight: 700,
+                fontSize: isMobile ? '20px' : 'clamp(22px, 2.5vw, 26px)',
+                fontWeight: 'var(--weight-bold)',
                 color: 'var(--text-primary)',
-                letterSpacing: '-0.02em',
+                letterSpacing: 'var(--ls-heading)',
                 fontFamily: 'var(--font-heading)',
                 lineHeight: 1.1,
               }}
@@ -263,10 +265,10 @@ function CaseCard({
             </div>
             <div
               style={{
-                fontSize: '13px',
+                fontSize: 'var(--font-caption)',
                 color: 'var(--accent-secondary)',
-                fontWeight: 500,
-                marginTop: '4px',
+                fontWeight: 'var(--weight-medium)',
+                marginTop: '6px',
                 fontFamily: 'var(--font-body)',
               }}
             >
@@ -277,7 +279,7 @@ function CaseCard({
             style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${data.metrics.length}, minmax(0, 1fr))`,
-              gap: isMobile ? '12px' : '20px',
+              gap: isMobile ? 'var(--space-sm)' : 'var(--space-md)',
               marginLeft: 'auto',
               flex: 1,
               minWidth: isMobile ? '100%' : '240px',
@@ -287,8 +289,8 @@ function CaseCard({
               <div key={i}>
                 <div
                   style={{
-                    fontSize: isMobile ? '14px' : '15px',
-                    fontWeight: 700,
+                    fontSize: 'var(--font-caption)',
+                    fontWeight: 'var(--weight-bold)',
                     color: 'var(--text-primary)',
                     fontFamily: 'var(--font-heading)',
                   }}
@@ -297,10 +299,12 @@ function CaseCard({
                 </div>
                 <div
                   style={{
-                    fontSize: '10px',
+                    fontSize: 'var(--font-small)',
                     color: 'var(--text-light)',
-                    letterSpacing: '0.05em',
+                    letterSpacing: 'var(--ls-loose)',
                     fontFamily: 'var(--font-body)',
+                    marginTop: '2px',
+                    opacity: 0.7,
                   }}
                 >
                   {m.label}
@@ -316,7 +320,7 @@ function CaseCard({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '12px',
+            gap: 'var(--space-sm)',
             flexWrap: 'wrap',
           }}
         >
@@ -325,9 +329,10 @@ function CaseCard({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              fontSize: '12px',
+              fontSize: 'var(--font-caption)',
               color: 'var(--text-muted)',
               fontFamily: 'var(--font-body)',
+              opacity: 0.8,
             }}
           >
             <svg
@@ -351,8 +356,8 @@ function CaseCard({
               background: 'transparent',
               border: 'none',
               color: 'var(--accent-primary)',
-              fontSize: '13px',
-              fontWeight: 500,
+              fontSize: 'var(--font-caption)',
+              fontWeight: 'var(--weight-medium)',
               cursor: 'pointer',
               padding: 0,
               fontFamily: 'var(--font-body)',
@@ -394,11 +399,11 @@ function Block({
           display: 'inline-flex',
           alignItems: 'center',
           gap: '6px',
-          fontSize: '11px',
+          fontSize: 'var(--font-small)',
           color,
           letterSpacing: '0.1em',
-          marginBottom: '8px',
-          fontWeight: 600,
+          marginBottom: 'var(--space-xs)',
+          fontWeight: 'var(--weight-semibold)',
           fontFamily: 'var(--font-heading)',
           textTransform: 'uppercase',
         }}
@@ -415,8 +420,8 @@ function Block({
       </div>
       <p
         style={{
-          fontSize: '14px',
-          lineHeight: 1.75,
+          fontSize: 'var(--font-caption)',
+          lineHeight: 'var(--lh-loose)',
           color: 'var(--text-secondary)',
           fontFamily: 'var(--font-body)',
           margin: 0,
@@ -431,7 +436,7 @@ function Block({
 function CaseDetail({ data }: { data: CaseData }) {
   return (
     <div>
-      <div style={{ marginBottom: '28px' }}>
+      <div style={{ marginBottom: 'var(--space-xl)' }}>
         <div
           style={{
             display: 'inline-flex',
@@ -441,9 +446,9 @@ function CaseDetail({ data }: { data: CaseData }) {
             borderRadius: '999px',
             background: `${data.brandColor}10`,
             color: data.brandColor,
-            fontSize: '12px',
-            fontWeight: 600,
-            marginBottom: '12px',
+            fontSize: 'var(--font-caption)',
+            fontWeight: 'var(--weight-semibold)',
+            marginBottom: 'var(--space-sm)',
             fontFamily: 'var(--font-heading)',
           }}
         >
@@ -451,19 +456,19 @@ function CaseDetail({ data }: { data: CaseData }) {
         </div>
         <h2
           style={{
-            fontSize: '24px',
-            fontWeight: 600,
+            fontSize: 'var(--font-h3)',
+            fontWeight: 'var(--weight-semibold)',
             color: 'var(--text-primary)',
-            marginBottom: '6px',
+            marginBottom: 'var(--space-xs)',
             fontFamily: 'var(--font-heading)',
-            letterSpacing: '-0.01em',
+            letterSpacing: 'var(--ls-heading)',
           }}
         >
           {data.tag}：{data.resultPrimary}
         </h2>
         <p
           style={{
-            fontSize: '13px',
+            fontSize: 'var(--font-caption)',
             color: 'var(--text-muted)',
             fontFamily: 'var(--font-body)',
           }}
@@ -478,19 +483,20 @@ function CaseDetail({ data }: { data: CaseData }) {
 
       <div
         style={{
-          marginTop: '24px',
-          paddingTop: '20px',
+          marginTop: 'var(--space-lg)',
+          paddingTop: 'var(--space-md)',
           borderTop: '1px solid var(--border-subtle)',
         }}
       >
         <div
           style={{
-            fontSize: '11px',
+            fontSize: 'var(--font-small)',
             color: 'var(--text-light)',
             letterSpacing: '0.1em',
-            marginBottom: '12px',
-            fontWeight: 600,
+            marginBottom: 'var(--space-sm)',
+            fontWeight: 'var(--weight-semibold)',
             fontFamily: 'var(--font-heading)',
+            textTransform: 'uppercase',
           }}
         >
           关键数据
@@ -499,7 +505,7 @@ function CaseDetail({ data }: { data: CaseData }) {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-            gap: '12px',
+            gap: 'var(--space-sm)',
           }}
         >
           {data.metrics.map((m, i) => (
@@ -507,15 +513,15 @@ function CaseDetail({ data }: { data: CaseData }) {
               key={i}
               style={{
                 background: 'var(--bg-primary)',
-                borderRadius: 'var(--radius-md)',
-                padding: '14px',
+                borderRadius: 'var(--radius-sm)',
+                padding: 'var(--space-sm)',
                 border: '1px solid var(--border-subtle)',
               }}
             >
               <div
                 style={{
-                  fontSize: '18px',
-                  fontWeight: 700,
+                  fontSize: 'var(--font-body)',
+                  fontWeight: 'var(--weight-bold)',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-heading)',
                   marginBottom: '4px',
@@ -525,7 +531,7 @@ function CaseDetail({ data }: { data: CaseData }) {
               </div>
               <div
                 style={{
-                  fontSize: '11px',
+                  fontSize: 'var(--font-small)',
                   color: 'var(--text-light)',
                   fontFamily: 'var(--font-body)',
                 }}
@@ -539,13 +545,13 @@ function CaseDetail({ data }: { data: CaseData }) {
 
       <div
         style={{
-          marginTop: '24px',
-          padding: '16px',
+          marginTop: 'var(--space-lg)',
+          padding: 'var(--space-md)',
           background: 'var(--bg-primary)',
-          borderRadius: 'var(--radius-md)',
-          fontSize: '12px',
+          borderRadius: 'var(--radius-sm)',
+          fontSize: 'var(--font-caption)',
           color: 'var(--text-muted)',
-          lineHeight: 1.6,
+          lineHeight: 'var(--lh-normal)',
           fontFamily: 'var(--font-body)',
         }}
       >
@@ -566,15 +572,15 @@ function DetailBlock({
   color: string
 }) {
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div style={{ marginBottom: 'var(--space-md)' }}>
       <div
         style={{
-          fontSize: '11px',
+          fontSize: 'var(--font-small)',
           color,
           letterSpacing: '0.1em',
           marginBottom: '6px',
           textTransform: 'uppercase',
-          fontWeight: 600,
+          fontWeight: 'var(--weight-semibold)',
           fontFamily: 'var(--font-heading)',
         }}
       >
@@ -582,9 +588,9 @@ function DetailBlock({
       </div>
       <p
         style={{
-          fontSize: '14px',
+          fontSize: 'var(--font-caption)',
           color: 'var(--text-secondary)',
-          lineHeight: 1.8,
+          lineHeight: 'var(--lh-loose)',
           fontFamily: 'var(--font-body)',
           margin: 0,
         }}

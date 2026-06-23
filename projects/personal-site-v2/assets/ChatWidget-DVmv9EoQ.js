@@ -1,4 +1,4 @@
-import{n as e,t}from"./jsx-runtime-CprWHY5X.js";import{n}from"./index-CY9_hQuA.js";import{n as r,r as i,t as a}from"./digital-maming-qa-CjQ71OCA.js";var o=e(),s=t(),c=`你是麻明的 AI 分身，代表麻明本人回答问题。用第一人称（"我"）回答。
+import{n as e,t}from"./jsx-runtime-CprWHY5X.js";import{n}from"./index-RWIQuwox.js";import{n as r,r as i,t as a}from"./digital-maming-qa-CjQ71OCA.js";var o=e(),s=t(),c=`你是麻明的 AI 分身，代表麻明本人回答问题。用第一人称（"我"）回答。
 
 【麻明的履历】
 19 年汽车行业经验：

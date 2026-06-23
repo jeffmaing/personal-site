@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense, useEffect } from 'react'
 import NavBar from './components/NavBar'
 import Hero from './components/Hero'
+import Methodology from './components/Methodology'
 import ProofSystem from './components/ProofSystem'
 import LiveDemos from './components/LiveDemos'
 import { setupSmoothScroll } from './utils/smoothScroll'
@@ -67,6 +68,7 @@ function App() {
     }}>
       <NavBar />
       <Hero />
+      <Methodology />
       <ProofSystem />
 
       {/* Live Demos — interactive section */}

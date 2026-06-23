@@ -22,6 +22,58 @@ export const siteConfig = {
     footnote: "曾任职：奔驰 · 英菲尼迪 · 安永 · 易车 · 港泓咨询",
   },
 
+  // === Methodology System — how the work gets done ===
+  methodology: {
+    eyebrow: "方法论 — 我如何工作",
+    title: "用系统思维 + AI，拆解企业的运营难题",
+    subtitle:
+      "不看 PPT、不卖理念。三个固定步骤：先把业务拆成可量化的环节，再重构流程与数据结构，最后把 AI 嵌进去自动化执行。",
+    flow: [
+      {
+        step: "01",
+        key: "Diagnose",
+        title: "拆解系统",
+        subtitle: "Diagnose the System",
+        summary:
+          "把模糊的「效率低」拆成具体的环节、数据和瓶颈，找到 AI 能真正发挥作用的切入点。",
+        bullets: [
+          "业务流程全景图绘制",
+          "时间黑洞与重复环节识别",
+          "数据流与系统现状盘点",
+        ],
+        visual: "diagnose",
+      },
+      {
+        step: "02",
+        key: "Rebuild",
+        title: "重构系统",
+        subtitle: "Rebuild the System",
+        summary:
+          "在 AI 接管之前，先把流程、SOP、数据结构理顺。系统不对，AI 也救不了。",
+        bullets: [
+          "SOP 标准化与岗位重塑",
+          "BI 看板与指标体系搭建",
+          "工作流与数据架构优化",
+        ],
+        visual: "rebuild",
+      },
+      {
+        step: "03",
+        key: "Apply AI",
+        title: "叠加 AI 层",
+        subtitle: "Apply the AI Layer",
+        summary:
+          "把该交给 AI 的交出去：自动化执行、决策支持、Agent 自主完成任务。",
+        bullets: [
+          "重复工作自动化",
+          "实时决策支持",
+          "Agent 自主执行任务",
+        ],
+        visual: "ai",
+      },
+    ],
+  },
+
   // === Proof System — 3 flagship case studies ===
   proof: {
     eyebrow: "01 — 证据系统",

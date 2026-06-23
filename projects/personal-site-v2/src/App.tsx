@@ -1,13 +1,11 @@
 import { useState, lazy, Suspense, useEffect } from 'react'
 import NavBar from './components/NavBar'
 import Hero from './components/Hero'
+import ProofSystem from './components/ProofSystem'
 import LiveDemos from './components/LiveDemos'
-import Story from './components/Story'
 import { setupSmoothScroll } from './utils/smoothScroll'
 
 // Lazy load components that are not immediately visible
-const AIArsenal = lazy(() => import('./components/AIArsenal'))
-const AIBoundaries = lazy(() => import('./components/AIBoundaries'))
 const CTA = lazy(() => import('./components/CTA'))
 const TimeCalculator = lazy(() => import('./components/TimeCalculator'))
 const ChatWidget = lazy(() => import('./components/ChatWidget'))
@@ -61,7 +59,7 @@ function App() {
   }, [])
 
   return (
-    <div style={{
+    <div id="main-content" style={{
       fontFamily: 'var(--font-body)',
       background: 'var(--bg-primary)',
       maxWidth: '100vw',
@@ -69,9 +67,9 @@ function App() {
     }}>
       <NavBar />
       <Hero />
-      <Story />
+      <ProofSystem />
 
-      {/* Live Demos — new interactive section */}
+      {/* Live Demos — interactive section */}
       <LiveDemos />
 
       {/* Time Calculator — moved up, more prominent */}
@@ -88,8 +86,6 @@ function App() {
       </section>
 
       <Suspense fallback={<LoadingFallback />}>
-        <AIArsenal />
-        <AIBoundaries />
         <CTA onOpenChat={() => setChatOpen(true)} />
         <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} />
       </Suspense>

@@ -1,235 +1,156 @@
 export const siteConfig = {
   // === Meta ===
   name: "麻明",
-  tagline: "AI × 汽车行业",
+  tagline: "AI × 汽车",
   description: "懂业务的没我懂 AI，懂 AI 的没我懂业务",
   url: "https://jeffmaming.github.io/personal-site",
 
-  // === Hero ===
+  // === Hero (value-proposition focused) ===
   hero: {
-    headline: "麻明",
-    headline2: "用 AI 放大自己",
-    meta: "19年汽车行业 · 5大豪华品牌 · AI提效顾问",
-    brands: ["梅赛德斯-奔驰", "英菲尼迪", "保时捷", "宝马", "雷克萨斯"],
-    terminalStatus: "",
+    eyebrow: "AI 提效顾问 · 汽车行业 19 年",
+    headline: "把你最耗时间的重复工作，交给 AI",
+    subtitle:
+      "为车企、经销商网络和咨询团队搭建可落地的 AI 工作流。从 2 天的人工诊断到 10 分钟的自动报告，让数据自己说话。",
+    primaryCta: { label: "看看真实案例", href: "#proof" },
+    secondaryCta: { label: "立即咨询", href: "#contact" },
+    stats: [
+      { value: 19, suffix: "年", label: "汽车行业深耕" },
+      { value: 5, suffix: "家", label: "豪华品牌合作" },
+      { value: 100, suffix: "+", label: "经销商诊断" },
+    ],
+    brands: ["梅赛德斯-奔驰", "雷克萨斯", "保时捷", "宝马", "英菲尼迪"],
+    footnote: "曾任职：奔驰 · 英菲尼迪 · 安永 · 易车 · 港泓咨询",
   },
 
-  // === Story ===
-  story: {
-    photoSrc: "/personal-site-v2/hero.png",
-    paragraphs: [
-      { text: "我在汽车行业干了 19 年。从奔驰到宝马，从保时捷到雷克萨斯，一路做的是经销商管理和数字化落地。", highlight: false },
-      { text: "ChatGPT 出现后，我发现了一个残酷的现实：会用 AI 的人，正在把不会用的人甩开。", highlight: true },
-      { text: "不是 AI 替代人，是人用 AI 替代不用 AI 的人。", highlight: true },
-      { text: "所以我把 19 年的行业经验全部装进 AI 工具里——诊断、报表、巡检、排课，以前 2 天做完的事，现在 10 分钟搞定。", highlight: false },
-      { text: "懂业务的没我懂 AI，懂 AI 的没我懂业务。这就是我的价值。", highlight: true },
-    ],
-  },
-
-  // === AI Arsenal ===
-  arsenal: {
-    title: "业务提效产品",
-    subtitle: "19年行业经验沉淀，5个落地产品验证有效",
-    tabs: [
-      { id: "data", label: "数据看板" },
-      { id: "auto", label: "自动报表" },
-      { id: "tools", label: "效率工具" },
-    ],
-    products: [
-      // Tab 1: 数据看板
+  // === Proof System — 3 flagship case studies ===
+  proof: {
+    eyebrow: "01 — 证据系统",
+    title: "三个真实案例，每一个都有数据支撑",
+    subtitle:
+      "不看 PPT、不谈理念。下面三个案例都已经在客户现场跑起来，结果是真实测出来的。",
+    cases: [
       {
-        tab: "data",
-        name: "AI 经销商诊断",
-        status: "在跑",
-        description: "点击试用 → 10 秒生成诊断报告。看看 AI 是怎么做的。",
-        metrics: ["100+ 诊断报告", "效率提升 10 倍", "覆盖 35 家经销商"],
-        tech: "AI 诊断架构 + 真实数据驱动",
-        detail: {
-          background: "以前做经销商诊断：教练进店 → 看数据 → 手动算指标 → 写分析报告，一家店 2 天。35 家店就是 70 天的工作量。",
-          solution: "把 35 家店的 KPI 数据喂给 AI → AI 出分析框架和图表 → 我补充行业洞察。让 AI 基于真实数据说话，而不是空谈。",
-          result: "2 天 → 10 分钟，100+ 店次零差错",
-          techStack: "AI 诊断架构 + 真实数据驱动",
-        },
+        id: "diagnosis",
+        brand: "梅赛德斯-奔驰",
+        brandColor: "#1e2a3a",
+        category: "经销商诊断",
+        tag: "效率重构",
+        problem:
+          "35 家经销商的诊断，原来靠教练进店、看数据、手动算指标、写报告，一家店 2 天，35 家就是 70 天。",
+        solution:
+          "把 35 家店的 KPI 数据集中喂给 AI，自动对比行业基准、生成评分、给出改进建议。让 AI 基于真实数据说话，而不是空谈。",
+        resultPrimary: "2 天 → 10 分钟",
+        resultSecondary: "100+ 报告零差错",
+        metrics: [
+          { label: "效率提升", value: "约 288 倍" },
+          { label: "覆盖店数", value: "35 家" },
+          { label: "准确率", value: "100%" },
+        ],
+        evidence: "可在下方「活的证据」现场演示",
       },
       {
-        tab: "data",
-        name: "雷克萨斯数据看板",
-        status: "在跑",
-        description: "点击看效果 → 200+ 指标一个页面搞定，数据实时同步。",
-        metrics: ["4 个数据源自动同步", "零人工整理", "200+ 指标实时更新"],
-        tech: "数据整合 + 可视化看板",
-        detail: {
-          background: "总部对经销商培训执行情况缺乏全景视角。数据散落在 Excel 和各个系统里，想看到全貌需要手动汇总。",
-          solution: "搭建数据看板，将 200+ 核心指标整合到一个视图。自动化数据管道，实时更新。",
-          result: "从每天 2 小时报表整理，到打开即看",
-          techStack: "数据整合 + 可视化看板",
-        },
+        id: "dashboard",
+        brand: "雷克萨斯",
+        brandColor: "#5b7db1",
+        category: "数据看板",
+        tag: "决策重构",
+        problem:
+          "总部对经销商培训执行情况缺乏全景视角，200+ 指标散落在 4 个数据源的 Excel 里，每天人工汇总 2 小时。",
+        solution:
+          "搭建自动化数据管道，4 个数据源实时同步，200+ 指标整合到一个看板。打开即看，决策无需等待。",
+        resultPrimary: "2 小时 → 0 秒",
+        resultSecondary: "决策即时",
+        metrics: [
+          { label: "数据源", value: "4 个" },
+          { label: "实时指标", value: "200+" },
+          { label: "人工整理", value: "0" },
+        ],
+        evidence: "雷克萨斯教育平台已上线运行",
       },
       {
-        tab: "data",
-        name: "奔驰排课系统",
-        status: "在跑",
-        description: "点击看效果 → 35 家店一键排课，零冲突。",
-        metrics: ["35 家店统一调度", "讲师负载可视化", "自动冲突检测"],
-        tech: "在线平台 + 智能调度",
-        detail: {
-          background: "原有培训排期系统功能有限，无法支持多品牌并行运营。找人开发周期长、成本高。",
-          solution: "用 AI 辅助搭建在线排课平台，自动检测冲突、可视化讲师负载。1 人 1 周交付。",
-          result: "排课效率提升 5 倍，零冲突",
-          techStack: "在线平台 + 智能调度",
-        },
-      },
-      // Tab 2: 自动化
-      {
-        tab: "auto",
-        name: "知道社区数据周报",
-        status: "在跑",
-        description: "点击看效果 → 4 小时周报 → 5 分钟自动生成。",
-        metrics: ["4 小时 → 5 分钟", "零人工干预", "数据 100% 准确"],
-        tech: "自动化脚本 + 智能生成",
-        detail: {
-          background: "每周要手动整理社区数据、做 PPT 报告，至少花 4 小时。格式、排版、数据一致性都是体力活。",
-          solution: "自动采集 PV/UV 数据，AI 生成分析结论，一键输出排版好的 PPT。定时自动执行。",
-          result: "周报自动化，释放每周 4 小时",
-          techStack: "自动化脚本 + 智能生成",
-        },
-      },
-      {
-        tab: "auto",
-        name: "ES 日报自动化",
-        status: "在跑",
-        description: "点击看效果 → 30 分钟日报 → 10 秒出结果。",
-        metrics: ["30 分钟 → 10 秒", "4 个数据源整合", "每天准时推送"],
-        tech: "模板引擎 + 数据整合",
-        detail: {
-          background: "每天要从 4 个数据源手动整理数据，做透视表、写日报，至少 30 分钟。",
-          solution: "脚本整合 4 个数据源，自动生成透视表和 Excel 日报。模板预设格式，一键输出。",
-          result: "30 分钟压缩到 10 秒。每天自动生成，准时发送。",
-          techStack: "模板引擎 + 数据整合",
-        },
-      },
-      {
-        tab: "auto",
-        name: "论坛自动巡检",
-        status: "在跑",
-        description: "点击看效果 → 人工 2 小时/天 → AI 全天候自动巡检。",
-        metrics: ["365 天无间断", "异常自动预警", "人工零介入"],
-        tech: "自动采集 + AI 分析 + 即时推送",
-        detail: {
-          background: "论坛舆情监控完全靠人工，每天花大量时间浏览帖子、截图、整理。容易遗漏关键信息。",
-          solution: "自动抓取论坛帖子，建立智能索引，AI 分析异常内容，定时推送报告。每天 17:30 自动执行。",
-          result: "全年无休自动巡检，发现即预警",
-          techStack: "自动采集 + AI 分析 + 即时推送",
-        },
-      },
-      {
-        tab: "auto",
-        name: "汽车行业资讯速递",
-        status: "在跑",
-        description: "点击看效果 → 1 小时人工搜集 → 每 8 小时自动推送。",
-        metrics: ["7 个信息源自动采集", "每 8 小时推送", "零人工阅读"],
-        tech: "多源采集 + AI 摘要",
-        detail: {
-          background: "行业资讯需要手动从多个网站搜集、阅读、整理。信息量大、耗时多，还容易错过重要内容。",
-          solution: "7 个信息源自动采集（Google/懂车帝/易车/盖世等），AI 自动摘要生成 PDF，定时推送。",
-          result: "每 8 小时自动推送，覆盖全网重要资讯。人工只需要读摘要，不需要再逐个网站翻阅。",
-          techStack: "多源采集 + AI 摘要",
-        },
-      },
-      // Tab 3: 工具与平台
-      {
-        tab: "tools",
-        name: "AI 视频剪辑",
-        status: "在跑",
-        description: "点击看效果 → 商业工具订阅费 → 零成本本地运行。",
-        metrics: ["本地部署", "零订阅费", "数据完全本地"],
-        tech: "本地 AI 推理 + 语音识别",
-        detail: {
-          background: "商业视频剪辑工具订阅费贵，且数据要上传到第三方。",
-          solution: "本地部署视频分析工具，AI 驱动内容分析，语音自动转文字。全流程本地运行，零订阅费。",
-          result: "免费使用，数据完全本地。视频剪辑效率提升，不需要等商业工具排队。",
-          techStack: "本地 AI 推理 + 语音识别",
-        },
-      },
-      {
-        tab: "tools",
-        name: "本地 AI 智能代理环境",
-        status: "在跑",
-        description: "点击看效果 → 依赖云端 → 全流程本地推理，数据不出本机。",
-        metrics: ["全流程本地推理", "数据不出本机", "全天候可用"],
-        tech: "本地 AI 工作环",
-        detail: {
-          background: "云端 AI 服务有数据泄露风险，且受网络限制。需要一个完全本地的 AI 工作环境。",
-          solution: "搭建本地 AI 推理环境，部署语言模型、嵌入模型、视觉模型。向量数据库做智能检索。智能代理做任务编排。",
-          result: "全流程本地推理，数据不出本机。7×24 可用，不受网络影响。",
-          techStack: "本地 AI 工作环境",
-        },
-      },
-      {
-        tab: "tools",
-        name: "麻明第一款小程序",
-        status: "在跑",
-        description: "点击看效果 → 不懂开发 → AI 辅助从 0 到 1 完成产品。",
-        metrics: ["AI 辅助开发", "从 0 到 1", "全流程 AI"],
-        tech: "AI 辅助开发",
-        detail: {
-          background: "一直想做自己的微信小程序，但不懂小程序开发。",
-          solution: "用 AI 辅助生成小程序代码，从需求分析到 UI 设计到代码实现，全流程 AI 辅助。不会写代码也能做出产品。",
-          result: "第一款小程序从 0 到 1 完成。验证了 AI 辅助开发的可行性。",
-          techStack: "AI 辅助开发",
-        },
-      },
-      {
-        tab: "tools",
-        name: "小红书爆款扫描器",
-        status: "调试中",
-        description: "点击看效果 → 手动分析 → AI 自动提取爆款规律。",
-        metrics: ["自动化分析", "标题规律提取", "爆款特征总结"],
-        tech: "自动采集 + AI 分析",
-        detail: {
-          background: "想做小红书内容，但不知道什么样的标题能爆。手动分析效率太低。",
-          solution: "自动抓取热门内容，AI 分析标题规律和爆款特征，输出分析报告。",
-          result: "调试中。目标是建立爆款标题数据库，辅助内容创作。",
-          techStack: "自动采集 + AI 分析",
-        },
-      },
-      {
-        tab: "tools",
-        name: "股票监控双智能代理",
-        status: "在跑",
-        description: "点击看效果 → 手动盯盘 → AI 双代理实时监控。",
-        metrics: ["9 只股票实时监控", "双智能代理协作", "异常即时提醒"],
-        tech: "实时监控 + AI 辅助决策",
-        detail: {
-          background: "持仓股票需要实时监控风控指标，手动盯盘不现实。",
-          solution: "双智能代理架构：一个负责风控实时监控，一个负责策略分析。定时执行，AI 做决策辅助。",
-          result: "9 只股票实时监控，风控指标异常即时提醒。",
-          techStack: "实时监控 + AI 辅助决策",
-        },
+        id: "ai-apps",
+        brand: "雷克萨斯 & 保时捷",
+        brandColor: "#52b788",
+        category: "AI 应用改造",
+        tag: "能力重构",
+        problem:
+          "雷克萨斯培训完成率长期不达标；保时捷客户需求解析响应慢，影响销售转化。",
+        solution:
+          "雷克萨斯上线智能课程推荐 + 虚拟讲师；保时捷上线 AI 客户需求解析系统。两个项目并行交付。",
+        resultPrimary: "完成率 +45%",
+        resultSecondary: "响应速度 +60%",
+        metrics: [
+          { label: "培训完成率", value: "+45%" },
+          { label: "响应速度", value: "+60%" },
+          { label: "交付周期", value: "8 周" },
+        ],
+        evidence: "港泓咨询 2025–至今项目",
       },
     ],
   },
 
-  // === AI Boundaries ===
-  boundaries: {
-    title: "人和 AI 的分工",
-    subtitle: "什么交给 AI，什么留给自己",
-    canDo: [
-      { icon: "", text: "海量数据处理", metric: "" },
-      { icon: "", text: "标准化报告生成", metric: "" },
-      { icon: "", text: "异常自动预警", metric: "" },
-      { icon: "", text: "24小时不间断工作", metric: "" },
-      { icon: "", text: "多语言内容生成", metric: "" },
+  // === Live Demos — kept, reframed as evidence ===
+  demos: {
+    eyebrow: "02 — 活的证据",
+    title: "别听我说，自己试",
+    subtitle:
+      "下面三个 demo 可以直接交互，不需要注册，不需要后端。所有数据都来自真实项目。",
+    assumptionNote:
+      "测算依据：基于已交付项目实测，AI 平均可自动化重复性工作 60–70%，这里取保守值 60%。",
+  },
+
+  // === Method — 3-step workflow + AI capability matrix ===
+  method: {
+    eyebrow: "03 — 方法论",
+    title: "三步工作流，每一步都有时间承诺",
+    subtitle: "诊断 → 方案 → 落地。不画大饼，每一步告诉你工具、效果和交付物。",
+    steps: [
+      {
+        number: "01",
+        title: "诊断",
+        duration: "30 分钟通话",
+        tool: "业务访谈 + AI 经销商诊断",
+        effect: "定位你工作流里最耗时间的 3 个环节",
+        output: "一页纸改造清单",
+      },
+      {
+        number: "02",
+        title: "方案",
+        duration: "1 周交付",
+        tool: "MVP 原型 + 真实数据测算",
+        effect: "用你的真实数据跑通一个端到端 demo",
+        output: "可演示的最小可行产品",
+      },
+      {
+        number: "03",
+        title: "落地",
+        duration: "2–4 周上线",
+        tool: "系统集成 + 团队培训",
+        effect: "AI 工作流嵌入日常运营，团队能独立使用",
+        output: "上线运行 + 操作手册",
+      },
     ],
-    cannotDo: [
-      { icon: "", text: "复杂谈判与决策", metric: "" },
-      { icon: "", text: "团队激励与管理", metric: "" },
-      { icon: "", text: "创新思维与洞察", metric: "" },
-      { icon: "", text: "情感连接与信任", metric: "" },
-      { icon: "", text: "模糊地带的判断", metric: "" },
-    ],
-    quote: "AI 不会拆问题。这个得人来。\n\n大模型读过所有报告，但没去过现场。\n它知道数据，但不知道数据背后的人和事。\n\n这才是我的价值。",
-    quoteAuthor: "麻明",
+    capabilities: {
+      title: "AI 能做什么，不能做什么",
+      subtitle: "把该交给 AI 的交出去，把该留给人的留下来",
+      canDo: [
+        "海量数据处理",
+        "标准化报告生成",
+        "异常自动预警",
+        "24 小时不间断工作",
+        "多语言内容生成",
+      ],
+      cannotDo: [
+        "复杂谈判与决策",
+        "团队激励与管理",
+        "创新思维与洞察",
+        "情感连接与信任",
+        "模糊地带的判断",
+      ],
+      quote:
+        "AI 不会拆问题，这个得人来。\n大模型读过所有报告，但没去过现场。\n它知道数据，但不知道数据背后的人和事。\n这才是我的价值。",
+      quoteAuthor: "麻明",
+    },
   },
 
   // === Contact ===
@@ -242,6 +163,17 @@ export const siteConfig = {
   // === Footer ===
   footer: {
     copyright: `© ${new Date().getFullYear()} 麻明 · 用 AI 放大自己`,
+  },
+
+  // === Legacy (kept for ChatWidget / digital-maming-qa references) ===
+  legacy: {
+    arsenalProducts: [
+      { name: "AI 经销商诊断", status: "在跑" },
+      { name: "雷克萨斯数据看板", status: "在跑" },
+      { name: "奔驰排课系统", status: "在跑" },
+      { name: "知道社区数据周报", status: "在跑" },
+      { name: "论坛自动巡检", status: "在跑" },
+    ],
   },
 }
 

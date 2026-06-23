@@ -84,17 +84,45 @@ export default function TimeCalculator() {
           letterSpacing: '-0.02em',
         }}
       >
-        AI 能帮你省多少时间？
+        你的工作流，能省多少时间？
       </h3>
       <p
         style={{
           fontSize: '14px',
           color: '#999',
           textAlign: 'center',
-          marginBottom: '36px',
+          marginBottom: '12px',
         }}
       >
         假设 AI 能自动化你 60% 的重复工作
+      </p>
+      <p
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '6px',
+          fontSize: '11px',
+          color: '#b0b8c4',
+          textAlign: 'center',
+          marginBottom: '36px',
+          fontFamily: 'var(--font-body)',
+        }}
+      >
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4M12 8h.01" />
+        </svg>
+        测算依据：基于已交付项目实测，AI 平均可自动化重复工作 60–70%，取保守值 60%
       </p>
 
       {/* Input */}
